@@ -1,0 +1,3 @@
+rootProject.name = 'glowOrder2'
+
+include ':app'
