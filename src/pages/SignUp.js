@@ -14,13 +14,28 @@ import {
 
 
 class SignUp extends Component {
-  isValidTelephone(telephone) {
-    return /^\D*\d{3}\D*\d{3}\D*\d{4}\D*$/.test(telephone)
+
+  state = {
+    phone: "",
+    phoneError: false
   }
 
-  formatTelephone(text) {
+  isValidPhone(phoneNumber) {
+    if (/^\D*\d{3}\D*\d{3}\D*\d{4}\D*$/.test([phoneNumber])){
+      phoneNumber = this.formatPhone(phoneNumber)
+      this.setState({phone: phoneNumber, phoneError: false})
+    } else {
+      this.setState({phone: phoneNumber, phoneError: true})
+    }
+  }
+
+  formatPhone(text) {
     const regex = /^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/
     return text.replace(regex, '($1) $2-$3')
+  }
+
+  checkPhone(id, value){
+    
   }
 
   render() {
@@ -31,16 +46,23 @@ class SignUp extends Component {
             <Text style={styles.header2}>gloworder</Text>
 
             <TextInput
+              id="name"
               placeholder="Full Name"
               style={styles.loginField}
+              onChangeText={(text)=>this.checkInputs('name', text)}
             />
+          
 
             <TextInput
-              placeholder="Phone"
+              id="phone"
+              placeholder="Phone Number"
               style={styles.loginField}
+              value={this.state.phone}
+              onChangeText={(text)=>this.isValidPhone( text)}
             />
 
             <DatePicker
+              id="DOB"
               style={{ width: '95%', marginLeft: 10 }}
               placeholder="Date Of Birth"
               date={this.props.date}
@@ -67,6 +89,7 @@ class SignUp extends Component {
             />
 
             <TextInput
+              id="password"
               placeholder="Password"
               style={styles.loginField}
             />
@@ -75,7 +98,7 @@ class SignUp extends Component {
               <Button
                 color="grey"
                 title="Next"
-                onPress={() => this.props.navigation.navigate('SignUp2')}
+                onPress={() => this.state.inputsValid? this.props.navigation.navigate('SignUp2') : ""}
               />
             </View>
 

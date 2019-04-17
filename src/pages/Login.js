@@ -1,6 +1,6 @@
 
 import { tsPropertySignature } from '@babel/types';
-import React from 'react'
+import React, { Component } from 'react'
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -14,7 +14,28 @@ import {
 } from 'react-native'
 
 
-const Login = (props) => {
+class Login extends Component {
+
+  state = {
+    phone: "",
+    phoneError: false
+  }
+
+  isValidPhone(phoneNumber) {
+    if (/^\D*\d{3}\D*\d{3}\D*\d{4}\D*$/.test([phoneNumber])){
+      phoneNumber = this.formatPhone(phoneNumber)
+      this.setState({phone: phoneNumber, phoneError: false})
+    } else {
+      this.setState({phone: phoneNumber, phoneError: true})
+    }
+  }
+
+  formatPhone(text) {
+    const regex = /^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/
+    return text.replace(regex, '($1) $2-$3')
+  }
+
+  render(){
   return (
     <View style={styles.loginPage}>
 
@@ -24,7 +45,14 @@ const Login = (props) => {
         <TextInput
           placeholder="Phone Number"
           style={styles.loginField}
+          value={this.state.phone}
+          onChangeText={(text)=>this.isValidPhone( text)}
         />
+
+        <Text style={styles.error}>
+          {this.state.phoneError? "Phone number invalid" : "" }
+        </Text> 
+
         <TextInput
           placeholder="Password"
           style={styles.loginField}
@@ -49,6 +77,7 @@ const Login = (props) => {
     </View>
 
   )
+}
 }
 
 export default Login
