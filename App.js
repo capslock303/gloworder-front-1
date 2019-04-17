@@ -21,8 +21,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 // Components
 import Login from './src/pages/Login'
-import SignUp from './src/pages/SignUp'
-import SignUp2 from './src/pages/SignUp2'
+import SignUpScreen from './src/pages/SignUp'
+import SignUp2Screen from './src/pages/SignUp2'
 import NewUser from './src/pages/NewUser'
 
 class App extends Component {
@@ -39,9 +39,7 @@ class App extends Component {
 
   render() {
     return (
-      <View>
-        <AppContainer />
-      </View>
+      <AppContainer />
     )
   }
 }
@@ -55,6 +53,7 @@ class HomeScreen extends Component {
       <SafeAreaView>
         <View>
           <Text>Home Screen</Text>
+          <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
           <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
         </View>
       </SafeAreaView>
@@ -114,6 +113,9 @@ class SettingsScreen extends Component {
     )
   }
 }
+
+
+
 
 const FeedStack = createStackNavigator({
   Feed: {
@@ -189,6 +191,7 @@ const HomeTabNavigator = createBottomTabNavigator(
     }
   })
 
+
 const HomeStackNavigator = createStackNavigator(
   {
     HomeTabNavigator: HomeTabNavigator
@@ -208,6 +211,13 @@ const HomeStackNavigator = createStackNavigator(
     }
   })
 
+// Sign Up Stack
+const SignUpStack = createStackNavigator({
+  SignUp: { screen: SignUpScreen },
+  SignUp2: { screen: SignUp2Screen }
+})
+
+// Drawer
 const AppDrawerNavigator = createDrawerNavigator({
   Details: {
     screen: HomeStackNavigator
@@ -215,8 +225,9 @@ const AppDrawerNavigator = createDrawerNavigator({
 })
 
 const AppSwitchNavigator = createSwitchNavigator({
-  Welcome: { screen: HomeScreen },
-  Details: { screen: AppDrawerNavigator }
+  Welcome: { screen: Login },
+  SignUp: { screen: SignUpStack },
+  Home: { screen: AppDrawerNavigator }
 })
 
 const AppContainer = createAppContainer(AppSwitchNavigator)

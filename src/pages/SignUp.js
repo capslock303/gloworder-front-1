@@ -25,7 +25,6 @@ class SignUp extends Component {
 
   render() {
     return (
-      <SafeAreaView >
         <View style={styles.loginPage}>
 
           <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
@@ -76,14 +75,13 @@ class SignUp extends Component {
               <Button
                 color="grey"
                 title="Next"
-                onPressIn={() => alert('Hello World!')}
+                onPress={() => this.props.navigation.navigate('SignUp2')}
               />
             </View>
 
           </LinearGradient>
         </View>
 
-      </SafeAreaView>
     )
   }
 

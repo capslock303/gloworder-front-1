@@ -26,7 +26,6 @@ class SignUp2 extends Component {
 
   render() {
     return (
-      <SafeAreaView >
         <View style={styles.loginPage}>
 
           <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
@@ -89,7 +88,6 @@ class SignUp2 extends Component {
           </LinearGradient>
         </View>
 
-      </SafeAreaView>
     )
   }
 }
