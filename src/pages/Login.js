@@ -60,7 +60,7 @@ class Login extends Component {
         </Text>
 
       <View style={{...styles.loginField}}>
-         <Icon name='textbox' style={styles.formIcon} />  
+         <Icon name='key' style={styles.formIcon} />  
         <TextInput
           placeholder="Password"
     

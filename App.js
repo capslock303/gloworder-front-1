@@ -31,9 +31,9 @@ class App extends Component {
     loggedIn: false,
     options: [],
     path: backendPath,
-    selectedBar: { id: 1, name: "The Attic", location: "[40.014, -105.270]" },
+    selectedBar: { id: 1, name: "The Attic", address: "949 Walnut St, Boulder, CO 80302" },
     selectedDrink: {},
-    showScreen: 'Home',
+    showScreen: 'Menu',
     user: {
       name: null,
       phone: null

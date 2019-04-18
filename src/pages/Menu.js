@@ -1,5 +1,6 @@
 // Resources
 import React, { Component } from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   Platform,
   StyleSheet,
@@ -51,16 +52,20 @@ class Menu extends Component {
               <ScrollView>
                 <FlatList
                   data={this.props.drinks}
-                  keyExtractor={(item, index) => item.key}
+                  keyExtractor={(item, index) => item.liqour}
+                  style={styles.gridlist}
+                  numColumns={2}
                   renderItem={({ item }) =>
-                    <TouchableOpacity style={styles.listItem} onPress={() => this.props.selectDrink(item.id)}>
-                      <View >
-                        <Text style={styles.listItemText}>{item.liquor}</Text>
-                        <Text style={styles.listItemSubText}>${item.price.toFixed(2)}</Text>
-                      </View>
+                    <TouchableOpacity style={styles.gridItem} onPress={() => this.props.selectDrink(item.id)}>
+                    
+                        <Icon name='glass' style={{fontSize: 30, color: 'orange'}}>
+                        <Text style={styles.listItemText}> {item.liquor} </Text>
+                        <Text style={styles.listItemSubText}>$ {item.price.toFixed(2)}</Text>
+                      
                     </TouchableOpacity>
 
                   }
+                  
                 />
               </ScrollView>
             </SafeAreaView >

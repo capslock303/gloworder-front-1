@@ -92,12 +92,30 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black'
   },
   listItemText: {
-    fontSize: 24
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   listItemSubText: {
-    fontSize: 16
-
-  }
+    fontSize: 16,
+    color: "grey"
+  },
+  gridlist:{
+    flex:1,
+    flexDirection: 'row'
+  },
+  gridItem:{
+    height: 145,
+    width: '80%',
+    margin: 5,
+    justifyContent: 'center',
+    alignItems:'center',
+    borderColor: 'orange',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderRadius: 50
+  },
+  ulHead:{},
+  ulSubtext:{}
 })
 
 export default styles

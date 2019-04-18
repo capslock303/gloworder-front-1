@@ -1,5 +1,6 @@
 // Resources
 import React, { Component } from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   Platform,
   StyleSheet,
@@ -49,8 +50,14 @@ class Home extends Component {
                   key={key++}
                 >
                   <View>
-                    <Text style={styles.listItemText}>{item.name}</Text>
-                    <Text style={styles.listItemSubText}>{item.location}</Text>
+                    
+                    <View style={{flexDirection:'row'}}> 
+                      <Icon name='beer' style={styles.formIcon} />
+                      <Text style={styles.listItemText}>{item.name}</Text>
+                    </View>
+
+                    <Text style={styles.listItemSubText}>{item.address}</Text>
+                    
                   </View>
                 </TouchableOpacity>
 

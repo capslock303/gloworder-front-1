@@ -14,6 +14,7 @@ import {
 
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 // Components
@@ -44,15 +45,16 @@ class Order extends Component {
               <ScrollView>
                 <FlatList
                   data={this.props.options}
-                  keyExtractor={(item, index) => item.key}
+                  keyExtractor={(item, index) => item.option}
+                  style={styles.gridlist}
+                  numColumns={2}
                   renderItem={({ item }) =>
-                    <TouchableOpacity style={styles.listItem} onPress={() => this.props.selectDrink(item.id)}>
-                      <View >
-                        <Text style={styles.listItemText}>{item.option}</Text>
-                        <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
-                      </View>
+                    <TouchableOpacity style={{...styles.gridItem, width: '70%'}} onPress={() => this.props.selectDrink(item.id)}>
+                    <Icon name='plus' style={{fontSize: 30, color: 'orange'}} />
+                    <Text style={styles.listItemText}>{item.option}</Text>
+                    <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
+                  
                     </TouchableOpacity>
-
                   }
                 />
               </ScrollView>
