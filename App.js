@@ -29,12 +29,17 @@ class App extends Component {
 
   state = {
     loggedIn: false,
-    date: new Date(),
+    user:{
+      name: null,
+      phone: null
+    },
   }
 
 
-  setDate(newDate) {
-    this.setState({ date: newDate });
+  setUserInfo(fieldId, value) {
+    let userInfo = this.state.user
+    userInfo.fieldId = value
+    this.setState({ user: userInfo });
   }
 
   render() {
@@ -149,8 +154,20 @@ const HomeStackNavigator = createStackNavigator(
 
 // Sign Up Stack
 const SignUpStack = createStackNavigator({
-  SignUp: { screen: SignUpScreen },
-  SignUp2: { screen: SignUp2Screen }
+  SignUp: { screen: ((myprop) => {
+    return class Component extends React.Component {
+       render() {
+         return <SignUpScreen setUserInfo={this.setUserInfo} />
+       }
+     }
+   }) },
+  SignUp2: { screen: ((myprop) => {
+    return class Component extends React.Component {
+       render() {
+         return <SignUpScreen2 setUserInfo={this.setUserInfo} />
+       }
+     }
+   })  }
 })
 
 // Drawer

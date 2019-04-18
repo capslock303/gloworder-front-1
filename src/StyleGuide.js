@@ -40,6 +40,14 @@ const styles = StyleSheet.create({
     padding: 5,
     textAlign: 'center'
   },
+  error: {
+    flexDirection: 'row',
+    color: 'red',
+    fontSize: 15,
+    fontWeight: 'bold',
+    padding: 5,
+    textAlign: 'center'
+  },
   loginPage: {
     flexDirection: 'column',
     justifyContent: 'center',
