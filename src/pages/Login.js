@@ -34,7 +34,7 @@ const Login = (props) => {
           <Button
             color="grey"
             title="Login"
-            onPressIn={() => alert('Hello World!')}
+            onPressIn={() => props.navigation.navigate('Home')}
           />
         </View>
 

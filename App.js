@@ -53,8 +53,6 @@ class HomeScreen extends Component {
       <SafeAreaView>
         <View>
           <Text>Home Screen</Text>
-          <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
-          <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
         </View>
       </SafeAreaView>
     )
@@ -66,7 +64,6 @@ class DetailsScreen extends Component {
     return (
       <SafeAreaView>
         <Text>Details Screen</Text>
-        <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
       </SafeAreaView>
     )
   }
@@ -108,72 +105,11 @@ class SettingsScreen extends Component {
     return (
       <SafeAreaView>
         <Text>Settings</Text>
-        <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
       </SafeAreaView>
     )
   }
 }
 
-
-
-
-const FeedStack = createStackNavigator({
-  Feed: {
-    screen: FeedScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerTitle: 'Feed',
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="navicon"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-        )
-      }
-    }
-  },
-  FeedDetails: { screen: FeedDetails }
-})
-
-const ProfileStack = createStackNavigator({
-  Profile: {
-    screen: ProfileScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerTitle: 'Profile',
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="navicon"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-        )
-      }
-    }
-  }
-})
-
-const SettingsStack = createStackNavigator({
-  Settings: {
-    screen: SettingsScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerTitle: 'Settings',
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="navicon"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-        )
-      }
-    }
-  }
-})
 
 const HomeTabNavigator = createBottomTabNavigator(
   {
@@ -227,7 +163,7 @@ const AppDrawerNavigator = createDrawerNavigator({
 const AppSwitchNavigator = createSwitchNavigator({
   Welcome: { screen: Login },
   SignUp: { screen: SignUpStack },
-  Home: { screen: AppDrawerNavigator }
+  Home: { screen: HomeScreen }
 })
 
 const AppContainer = createAppContainer(AppSwitchNavigator)
