@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   },
+  formIcon:{
+    color: 'orange', 
+    backgroundColor: 'white', 
+    fontSize:25, 
+    marginRight: 15
+  },
   loginPage: {
     flexDirection: 'column',
     justifyContent: 'center',
@@ -64,7 +70,8 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 25,
     backgroundColor: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   loginButton: {
     marginLeft: 75,

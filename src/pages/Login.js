@@ -2,6 +2,7 @@ import { tsPropertySignature } from '@babel/types';
 import React, { Component } from 'react'
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import {
   View,
@@ -40,23 +41,34 @@ class Login extends Component {
       <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
         <Text style={styles.header}>gloworder</Text>
 
+
+         <View style={{...styles.loginField}}>
+         <Icon name='phone' style={styles.formIcon} />  
         <TextInput
           placeholder="Phone Number"
-          style={styles.loginField}
           value={this.state.phone}
+          style={{marginLeft:'auto',marginRight:'auto' }}
           onChangeText={(text)=>this.isValidPhone( text)}
         />
+        </View> 
+
+        
+        
 
         <Text style={styles.error}>
           {this.state.phoneError? "Phone number invalid" : "" }
         </Text>
 
+      <View style={{...styles.loginField}}>
+         <Icon name='textbox' style={styles.formIcon} />  
         <TextInput
           placeholder="Password"
-          style={styles.loginField}
+    
+          style={{marginLeft:'auto',marginRight:'auto' }}
           secureTextEntry={true}
-          autoCorrect={false}
         />
+        </View> 
+
 
         <View style={styles.loginButton}>
           <Button
