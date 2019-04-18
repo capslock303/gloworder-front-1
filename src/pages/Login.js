@@ -67,7 +67,7 @@ class Login extends Component {
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 5 }}>
             <Text>New to gloworder?</Text>
-            <TouchableOpacity onPress={() => this.props.nextScreen('SignUp')}
+            <TouchableOpacity onPress={() => this.props.moveScreen('SignUp')}
             ><Text style={styles.linkText}> Sign Up </Text></TouchableOpacity>
             <Text>here</Text>
           </View>

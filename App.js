@@ -51,13 +51,10 @@ class App extends Component {
     this.setState({ user: userInfo });
   }
 
-  backScreen = () => {
-    this.setState({ ...this.state, showScreen: this.state.lastScreen })
-  }
-
-  nextScreen = (screen) => {
+  moveScreen = (screen) => {
     this.setState({ ...this.state, showScreen: screen })
   }
+
 
   login = () => {
     this.state.validCredentials ?
@@ -78,25 +75,25 @@ class App extends Component {
       case 'Login':
         componentToShow =
           <Login
-            nextScreen={this.nextScreen}
+            moveScreen={this.moveScreen}
           />
         break;
       case 'SignUp':
         componentToShow =
           <SignUp
-            nextScreen={this.nextScreen}
+            moveScreen={this.moveScreen}
           />
         break;
       case 'SignUp2':
         componentToShow =
           <SignUp2
-            nextScreen={this.nextScreen}
+            moveScreen={this.moveScreen}
           />
         break;
       case 'Home':
         componentToShow =
           <Home
-            nextScreen={this.nextScreen}
+            moveScreen={this.moveScreen}
           />
         break;
     }
