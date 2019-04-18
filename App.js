@@ -18,7 +18,6 @@ import {
 } from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Validator from 'validator'
 
 // Components
 import Login from './src/pages/Login'
@@ -32,6 +31,7 @@ const backendPath = 'http://localhost:3000'
 class App extends Component {
 
   state = {
+    bars: [],
     loggedIn: false,
     selectedBar: null,
     showScreen: 'Home',
@@ -43,6 +43,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.fetchRestaurants()
     // check session storage, if user is logged in
     // set state showScreen to 'Home
   }
@@ -50,8 +51,7 @@ class App extends Component {
   fetchRestaurants = async () => {
     const json = await fetch(`${backendPath}/restaurants`)
     const response = await json.json()
-    console.log(response)
-
+    this.setState({...this.state, bars: response})
   }
 
   setUserInfo = (fieldId, value) => {
@@ -105,6 +105,7 @@ class App extends Component {
       case 'Home':
         componentToShow =
           <Home
+            bars={this.state.bars}
             fetchRestaurants={this.fetchRestaurants}
             moveScreen={this.moveScreen}
             selectBar={this.selectBar}

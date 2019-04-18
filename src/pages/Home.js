@@ -14,30 +14,12 @@ import {
 
 
 // Components
-const bars = [
-  {
-    id: 1,
-    name: 'The Attic Bar & Bistro',
-    address: '949 Walnut St, Boulder, CO 80302'
-  },
-  {
-    id: 2,
-    name: 'Press Play',
-    address: '1005 Pearl St, Boulder, CO 80302'
-  },
-  {
-    id: 3,
-    name: 'The Bitter Bar',
-    address: '835 Walnut St, Boulder, CO 80302'
-  }
-]
 
 class Home extends Component {
 
   state = {
 
   }
-
 
   render() {
     return (
@@ -47,7 +29,7 @@ class Home extends Component {
         </View>
         <ScrollView>
           <FlatList
-            data={bars}
+            data={this.props.bars}
             keyExtractor={(item, index) => item.key}
             renderItem={({ item }) =>
               <View>
@@ -59,7 +41,6 @@ class Home extends Component {
             }
           />
         </ScrollView>
-        <Button title="Fetch" onPress={() => this.props.fetchRestaurants()} />
       </SafeAreaView >
     )
   }
