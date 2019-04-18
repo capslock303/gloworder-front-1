@@ -25,7 +25,7 @@ class Login extends Component {
       phoneNumber = this.formatPhone(phoneNumber)
       this.setState({phone: phoneNumber, phoneError: false})
     } else {
-      this.setState({phoneError: true})
+      this.setState({phone: phoneNumber, phoneError: true})
     }
   }
 
@@ -50,7 +50,7 @@ class Login extends Component {
 
         <Text style={styles.error}>
           {this.state.phoneError? "Phone number invalid" : "" }
-        </Text> 
+        </Text>
 
         <TextInput
           placeholder="Password"
@@ -63,7 +63,7 @@ class Login extends Component {
           <Button
             color="grey"
             title="Login"
-            onPressIn={() => alert('Hello World!')}
+            onPress={() => this.props.moveScreen('Home')}
           />
         </View>
 

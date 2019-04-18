@@ -66,7 +66,7 @@ class SignUp extends Component {
     if (/^\s*([a-z]+)\s+([a-z]+)\s*$/i.test([name])){
       this.setState({name: name, nameError: false})
     } else {
-      this.setState({nameError: true})
+      this.setState({name: name, nameError: true})
     }
   }
 
@@ -82,50 +82,59 @@ class SignUp extends Component {
             id="name"
             placeholder="Full Name"
             style={styles.loginField}
-            onChangeText={(text) => this.checkInputs('name', text)}
+            onChangeText={(text)=>this.isValidName(text)}
           />
 
+          <Text style={styles.error}>
+              {this.state.nameError? "Must include first and last name" : "" }
+            </Text>
 
-          <TextInput
-            id="phone"
-            placeholder="Phone Number"
-            style={styles.loginField}
-            value={this.state.phone}
-            onChangeText={(text) => this.isValidPhone(text)}
-          />
+            <TextInput
+                id="phone"
+                placeholder="Phone Number"
+                style={styles.loginField}
+                value={this.state.phone}
+                onChangeText={(text)=>this.isValidPhone( text)}
+              />
 
-          <DatePicker
-            id="DOB"
-            style={{ width: '95%', marginLeft: 10 }}
-            placeholder="Date Of Birth"
-            date={this.props.date}
-            mode="date"
-            format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                backgroundColor: 'orange',
-                left: 0,
-                top: 4,
-                marginLeft: 0
-              },
-              dateInput: {
-                marginLeft: 36,
-                backgroundColor: 'white'
-              }
-            }}
-            onDateChange={(date) => { this.props.setDate(date) }}
-          />
+              <Text style={styles.error}>
+              {this.state.phoneError? "Phone number invalid" : "" }
+            </Text>
 
-          <TextInput
-            id="password"
-            placeholder="Password"
-            style={styles.loginField}
-          />
+            <DatePicker
+                id="DOB"
+                style={{ width: '95%', marginLeft: 10, marginBottom:10 }}
+                placeholder="Date Of Birth"
+                date={this.state.DOB}
+                mode="date"
+                format="YYYY-MM-DD"
+                minDate="1920-01-01"
+                maxDate={this.state.maxDateStr}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    backgroundColor: 'orange',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36,
+                    backgroundColor: 'white'
+                  }
+                }}
+                onDateChange={(date) => { this.setState({DOB: date })}}
+              />
+
+              <TextInput
+                  id="password"
+                  placeholder="Password"
+                  style={styles.loginField}
+                  secureTextEntry={true}
+                  autoCorrect={false}
+                />
 
           <View style={styles.loginButton}>
             <Button

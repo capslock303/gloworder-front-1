@@ -61,39 +61,42 @@ class SignUp2 extends Component {
           <TextInput
             placeholder="Email"
             style={styles.loginField}
+            value={this.state.email}
+            onChangeText={text => this.isValidEmail(text)}
           />
+
+          <Text style={styles.error}>
+            {this.state.emailError? "Email must be email@domain.com" : "" }
+          </Text>
 
           <TextInput
             placeholder="Credit Card Number"
             style={styles.loginField}
+            onChangeText={text => this.isValidCardNumber(text)}
           />
+
+          <Text style={styles.error}>
+            {this.state.ccNumError? "Invalid Card Number" : "" }
+          </Text>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
 
             <TextInput
-              placeholder="Email"
-              style={styles.loginField}
-              value={this.state.email}
-              onChangeText={text => this.isValidEmail(text)}
+              placeholder="CVV"
+              style={{ ...styles.loginField, paddingLeft: 15, paddingRight: 15 }}
             />
-
-            <Text style={styles.error}>
-              {this.state.emailError? "Email must be email@domain.com" : "" }
-            </Text>
-
             <TextInput
               placeholder="Zipcode"
               style={styles.loginField}
-              onChangeText={text => this.isValidCardNumber(text)}
             />
             <DatePicker
               style={{ marginTop: 10 }}
               placeholder="Expiration"
-              date={this.props.date}
+              date={this.state.date}
               mode="date"
               format="YYYY-MM-DD"
-              minDate="2016-05-01"
-              maxDate="2016-06-01"
+              minDate="2019-05-06"
+              maxDate="2040-01-01"
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               customStyles={{
@@ -109,9 +112,10 @@ class SignUp2 extends Component {
                   backgroundColor: 'white'
                 }
               }}
-              onDateChange={(date) => { this.props.setDate(date) }}
+              onDateChange={(date) => { this.setState({date:date}) }}
             />
           </View>
+
           <View style={styles.loginButton}>
             <Button
               color="grey"
@@ -119,13 +123,7 @@ class SignUp2 extends Component {
               onPress={() => this.props.moveScreen('Home')}
             />
           </View>
-          <View style={styles.loginButton}>
-            <Button
-              color="grey"
-              title="Back"
-              onPress={() => this.props.moveScreen('SignUp')}
-            />
-          </View>
+
         </LinearGradient>
       </View>
 

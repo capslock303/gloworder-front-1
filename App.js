@@ -35,7 +35,7 @@ class App extends Component {
     bars: [],
     loggedIn: false,
     selectedBar: null,
-    showScreen: 'Home',
+    showScreen: 'Login',
     user: {
       name: null,
       phone: null
