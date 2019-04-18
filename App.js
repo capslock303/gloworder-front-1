@@ -18,7 +18,6 @@ import {
 } from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Geocode from "react-geocode"
 
 // Components
 import Login from './src/pages/Login'
@@ -61,15 +60,6 @@ class App extends Component {
       const parsedInfo = JSON.parse(item.location)
       const lat = parsedInfo[0].toString()
       const long = parsedInfo[1].toString()
-      // Geocode.fromLatLng(lat, long).then(
-      //   response => {
-      //     const address = response.results[0].formatted_address;
-      //     console.log(address);
-      //   },
-      //   error => {
-      //     console.error(error);
-      //   }
-      // );
     })
   }
 
