@@ -20,6 +20,7 @@ import Home from './src/pages/Home'
 import Menu from './src/pages/Menu'
 
 
+
 const backendPath = 'http://localhost:3000'
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
   fetchRestaurants = async () => {
     const json = await fetch(`${backendPath}/restaurants`)
     const response = await json.json()
+    console.log(response)
     this.latLongToAddress(response)
     this.setState({ ...this.state, bars: response })
   }

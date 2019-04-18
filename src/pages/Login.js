@@ -60,7 +60,7 @@ class Login extends Component {
 
         <View style={styles.loginButton}>
           <Button
-            color="grey"
+            color="lightgrey"
             title="Login"
             onPress={() => this.props.moveScreen('Home')}
           />

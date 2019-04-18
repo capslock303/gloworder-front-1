@@ -61,13 +61,16 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 5,
     margin: 5,
+    marginLeft: 25,
+    marginRight: 25,
     backgroundColor: 'white',
     textAlign: 'center'
   },
   loginButton: {
-    paddingLeft: 75,
-    paddingRight: 75,
+    marginLeft: 75,
+    marginRight: 75,
     margin: 15,
+    backgroundColor: 'grey',
     justifyContent: 'center',
     alignItems: 'stretch'
   },
