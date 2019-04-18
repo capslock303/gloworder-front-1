@@ -1,4 +1,3 @@
-
 import { tsPropertySignature } from '@babel/types';
 import React, { Component } from 'react'
 import styles from '../StyleGuide'
@@ -22,11 +21,11 @@ class Login extends Component {
   }
 
   isValidPhone(phoneNumber) {
-    if (/^\D*\d{3}\D*\d{3}\D*\d{4}\D*$/.test([phoneNumber])){
+    if (/^\D*\d{3}\D*\d{3}\D*\d{4}\D*$/.test([phoneNumber])) {
       phoneNumber = this.formatPhone(phoneNumber)
-      this.setState({phone: phoneNumber, phoneError: false})
+      this.setState({ phone: phoneNumber, phoneError: false })
     } else {
-      this.setState({phone: phoneNumber, phoneError: true})
+      this.setState({ phone: phoneNumber, phoneError: true })
     }
   }
 
@@ -35,49 +34,49 @@ class Login extends Component {
     return text.replace(regex, '($1) $2-$3')
   }
 
-  render(){
-  return (
-    <View style={styles.loginPage}>
+  render() {
+    return (
+      <View style={styles.loginPage}>
 
-      <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
-        <Text style={styles.header}>gloworder</Text>
+        <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
+          <Text style={styles.header}>gloworder</Text>
 
-        <TextInput
-          placeholder="Phone Number"
-          style={styles.loginField}
-          value={this.state.phone}
-          onChangeText={(text)=>this.isValidPhone( text)}
-        />
-
-        <Text style={styles.error}>
-          {this.state.phoneError? "Phone number invalid" : "" }
-        </Text> 
-
-        <TextInput
-          placeholder="Password"
-          style={styles.loginField}
-        />
-
-        <View style={styles.loginButton}>
-          <Button
-            color="grey"
-            title="Login"
-            onPressIn={() => alert('Hello World!')}
+          <TextInput
+            placeholder="Phone Number"
+            style={styles.loginField}
+            value={this.state.phone}
+            onChangeText={(text) => this.isValidPhone(text)}
           />
-        </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 5 }}>
-          <Text>New to gloworder?</Text>
-          <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}
-          ><Text style={styles.linkText}> Sign Up </Text></TouchableOpacity>
-          <Text>here</Text>
-        </View>
+          <Text style={styles.error}>
+            {this.state.phoneError ? "Phone number invalid" : ""}
+          </Text>
 
-      </LinearGradient>
-    </View>
+          <TextInput
+            placeholder="Password"
+            style={styles.loginField}
+          />
 
-  )
-}
+          <View style={styles.loginButton}>
+            <Button
+              color="grey"
+              title="Login"
+              onPress={this.props.login}
+            />
+          </View>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 5 }}>
+            <Text>New to gloworder?</Text>
+            <TouchableOpacity onPress={() => this.props.moveScreen('SignUp')}
+            ><Text style={styles.linkText}> Sign Up </Text></TouchableOpacity>
+            <Text>here</Text>
+          </View>
+
+        </LinearGradient>
+      </View>
+
+    )
+  }
 }
 
 export default Login
