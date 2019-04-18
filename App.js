@@ -27,12 +27,14 @@ import SignUp2 from './src/pages/SignUp2'
 import NewUser from './src/pages/NewUser'
 import Home from './src/pages/Home'
 
+const backendPath = 'http://localhost:3000'
+
 class App extends Component {
 
   state = {
     loggedIn: false,
-    showScreen: 'Login',
-    lastScreen: null,
+    selectedBar: null,
+    showScreen: 'Home',
     user: {
       name: null,
       phone: null
@@ -45,6 +47,13 @@ class App extends Component {
     // set state showScreen to 'Home
   }
 
+  fetchRestaurants = async () => {
+    const json = await fetch(`${backendPath}/restaurants`)
+    const response = await json.json()
+    console.log(response)
+
+  }
+
   setUserInfo = (fieldId, value) => {
     let userInfo = this.state.user
     userInfo.fieldId = value
@@ -55,7 +64,6 @@ class App extends Component {
     this.setState({ ...this.state, showScreen: screen })
   }
 
-
   login = () => {
     this.state.validCredentials ?
       this.setState({
@@ -65,6 +73,10 @@ class App extends Component {
       })
       :
       alert('Invalid Login')
+  }
+
+  selectBar = (barId) => {
+    alert(barId)
   }
 
   render() {
@@ -93,7 +105,9 @@ class App extends Component {
       case 'Home':
         componentToShow =
           <Home
+            fetchRestaurants={this.fetchRestaurants}
             moveScreen={this.moveScreen}
+            selectBar={this.selectBar}
           />
         break;
     }
