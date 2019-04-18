@@ -26,7 +26,7 @@ class Login extends Component {
       phoneNumber = this.formatPhone(phoneNumber)
       this.setState({phone: phoneNumber, phoneError: false})
     } else {
-      this.setState({phone: phoneNumber, phoneError: true})
+      this.setState({phoneError: true})
     }
   }
 

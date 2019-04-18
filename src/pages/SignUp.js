@@ -17,7 +17,10 @@ class SignUp extends Component {
 
   state = {
     phone: "",
-    phoneError: false
+    phoneError: false,
+    name: "",
+    nameError: false,
+
   }
 
   isValidPhone(phoneNumber) {
@@ -25,7 +28,7 @@ class SignUp extends Component {
       phoneNumber = this.formatPhone(phoneNumber)
       this.setState({phone: phoneNumber, phoneError: false})
     } else {
-      this.setState({phone: phoneNumber, phoneError: true})
+      this.setState({phoneError: true})
     }
   }
 
@@ -34,11 +37,18 @@ class SignUp extends Component {
     return text.replace(regex, '($1) $2-$3')
   }
 
-  checkPhone(id, value){
-    
+  isValidName(name){
+    if (/^\s*(\w+)\s*(\w+)$/.test([name])){
+      this.setState({name: name, nameError: false})
+    } else {
+      this.setState({nameError: true})
+    }
   }
 
   render() {
+
+    let minDate = Date.now()
+
     return (
         <View style={styles.loginPage}>
 
@@ -52,6 +62,10 @@ class SignUp extends Component {
               onChangeText={(text)=>this.checkInputs('name', text)}
             />
           
+            <Text style={styles.error}>
+              {this.state.nameError? "Must include first and last name" : "" }
+            </Text> 
+
 
             <TextInput
               id="phone"
@@ -60,6 +74,10 @@ class SignUp extends Component {
               value={this.state.phone}
               onChangeText={(text)=>this.isValidPhone( text)}
             />
+
+            <Text style={styles.error}>
+              {this.state.phoneError? "Phone number invalid" : "" }
+            </Text> 
 
             <DatePicker
               id="DOB"
