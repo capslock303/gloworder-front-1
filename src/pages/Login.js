@@ -1,4 +1,3 @@
-
 import { tsPropertySignature } from '@babel/types';
 import React, { Component } from 'react'
 import styles from '../StyleGuide'
@@ -26,7 +25,7 @@ class Login extends Component {
       phoneNumber = this.formatPhone(phoneNumber)
       this.setState({phone: phoneNumber, phoneError: false})
     } else {
-      this.setState({phone: phoneNumber, phoneError: true})
+      this.setState({phoneError: true})
     }
   }
 
@@ -70,7 +69,7 @@ class Login extends Component {
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 5 }}>
           <Text>New to gloworder?</Text>
-          <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}
+          <TouchableOpacity onPress={() => this.props.moveScreen('SignUp')}
           ><Text style={styles.linkText}> Sign Up </Text></TouchableOpacity>
           <Text>here</Text>
         </View>

@@ -18,235 +18,127 @@ import {
 } from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Geocode from "react-geocode"
 
 // Components
 import Login from './src/pages/Login'
-import SignUpScreen from './src/pages/SignUp'
-import SignUp2Screen from './src/pages/SignUp2'
+import SignUp from './src/pages/SignUp'
+import SignUp2 from './src/pages/SignUp2'
 import NewUser from './src/pages/NewUser'
+import Home from './src/pages/Home'
+
+const backendPath = 'http://localhost:3000'
 
 class App extends Component {
 
   state = {
+    bars: [],
     loggedIn: false,
-    user:{
+    selectedBar: null,
+    showScreen: 'Home',
+    user: {
       name: null,
       phone: null
     },
+    validCredentials: false
   }
 
+  componentDidMount() {
+    this.fetchRestaurants()
+    // check session storage, if user is logged in
+    // set state showScreen to 'Home
+  }
 
-  setUserInfo(fieldId, value) {
+  fetchRestaurants = async () => {
+    const json = await fetch(`${backendPath}/restaurants`)
+    const response = await json.json()
+    this.latLongToAddress(response)
+    this.setState({ ...this.state, bars: response })
+  }
+
+  latLongToAddress = (obj) => {
+    const addressSet = obj.map(item => {
+      const parsedInfo = JSON.parse(item.location)
+      const lat = parsedInfo[0].toString()
+      const long = parsedInfo[1].toString()
+      // Geocode.fromLatLng(lat, long).then(
+      //   response => {
+      //     const address = response.results[0].formatted_address;
+      //     console.log(address);
+      //   },
+      //   error => {
+      //     console.error(error);
+      //   }
+      // );
+    })
+  }
+
+  setUserInfo = (fieldId, value) => {
     let userInfo = this.state.user
     userInfo.fieldId = value
     this.setState({ user: userInfo });
   }
 
+  moveScreen = (screen) => {
+    this.setState({ ...this.state, showScreen: screen })
+  }
+
+  login = () => {
+    this.state.validCredentials ?
+      this.setState({
+        ...this.state,
+        lastScreen: 'Login',
+        loggedIn: true
+      })
+      :
+      alert('Invalid Login')
+  }
+
+  selectBar = (barId) => {
+    alert(barId)
+  }
+
   render() {
+
+    let componentToShow
+
+    switch (this.state.showScreen) {
+      case 'Login':
+        componentToShow =
+          <Login
+            moveScreen={this.moveScreen}
+          />
+        break;
+      case 'SignUp':
+        componentToShow =
+          <SignUp
+            moveScreen={this.moveScreen}
+          />
+        break;
+      case 'SignUp2':
+        componentToShow =
+          <SignUp2
+            moveScreen={this.moveScreen}
+          />
+        break;
+      case 'Home':
+        componentToShow =
+          <Home
+            bars={this.state.bars}
+            fetchRestaurants={this.fetchRestaurants}
+            moveScreen={this.moveScreen}
+            selectBar={this.selectBar}
+          />
+        break;
+    }
+
+
     return (
-      // <AppContainer />
-      <SignUp2Screen></SignUp2Screen>
+      <View>
+        {componentToShow}
+      </View>
     )
   }
 }
 
 export default App
-
-
-class HomeScreen extends Component {
-  render() {
-    return (
-      <SafeAreaView>
-        <View>
-          <Text>Home Screen</Text>
-          <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
-          <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
-        </View>
-      </SafeAreaView>
-    )
-  }
-}
-
-class DetailsScreen extends Component {
-  render() {
-    return (
-      <SafeAreaView>
-        <Text>Details Screen</Text>
-        <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
-      </SafeAreaView>
-    )
-  }
-}
-
-
-class FeedScreen extends Component {
-  render() {
-    return (
-      <SafeAreaView>
-        <Button title="Details" onPress={() => this.props.navigation.navigate('FeedDetails')} />
-      </SafeAreaView>
-    )
-  }
-}
-
-class FeedDetails extends Component {
-  render() {
-    return (
-      <SafeAreaView>
-        <Text>Feed Details</Text>
-      </SafeAreaView>
-    )
-  }
-}
-
-class ProfileScreen extends Component {
-  render() {
-    return (
-      <SafeAreaView>
-        <Text>Profile</Text>
-      </SafeAreaView>
-    )
-  }
-}
-
-class SettingsScreen extends Component {
-  render() {
-    return (
-      <SafeAreaView>
-        <Text>Settings</Text>
-        <Button title="Details" onPress={() => this.props.navigation.navigate('Details')} />
-      </SafeAreaView>
-    )
-  }
-}
-
-
-
-
-const FeedStack = createStackNavigator({
-  Feed: {
-    screen: FeedScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerTitle: 'Feed',
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="navicon"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-        )
-      }
-    }
-  },
-  FeedDetails: { screen: FeedDetails }
-})
-
-const ProfileStack = createStackNavigator({
-  Profile: {
-    screen: ProfileScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerTitle: 'Profile',
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="navicon"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-        )
-      }
-    }
-  }
-})
-
-const SettingsStack = createStackNavigator({
-  Settings: {
-    screen: SettingsScreen,
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerTitle: 'Settings',
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="navicon"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-        )
-      }
-    }
-  }
-})
-
-const HomeTabNavigator = createBottomTabNavigator(
-  {
-    FeedStack,
-    ProfileStack,
-    SettingsStack
-  },
-  {
-    navigationOptions: ({ navigation }) => {
-      const { routeName } = navigation.state.routes[navigation.state.index]
-      return {
-        header: null,
-        headerTitle: routeName
-      }
-    }
-  })
-
-
-const HomeStackNavigator = createStackNavigator(
-  {
-    HomeTabNavigator: HomeTabNavigator
-  },
-  {
-    defaultNavigationOptions: ({ navigation }) => {
-      return {
-        headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="navicon"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-        )
-      }
-    }
-  })
-
-// Sign Up Stack
-const SignUpStack = createStackNavigator({
-  SignUp: { screen: ((myprop) => {
-    return class Component extends React.Component {
-       render() {
-         return <SignUpScreen setUserInfo={this.setUserInfo} />
-       }
-     }
-   }) },
-  SignUp2: { screen: ((myprop) => {
-    return class Component extends React.Component {
-       render() {
-         return <SignUpScreen2 setUserInfo={this.setUserInfo} />
-       }
-     }
-   })  }
-})
-
-// Drawer
-const AppDrawerNavigator = createDrawerNavigator({
-  Details: {
-    screen: HomeStackNavigator
-  }
-})
-
-const AppSwitchNavigator = createSwitchNavigator({
-  Welcome: { screen: Login },
-  SignUp: { screen: SignUpStack },
-  Home: { screen: AppDrawerNavigator }
-})
-
-const AppContainer = createAppContainer(AppSwitchNavigator)
-

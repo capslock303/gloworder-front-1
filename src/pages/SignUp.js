@@ -47,11 +47,11 @@ class SignUp extends Component {
   }
 
   isValidPhone(phoneNumber) {
-    if (/^\D*\d{3}\D*\d{3}\D*\d{4}\D*$/.test([phoneNumber])){
+    if (/^\D*\d{3}\D*\d{3}\D*\d{4}\D*$/.test([phoneNumber])) {
       phoneNumber = this.formatPhone(phoneNumber)
-      this.setState({phone: phoneNumber, phoneError: false})
+      this.setState({ phone: phoneNumber, phoneError: false })
     } else {
-      this.setState({phone: phoneNumber, phoneError: true})
+      this.setState({ phone: phoneNumber, phoneError: true })
     }
   }
 
@@ -82,10 +82,10 @@ class SignUp extends Component {
               style={styles.loginField}
               onChangeText={(text)=>this.isValidName(text)}
             />
-          
+
             <Text style={styles.error}>
               {this.state.nameError? "Must include first and last name" : "" }
-            </Text> 
+            </Text>
 
 
             <TextInput
@@ -98,7 +98,7 @@ class SignUp extends Component {
 
             <Text style={styles.error}>
               {this.state.phoneError? "Phone number invalid" : "" }
-            </Text> 
+            </Text>
 
             <DatePicker
               id="DOB"
@@ -135,16 +135,9 @@ class SignUp extends Component {
               autoCorrect={false}
             />
 
-            <View style={styles.loginButton}>
-              <Button
-                color="grey"
-                title="Next"
-                onPress={() => this.state.inputsValid? this.props.navigation.navigate('SignUp2') : ""}
-              />
-            </View>
 
-          </LinearGradient>
-        </View>
+        </LinearGradient>
+      </View>
 
     )
   }

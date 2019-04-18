@@ -22,7 +22,7 @@ class SignUp2 extends Component {
     ccNumError: false,
     date: ""
   }
-  
+
 
   isValidEmail(email) {
     if (/^\s*(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))\s*$/i.test(email)){
@@ -46,17 +46,29 @@ class SignUp2 extends Component {
     text = text.replace(/\s+/g, '')
     return text.replace(/[-,]/g, '')
   }
-  
+
   formatEmail(text) {
     return text.replace(/\s+/g, '')
   }
 
   render() {
     return (
-        <View style={styles.loginPage}>
+      <View style={styles.loginPage}>
 
-          <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
-            <Text style={styles.header2}>gloworder</Text>
+        <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
+          <Text style={styles.header2}>gloworder</Text>
+
+          <TextInput
+            placeholder="Email"
+            style={styles.loginField}
+          />
+
+          <TextInput
+            placeholder="Credit Card Number"
+            style={styles.loginField}
+          />
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
 
             <TextInput
               placeholder="Email"
@@ -67,13 +79,53 @@ class SignUp2 extends Component {
 
             <Text style={styles.error}>
               {this.state.emailError? "Email must be email@domain.com" : "" }
-            </Text> 
+            </Text>
 
             <TextInput
-              placeholder="Credit Card Number"
+              placeholder="Zipcode"
               style={styles.loginField}
               onChangeText={text => this.isValidCardNumber(text)}
             />
+            <DatePicker
+              style={{ marginTop: 10 }}
+              placeholder="Expiration"
+              date={this.props.date}
+              mode="date"
+              format="YYYY-MM-DD"
+              minDate="2016-05-01"
+              maxDate="2016-06-01"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  backgroundColor: 'orange',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0
+                },
+                dateInput: {
+                  marginLeft: 36,
+                  backgroundColor: 'white'
+                }
+              }}
+              onDateChange={(date) => { this.props.setDate(date) }}
+            />
+          </View>
+          <View style={styles.loginButton}>
+            <Button
+              color="grey"
+              title="Sign Up"
+              onPress={() => this.props.moveScreen('Home')}
+            />
+          </View>
+          <View style={styles.loginButton}>
+            <Button
+              color="grey"
+              title="Back"
+              onPress={() => this.props.moveScreen('SignUp')}
+            />
+          </View>
 
             <Text style={styles.error}>
               {this.state.ccNumError? "Invalid Card Number" : "" }
