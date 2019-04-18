@@ -1,14 +1,28 @@
 {
-  "name": "glowOrder2",
+  "name": "glowOrder",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "android-dev": "adb reverse tcp:8081 tcp:8081 && react-native run-android"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
   },
   "dependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.4"
+    "react-art": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-native": "0.59.4",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-gesture-handler": "^1.1.0",
+    "react-native-linear-gradient": "^2.5.4",
+    "react-native-vector-icons": "^6.4.2",
+    "react-native-web": "^0.11.2",
+    "react-navigation": "^3.8.1"
   },
   "devDependencies": {
     "@babel/core": "7.4.3",
