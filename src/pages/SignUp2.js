@@ -81,7 +81,7 @@ class SignUp2 extends Component {
               <Button
                 color="grey"
                 title="Sign Up"
-                onPressIn={() => alert('Hello World!')}
+                onPress={() => this.props.nextScreen('Home')}
               />
             </View>
 

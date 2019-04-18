@@ -98,7 +98,10 @@ class SignUp extends Component {
               <Button
                 color="grey"
                 title="Next"
-                onPress={() => this.state.inputsValid? this.props.navigation.navigate('SignUp2') : ""}
+                // Use below in production
+                // disabled={!this.state.inputsValid && true}
+                // For Testing Only
+                onPress={() => this.props.nextScreen('SignUp2')}
               />
             </View>
 
