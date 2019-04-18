@@ -7,7 +7,9 @@ import {
   View,
   SafeAreaView,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList,
+  ScrollView
 } from 'react-native'
 
 
@@ -19,18 +21,29 @@ class Home extends Component {
 
   }
 
-
   render() {
     return (
       <SafeAreaView>
         <View>
-          <Text>Home.js</Text>
+          <Text>Bars Near Me</Text>
         </View>
-      </SafeAreaView>
+        <ScrollView>
+          <FlatList
+            data={this.props.bars}
+            keyExtractor={(item, index) => item.key}
+            renderItem={({ item }) =>
+              <View>
+                <TouchableOpacity onPress={() => this.props.selectBar(item.id)}>
+                  <Text>{item.name}</Text>
+                  <Text>{item.address}</Text>
+                </TouchableOpacity>
+              </View>
+            }
+          />
+        </ScrollView>
+      </SafeAreaView >
     )
   }
 }
 
 export default Home
-
-

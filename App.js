@@ -18,7 +18,7 @@ import {
 } from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Validator from 'validator'
+import Geocode from "react-geocode"
 
 // Components
 import Login from './src/pages/Login'
@@ -27,12 +27,15 @@ import SignUp2 from './src/pages/SignUp2'
 import NewUser from './src/pages/NewUser'
 import Home from './src/pages/Home'
 
+const backendPath = 'http://localhost:3000'
+
 class App extends Component {
 
   state = {
+    bars: [],
     loggedIn: false,
-    showScreen: 'Login',
-    lastScreen: null,
+    selectedBar: null,
+    showScreen: 'Home',
     user: {
       name: null,
       phone: null
@@ -41,8 +44,33 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.fetchRestaurants()
     // check session storage, if user is logged in
     // set state showScreen to 'Home
+  }
+
+  fetchRestaurants = async () => {
+    const json = await fetch(`${backendPath}/restaurants`)
+    const response = await json.json()
+    this.latLongToAddress(response)
+    this.setState({ ...this.state, bars: response })
+  }
+
+  latLongToAddress = (obj) => {
+    const addressSet = obj.map(item => {
+      const parsedInfo = JSON.parse(item.location)
+      const lat = parsedInfo[0].toString()
+      const long = parsedInfo[1].toString()
+      // Geocode.fromLatLng(lat, long).then(
+      //   response => {
+      //     const address = response.results[0].formatted_address;
+      //     console.log(address);
+      //   },
+      //   error => {
+      //     console.error(error);
+      //   }
+      // );
+    })
   }
 
   setUserInfo = (fieldId, value) => {
@@ -55,7 +83,6 @@ class App extends Component {
     this.setState({ ...this.state, showScreen: screen })
   }
 
-
   login = () => {
     this.state.validCredentials ?
       this.setState({
@@ -65,6 +92,10 @@ class App extends Component {
       })
       :
       alert('Invalid Login')
+  }
+
+  selectBar = (barId) => {
+    alert(barId)
   }
 
   render() {
@@ -93,7 +124,10 @@ class App extends Component {
       case 'Home':
         componentToShow =
           <Home
+            bars={this.state.bars}
+            fetchRestaurants={this.fetchRestaurants}
             moveScreen={this.moveScreen}
+            selectBar={this.selectBar}
           />
         break;
     }

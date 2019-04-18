@@ -22,7 +22,7 @@ class SignUp2 extends Component {
     ccNumError: false,
     date: ""
   }
-  
+
 
   isValidEmail(email) {
     if (/^\s*(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))\s*$/i.test(email)){
@@ -46,7 +46,7 @@ class SignUp2 extends Component {
     text = text.replace(/\s+/g, '')
     return text.replace(/[-,]/g, '')
   }
-  
+
   formatEmail(text) {
     return text.replace(/\s+/g, '')
   }
@@ -71,11 +71,6 @@ class SignUp2 extends Component {
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
 
             <TextInput
-<<<<<<< HEAD
-              placeholder="CVV"
-              style={{ ...styles.loginField, paddingLeft: 15, paddingRight: 15 }}
-            />
-=======
               placeholder="Email"
               style={styles.loginField}
               value={this.state.email}
@@ -84,9 +79,8 @@ class SignUp2 extends Component {
 
             <Text style={styles.error}>
               {this.state.emailError? "Email must be email@domain.com" : "" }
-            </Text> 
+            </Text>
 
->>>>>>> login-signup
             <TextInput
               placeholder="Zipcode"
               style={styles.loginField}
@@ -132,62 +126,8 @@ class SignUp2 extends Component {
               onPress={() => this.props.moveScreen('SignUp')}
             />
           </View>
-
-<<<<<<< HEAD
         </LinearGradient>
       </View>
-=======
-            <Text style={styles.error}>
-              {this.state.ccNumError? "Invalid Card Number" : "" }
-            </Text>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-
-              <TextInput
-                placeholder="CVV"
-                style={{ ...styles.loginField, paddingLeft: 15, paddingRight: 15 }}
-              />
-              <TextInput
-                placeholder="Zipcode"
-                style={styles.loginField}
-              />
-              <DatePicker
-                style={{ marginTop: 10 }}
-                placeholder="Expiration"
-                date={this.state.date}
-                mode="date"
-                format="YYYY-MM-DD"
-                minDate="2019-05-06"
-                maxDate="2040-01-01"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: {
-                    position: 'absolute',
-                    backgroundColor: 'orange',
-                    left: 0,
-                    top: 4,
-                    marginLeft: 0
-                  },
-                  dateInput: {
-                    marginLeft: 36,
-                    backgroundColor: 'white'
-                  }
-                }}
-                onDateChange={(date) => { this.setState({date:date}) }}
-              />
-            </View>
-            <View style={styles.loginButton}>
-              <Button
-                color="grey"
-                title="Sign Up"
-                onPressIn={() => alert('Hello World!')}
-              />
-            </View>
-
-          </LinearGradient>
-        </View>
->>>>>>> login-signup
 
     )
   }
