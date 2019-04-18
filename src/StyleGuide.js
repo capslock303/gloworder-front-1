@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 15,
     fontWeight: 'bold',
-    padding: 5,
     textAlign: 'center'
   },
   loginPage: {
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 40,
     padding: 5,
-    margin: 10,
+    margin: 5,
     backgroundColor: 'white',
     textAlign: 'center'
   },

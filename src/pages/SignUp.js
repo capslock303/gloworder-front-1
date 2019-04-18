@@ -17,7 +17,33 @@ class SignUp extends Component {
 
   state = {
     phone: "",
-    phoneError: false
+    phoneError: false,
+    name: "",
+    nameError: false,
+    DOB: "",
+    maxDate: ""
+  }
+
+  componentDidMount(){
+    let maxDate = new Date()
+    maxDate.setFullYear(maxDate.getFullYear()-21)
+    const monthAbrvLookup = {
+      Jan: '01',
+      Feb: '02',
+      Mar: '03',
+      Apr: '04',
+      May: '05',
+      Jun: '06',
+      Jul: '07',
+      Aug: '08',
+      Sep: '09',
+      Oct: '10',
+      Nov: '11',
+      Dec: '12'
+    }
+    const maxDateArr = String(maxDate).split(" ")
+    const maxDateStr = `${maxDateArr[3]}-${maxDateArr[2]}-${monthAbrvLookup[maxDateArr[1]]}`
+    this.setState({maxDate:maxDateStr})
   }
 
   isValidPhone(phoneNumber) {
@@ -34,11 +60,18 @@ class SignUp extends Component {
     return text.replace(regex, '($1) $2-$3')
   }
 
-  checkPhone(id, value) {
 
+
+  isValidName(name){
+    if (/^\s*([a-z]+)\s+([a-z]+)\s*$/i.test([name])){
+      this.setState({name: name, nameError: false})
+    } else {
+      this.setState({name: name, nameError: true})
+    }
   }
 
   render() {
+
     return (
       <View style={styles.loginPage}>
 
@@ -49,50 +82,59 @@ class SignUp extends Component {
             id="name"
             placeholder="Full Name"
             style={styles.loginField}
-            onChangeText={(text) => this.checkInputs('name', text)}
+            onChangeText={(text)=>this.isValidName(text)}
           />
 
+          <Text style={styles.error}>
+              {this.state.nameError? "Must include first and last name" : "" }
+            </Text>
 
-          <TextInput
-            id="phone"
-            placeholder="Phone Number"
-            style={styles.loginField}
-            value={this.state.phone}
-            onChangeText={(text) => this.isValidPhone(text)}
-          />
+            <TextInput
+                id="phone"
+                placeholder="Phone Number"
+                style={styles.loginField}
+                value={this.state.phone}
+                onChangeText={(text)=>this.isValidPhone( text)}
+              />
 
-          <DatePicker
-            id="DOB"
-            style={{ width: '95%', marginLeft: 10 }}
-            placeholder="Date Of Birth"
-            date={this.props.date}
-            mode="date"
-            format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                backgroundColor: 'orange',
-                left: 0,
-                top: 4,
-                marginLeft: 0
-              },
-              dateInput: {
-                marginLeft: 36,
-                backgroundColor: 'white'
-              }
-            }}
-            onDateChange={(date) => { this.props.setDate(date) }}
-          />
+              <Text style={styles.error}>
+              {this.state.phoneError? "Phone number invalid" : "" }
+            </Text>
 
-          <TextInput
-            id="password"
-            placeholder="Password"
-            style={styles.loginField}
-          />
+            <DatePicker
+                id="DOB"
+                style={{ width: '95%', marginLeft: 10, marginBottom:10 }}
+                placeholder="Date Of Birth"
+                date={this.state.DOB}
+                mode="date"
+                format="YYYY-MM-DD"
+                minDate="1920-01-01"
+                maxDate={this.state.maxDateStr}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    backgroundColor: 'orange',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0
+                  },
+                  dateInput: {
+                    marginLeft: 36,
+                    backgroundColor: 'white'
+                  }
+                }}
+                onDateChange={(date) => { this.setState({DOB: date })}}
+              />
+
+              <TextInput
+                  id="password"
+                  placeholder="Password"
+                  style={styles.loginField}
+                  secureTextEntry={true}
+                  autoCorrect={false}
+                />
 
           <View style={styles.loginButton}>
             <Button
@@ -111,6 +153,7 @@ class SignUp extends Component {
               onPress={() => this.props.moveScreen('Login')}
             />
           </View>
+
 
         </LinearGradient>
       </View>
