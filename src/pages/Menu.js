@@ -20,9 +20,17 @@ import LinearGradient from 'react-native-linear-gradient'
 
 class Menu extends Component {
 
-  state = {
 
+  componentDidMount(){
+    this.props.fetchDrinks()
   }
+
+  // fetchDrinks = async () => {
+  //   const response = await fetch(`${this.props.path}/drinks`)
+  //   const drinks = await response.json()
+  //   this.setState({...this.state, drinks})
+  // }
+
 
   render() {
     return (
@@ -41,19 +49,19 @@ class Menu extends Component {
                 <Text style={styles.paragraph}>{this.props.selectedBar.location}</Text>
               </View>
               <ScrollView>
-                {/* <FlatList
-                  data={this.props.bars}
+                <FlatList
+                  data={this.props.drinks}
                   keyExtractor={(item, index) => item.key}
                   renderItem={({ item }) =>
-                    <TouchableOpacity style={styles.listItem} onPress={() => this.props.selectBar(item.id)}>
+                    <TouchableOpacity style={styles.listItem} onPress={() => this.props.selectDrink(item.id)}>
                       <View >
-                        <Text style={styles.listItemText}>{item.name}</Text>
-                        <Text style={styles.listItemSubText}>{item.location}</Text>
+                        <Text style={styles.listItemText}>{item.liquor}</Text>
+                        <Text style={styles.listItemSubText}>${item.price.toFixed(2)}</Text>
                       </View>
                     </TouchableOpacity>
 
                   }
-                /> */}
+                />
               </ScrollView>
             </SafeAreaView >
           </View>
