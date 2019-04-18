@@ -1,4 +1,3 @@
-
 import { tsPropertySignature } from '@babel/types';
 import React, { Component } from 'react'
 import styles from '../StyleGuide'
@@ -26,7 +25,7 @@ class Login extends Component {
       phoneNumber = this.formatPhone(phoneNumber)
       this.setState({phone: phoneNumber, phoneError: false})
     } else {
-      this.setState({phone: phoneNumber, phoneError: true})
+      this.setState({phoneError: true})
     }
   }
 
@@ -62,7 +61,7 @@ class Login extends Component {
           <Button
             color="grey"
             title="Login"
-            onPressIn={() => props.navigation.navigate('Home')}
+            onPressIn={() => alert('Hello World!')}
           />
         </View>
 
