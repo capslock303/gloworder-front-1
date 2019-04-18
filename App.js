@@ -44,7 +44,8 @@ class App extends Component {
 
   render() {
     return (
-      <AppContainer />
+      // <AppContainer />
+      <SignUp2Screen></SignUp2Screen>
     )
   }
 }

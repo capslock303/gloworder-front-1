@@ -26,7 +26,7 @@ class Login extends Component {
       phoneNumber = this.formatPhone(phoneNumber)
       this.setState({phone: phoneNumber, phoneError: false})
     } else {
-      this.setState({phoneError: true})
+      this.setState({phone: phoneNumber, phoneError: true})
     }
   }
 
@@ -56,6 +56,8 @@ class Login extends Component {
         <TextInput
           placeholder="Password"
           style={styles.loginField}
+          secureTextEntry={true}
+          autoCorrect={false}
         />
 
         <View style={styles.loginButton}>

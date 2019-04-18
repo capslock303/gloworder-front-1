@@ -20,7 +20,30 @@ class SignUp extends Component {
     phoneError: false,
     name: "",
     nameError: false,
+    DOB: "",
+    maxDate: ""
+  }
 
+  componentDidMount(){
+    let maxDate = new Date()
+    maxDate.setFullYear(maxDate.getFullYear()-21)
+    const monthAbrvLookup = {
+      Jan: '01',
+      Feb: '02',
+      Mar: '03',
+      Apr: '04',
+      May: '05',
+      Jun: '06',
+      Jul: '07',
+      Aug: '08',
+      Sep: '09',
+      Oct: '10',
+      Nov: '11',
+      Dec: '12'
+    }
+    const maxDateArr = String(maxDate).split(" ")
+    const maxDateStr = `${maxDateArr[3]}-${maxDateArr[2]}-${monthAbrvLookup[maxDateArr[1]]}`
+    this.setState({maxDate:maxDateStr})
   }
 
   isValidPhone(phoneNumber) {
@@ -28,7 +51,7 @@ class SignUp extends Component {
       phoneNumber = this.formatPhone(phoneNumber)
       this.setState({phone: phoneNumber, phoneError: false})
     } else {
-      this.setState({phoneError: true})
+      this.setState({phone: phoneNumber, phoneError: true})
     }
   }
 
@@ -38,7 +61,7 @@ class SignUp extends Component {
   }
 
   isValidName(name){
-    if (/^\s*(\w+)\s*(\w+)$/.test([name])){
+    if (/^\s*([a-z]+)\s+([a-z]+)\s*$/i.test([name])){
       this.setState({name: name, nameError: false})
     } else {
       this.setState({nameError: true})
@@ -46,8 +69,6 @@ class SignUp extends Component {
   }
 
   render() {
-
-    let minDate = Date.now()
 
     return (
         <View style={styles.loginPage}>
@@ -59,7 +80,7 @@ class SignUp extends Component {
               id="name"
               placeholder="Full Name"
               style={styles.loginField}
-              onChangeText={(text)=>this.checkInputs('name', text)}
+              onChangeText={(text)=>this.isValidName(text)}
             />
           
             <Text style={styles.error}>
@@ -81,13 +102,13 @@ class SignUp extends Component {
 
             <DatePicker
               id="DOB"
-              style={{ width: '95%', marginLeft: 10 }}
+              style={{ width: '95%', marginLeft: 10, marginBottom:10 }}
               placeholder="Date Of Birth"
-              date={this.props.date}
+              date={this.state.DOB}
               mode="date"
               format="YYYY-MM-DD"
-              minDate="2016-05-01"
-              maxDate="2016-06-01"
+              minDate="1920-01-01"
+              maxDate={this.state.maxDateStr}
               confirmBtnText="Confirm"
               cancelBtnText="Cancel"
               customStyles={{
@@ -103,13 +124,15 @@ class SignUp extends Component {
                   backgroundColor: 'white'
                 }
               }}
-              onDateChange={(date) => { this.props.setDate(date) }}
+              onDateChange={(date) => { this.setState({DOB: date })}}
             />
 
             <TextInput
               id="password"
               placeholder="Password"
               style={styles.loginField}
+              secureTextEntry={true}
+              autoCorrect={false}
             />
 
             <View style={styles.loginButton}>
