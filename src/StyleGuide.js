@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 50
   },
+  headers3: {
+    fontSize: 32,
+    fontWeight: 'bold'
+  },
   paragraph: {
     flexDirection: 'row',
     color: 'white',
@@ -70,6 +74,20 @@ const styles = StyleSheet.create({
   linkText: {
     color: 'blue'
   },
+  listItem: {
+    flexDirection: 'row',
+    height: 70,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'black'
+  },
+  listItemText: {
+    fontSize: 24
+  },
+  listItemSubText: {
+    fontSize: 16
+
+  }
 })
 
 export default styles

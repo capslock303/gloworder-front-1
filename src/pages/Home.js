@@ -12,8 +12,13 @@ import {
   ScrollView
 } from 'react-native'
 
+import styles from '../StyleGuide'
+import LinearGradient from 'react-native-linear-gradient'
+
 
 // Components
+
+let key = 0
 
 class Home extends Component {
 
@@ -23,25 +28,37 @@ class Home extends Component {
 
   render() {
     return (
-      <SafeAreaView>
+      <View>
         <View>
-          <Text>Bars Near Me</Text>
+          <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
+            <Text style={styles.header2}>gloworder</Text>
+          </LinearGradient>
         </View>
-        <ScrollView>
-          <FlatList
-            data={this.props.bars}
-            keyExtractor={(item, index) => item.key}
-            renderItem={({ item }) =>
-              <View>
-                <TouchableOpacity onPress={() => this.props.selectBar(item.id)}>
-                  <Text>{item.name}</Text>
-                  <Text>{item.address}</Text>
+        <SafeAreaView>
+          <View>
+            <Text style={styles.headers3}>Bars Near Me</Text>
+          </View>
+          <ScrollView>
+            <FlatList
+              data={this.props.bars}
+              keyExtractor={(item, index) => item.key}
+              renderItem={({ item }) =>
+                <TouchableOpacity
+                  style={styles.listItem}
+                  onPress={() => this.props.selectBar(item.id)}
+                  key={key++}
+                >
+                  <View>
+                    <Text style={styles.listItemText}>{item.name}</Text>
+                    <Text style={styles.listItemSubText}>{item.location}</Text>
+                  </View>
                 </TouchableOpacity>
-              </View>
-            }
-          />
-        </ScrollView>
-      </SafeAreaView >
+
+              }
+            />
+          </ScrollView>
+        </SafeAreaView >
+      </View>
     )
   }
 }
