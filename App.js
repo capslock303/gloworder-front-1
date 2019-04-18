@@ -18,7 +18,7 @@ import SignUp2 from './src/pages/SignUp2'
 import NewUser from './src/pages/NewUser'
 import Home from './src/pages/Home'
 import Menu from './src/pages/Menu'
-
+import Order from './src/pages/Order'
 
 
 const backendPath = 'http://localhost:3000'
@@ -27,9 +27,13 @@ class App extends Component {
 
   state = {
     bars: [],
+    drinks: [],
     loggedIn: false,
-    selectedBar: {},
-    showScreen: 'Login',
+    options: [],
+    path: backendPath,
+    selectedBar: { id: 1, name: "The Attic", location: "[40.014, -105.270]" },
+    selectedDrink: {},
+    showScreen: 'Menu',
     user: {
       name: null,
       phone: null
@@ -43,20 +47,22 @@ class App extends Component {
     // set state showScreen to 'Home
   }
 
-  fetchRestaurants = async () => {
-    const json = await fetch(`${backendPath}/restaurants`)
-    const response = await json.json()
-    console.log(response)
-    this.latLongToAddress(response)
-    this.setState({ ...this.state, bars: response })
+  fetchDrinks = async () => {
+    const response = await fetch(`${backendPath}/drinks`)
+    const drinks = await response.json()
+    this.setState({ ...this.state, drinks })
   }
 
-  latLongToAddress = (obj) => {
-    const addressSet = obj.map(item => {
-      const parsedInfo = JSON.parse(item.location)
-      const lat = parsedInfo[0].toString()
-      const long = parsedInfo[1].toString()
-    })
+  fetchOptions = async () => {
+    const response = await fetch(`${backendPath}/options`)
+    const options = await response.json()
+    this.setState({ ...this.state, options })
+  }
+
+  fetchRestaurants = async () => {
+    const response = await fetch(`${backendPath}/restaurants`)
+    const bars = await response.json()
+    this.setState({ ...this.state, bars })
   }
 
   setUserInfo = (fieldId, value) => {
@@ -86,6 +92,15 @@ class App extends Component {
       ...this.state,
       selectedBar: bar,
       showScreen: 'Menu'
+    })
+  }
+
+  selectDrink = (drinkId) => {
+    const drink = this.state.drinks.find(drink => drink.id === drinkId)
+    this.setState({
+      ...this.state,
+      selectedDrink: drink,
+      showScreen: 'Order'
     })
   }
 
@@ -125,7 +140,19 @@ class App extends Component {
         componentToShow =
           <Menu
             bars={this.state.bars}
+            drinks={this.state.drinks}
+            fetchDrinks={this.fetchDrinks}
+            path={this.state.path}
             selectedBar={this.state.selectedBar}
+            selectDrink={this.selectDrink}
+          />
+        break;
+      case 'Order':
+        componentToShow =
+          <Order
+            drinks={this.state.drinks}
+            path={this.state.path}
+            selectDrink={this.selectDrink}
           />
         break;
     }
