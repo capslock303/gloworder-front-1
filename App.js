@@ -18,6 +18,7 @@ import {
 } from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Geocode from "react-geocode"
 
 // Components
 import Login from './src/pages/Login'
@@ -51,7 +52,25 @@ class App extends Component {
   fetchRestaurants = async () => {
     const json = await fetch(`${backendPath}/restaurants`)
     const response = await json.json()
-    this.setState({...this.state, bars: response})
+    this.latLongToAddress(response)
+    this.setState({ ...this.state, bars: response })
+  }
+
+  latLongToAddress = (obj) => {
+    const addressSet = obj.map(item => {
+      const parsedInfo = JSON.parse(item.location)
+      const lat = parsedInfo[0].toString()
+      const long = parsedInfo[1].toString()
+      // Geocode.fromLatLng(lat, long).then(
+      //   response => {
+      //     const address = response.results[0].formatted_address;
+      //     console.log(address);
+      //   },
+      //   error => {
+      //     console.error(error);
+      //   }
+      // );
+    })
   }
 
   setUserInfo = (fieldId, value) => {
