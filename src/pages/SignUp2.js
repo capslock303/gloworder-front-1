@@ -123,6 +123,13 @@ class SignUp2 extends Component {
               onPress={() => this.props.moveScreen('Home')}
             />
           </View>
+          <View style={styles.loginButton}>
+            <Button
+              color="grey"
+              title="Back"
+              onPress={() => this.props.moveScreen('SignUp')}
+            />
+          </View>
 
         </LinearGradient>
       </View>

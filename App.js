@@ -9,14 +9,6 @@ import {
   Button
 } from 'react-native'
 
-import {
-  createStackNavigator,
-  createBottomTabNavigator,
-  createAppContainer,
-  createDrawerNavigator,
-  createSwitchNavigator
-} from 'react-navigation'
-
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 // Components
@@ -25,6 +17,8 @@ import SignUp from './src/pages/SignUp'
 import SignUp2 from './src/pages/SignUp2'
 import NewUser from './src/pages/NewUser'
 import Home from './src/pages/Home'
+import Menu from './src/pages/Menu'
+
 
 const backendPath = 'http://localhost:3000'
 
@@ -33,7 +27,7 @@ class App extends Component {
   state = {
     bars: [],
     loggedIn: false,
-    selectedBar: null,
+    selectedBar: {},
     showScreen: 'Login',
     user: {
       name: null,
@@ -85,7 +79,12 @@ class App extends Component {
   }
 
   selectBar = (barId) => {
-    alert(barId)
+    const bar = this.state.bars.find(bar => bar.id === barId)
+    this.setState({
+      ...this.state,
+      selectedBar: bar,
+      showScreen: 'Menu'
+    })
   }
 
   render() {
@@ -118,6 +117,13 @@ class App extends Component {
             fetchRestaurants={this.fetchRestaurants}
             moveScreen={this.moveScreen}
             selectBar={this.selectBar}
+          />
+        break;
+      case 'Menu':
+        componentToShow =
+          <Menu
+            bars={this.state.bars}
+            selectedBar={this.state.selectedBar}
           />
         break;
     }
