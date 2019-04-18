@@ -55,6 +55,8 @@ class Login extends Component {
         <TextInput
           placeholder="Password"
           style={styles.loginField}
+          secureTextEntry={true}
+          autoCorrect={false}
         />
 
         <View style={styles.loginButton}>
