@@ -33,7 +33,7 @@ class App extends Component {
     path: backendPath,
     selectedBar: { id: 1, name: "The Attic", location: "[40.014, -105.270]" },
     selectedDrink: {},
-    showScreen: 'Menu',
+    showScreen: 'Home',
     user: {
       name: null,
       phone: null
@@ -42,9 +42,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchRestaurants()
+    this.fetchBars()
     // check session storage, if user is logged in
     // set state showScreen to 'Home
+  }
+
+  fetchBars = async () => {
+    const response = await fetch(`${backendPath}/restaurants`)
+    const bars = await response.json()
+    this.setState({ ...this.state, bars })
   }
 
   fetchDrinks = async () => {
@@ -57,12 +63,6 @@ class App extends Component {
     const response = await fetch(`${backendPath}/options`)
     const options = await response.json()
     this.setState({ ...this.state, options })
-  }
-
-  fetchRestaurants = async () => {
-    const response = await fetch(`${backendPath}/restaurants`)
-    const bars = await response.json()
-    this.setState({ ...this.state, bars })
   }
 
   setUserInfo = (fieldId, value) => {
@@ -150,9 +150,11 @@ class App extends Component {
       case 'Order':
         componentToShow =
           <Order
-            drinks={this.state.drinks}
+            fetchOptions={this.fetchOptions}
+            options={this.state.options}
             path={this.state.path}
-            selectDrink={this.selectDrink}
+            selectedBar={this.state.selectedBar}
+            selectedDrink={this.state.selectedDrink}
           />
         break;
     }
