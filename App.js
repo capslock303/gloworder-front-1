@@ -104,6 +104,16 @@ class App extends Component {
     })
   }
 
+  selectOption = (optionId) => {
+    alert(optionId)
+    // const drink = this.state.drinks.find(drink => drink.id === drinkId)
+    // this.setState({
+    //   ...this.state,
+    //   selectedDrink: drink,
+    //   showScreen: 'Order'
+    // })
+  }
+
   render() {
 
     let componentToShow
@@ -153,6 +163,7 @@ class App extends Component {
             fetchOptions={this.fetchOptions}
             options={this.state.options}
             path={this.state.path}
+            selectOption={this.selectOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
           />
