@@ -99,8 +99,8 @@ class Order extends Component {
               </View>
               :
               <View>
-                <Text>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} is coming up!</Text>
-                <Button title="Add Drinks to Order" onPress={() => alert('Clicked')} />
+                <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} coming up!</Text>
+                <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
                 <Button title="Go to Order Screen" onPress={() => alert('Clicked')} />
               </View>
           }

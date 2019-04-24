@@ -27,7 +27,15 @@ class App extends Component {
 
   state = {
     bars: [],
-    currentOrder: {},
+    currentOrder: [
+      {
+        barId: 1,
+        drinkId: 1,
+        name: "Marcus",
+        optionId: 3,
+        quantity: 4,
+      }
+    ],
     drinks: [],
     loggedIn: false,
     options: [],
@@ -115,7 +123,9 @@ class App extends Component {
   }
 
   compileOrders = (newOrder) => {
-    console.log("!!", newOrder)
+    const orders = this.state.currentOrder
+    orders.push(newOrder)
+    this.setState({...this.state, currentOrder: orders}, () => console.log(this.state.currentOrder))
   }
 
   addDrinksToOrder = () => {
@@ -174,6 +184,7 @@ class App extends Component {
       case 'ConfirmTotal':
         componentToShow =
           <ConfirmTotal
+            addDrinksToOrder={this.addDrinksToOrder}
             compileOrders={this.compileOrders}
             selectedOption={this.state.selectedOption}
             selectedBar={this.state.selectedBar}
