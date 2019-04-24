@@ -38,8 +38,11 @@ class Order extends Component {
   }
 
   subtract = () => {
+    let count = this.state.quantity
     if (count >= 2) {
-      // this.setState({ ...this.state, quantity: count-- })
+    count--
+
+    this.setState({ ...this.state, quantity: count}, () => this.findTotal())
     }
     else {
       alert('Order cannot be less than 1')
