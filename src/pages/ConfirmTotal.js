@@ -16,33 +16,44 @@ import {
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 
-let count = 1
-
 // Components
 
 class Order extends Component {
 
   state = {
-    quantity: 0,
+    quantity: 1,
     name: "",
-    orderStatus: null
+    orderStatus: null,
+    total: null
   }
 
   componentDidMount = () => {
-    this.add()
+    this.findTotal()
   }
 
   add = () => {
-    this.setState({ ...this.state, quantity: count++ })
+    let count = this.state.quantity
+    count++
+    console.log(count)
+    this.setState({ ...this.state, quantity: count}, () => this.findTotal())
   }
 
   subtract = () => {
     if (count >= 2) {
-      this.setState({ ...this.state, quantity: count-- })
+      // this.setState({ ...this.state, quantity: count-- })
     }
     else {
       alert('Order cannot be less than 1')
     }
+  }
+
+  findTotal = () => {
+    const drinkPrice = this.props.selectedDrink.price
+    const optionPrice = this.props.selectedOption.price
+    const drinkQuantity = this.state.quantity
+    console.log(drinkPrice, optionPrice, drinkQuantity)
+    const total = ((drinkPrice + optionPrice) * drinkQuantity)
+    this.setState({...this.state, total})
   }
 
   order = () => {
@@ -97,7 +108,9 @@ class Order extends Component {
                 </View>
 
                 <View>
-                  <Text>Total: Total Goes Here</Text>
+                  {this.props.selectedDrink && <Text>Drink Price: ${this.props.selectedDrink.price.toFixed(2)}</Text>}
+                  {this.props.selectedOption && <Text>Drink Price: ${this.props.selectedOption.price.toFixed(2)}</Text>}
+                  {this.state.total && <Text>Total: ${this.state.total.toFixed(2)}</Text>}
                 </View>
 
 

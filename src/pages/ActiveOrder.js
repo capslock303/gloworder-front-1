@@ -22,7 +22,7 @@ const ActiveOrder = (props) => {
     <View>
       <LinearGradient colors={['#2B93B3', '#70DEFF']} style={styles.linearGradient}>
         <Text style={styles.header2}>gloworder</Text>
-        <Button title="Home" onPress={() => props.goHome()} />
+        <Button title="Home" onPress={() => props.goHome()}/>
 
         <View>
           <SafeAreaView>
@@ -33,12 +33,13 @@ const ActiveOrder = (props) => {
                   renderItem={({ item }) =>
                     <View>
                      <Text style={styles.listItemText}> 
-                      {item.quantity} {item.drink} {item.option}
+                      {`${item.quantity} ${item.drink} ${item.option} ${item.name ? `for ${item.name}` : ''}`}
                      </Text>
-                     {
-                       item.name &&
+                     {/* {
+                       item.name ?
                        <Text style={styles.listItemText}>for {item.name}</Text>
-                     }
+                       : ''
+                     } */}
                    </View>
                   }
 
