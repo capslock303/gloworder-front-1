@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Login from './src/pages/Login'
 import SignUp from './src/pages/SignUp'
 import SignUp2 from './src/pages/SignUp2'
-import NewUser from './src/pages/NewUser'
+import ConfirmTotal from './src/pages/ConfirmTotal'
 import Home from './src/pages/Home'
 import Menu from './src/pages/Menu'
 import Order from './src/pages/Order'
@@ -33,6 +33,7 @@ class App extends Component {
     path: backendPath,
     selectedBar: { id: 1, name: "The Attic", address: "949 Walnut St, Boulder, CO 80302" },
     selectedDrink: {},
+    selectedOption: {},
     showScreen: 'Menu',
     user: {
       name: null,
@@ -105,13 +106,12 @@ class App extends Component {
   }
 
   selectOption = (optionId) => {
-    alert(optionId)
-    // const drink = this.state.drinks.find(drink => drink.id === drinkId)
-    // this.setState({
-    //   ...this.state,
-    //   selectedDrink: drink,
-    //   showScreen: 'Order'
-    // })
+    const option = this.state.options.find(option => option.id === optionId)
+    this.setState({
+      ...this.state,
+      selectedOption: option,
+      showScreen: 'ConfirmTotal'
+    })
   }
 
   render() {
@@ -160,6 +160,17 @@ class App extends Component {
       case 'Order':
         componentToShow =
           <Order
+            fetchOptions={this.fetchOptions}
+            options={this.state.options}
+            path={this.state.path}
+            selectOption={this.selectOption}
+            selectedBar={this.state.selectedBar}
+            selectedDrink={this.state.selectedDrink}
+          />
+        break;
+      case 'ConfirmTotal':
+        componentToShow =
+          <ConfirmTotal
             fetchOptions={this.fetchOptions}
             options={this.state.options}
             path={this.state.path}
