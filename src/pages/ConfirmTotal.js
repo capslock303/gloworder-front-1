@@ -34,7 +34,6 @@ class Order extends Component {
   add = () => {
     let count = this.state.quantity
     count++
-    console.log(count)
     this.setState({ ...this.state, quantity: count}, () => this.findTotal())
   }
 
@@ -51,7 +50,6 @@ class Order extends Component {
     const drinkPrice = this.props.selectedDrink.price
     const optionPrice = this.props.selectedOption.price
     const drinkQuantity = this.state.quantity
-    console.log(drinkPrice, optionPrice, drinkQuantity)
     const total = ((drinkPrice + optionPrice) * drinkQuantity)
     this.setState({...this.state, total})
   }
