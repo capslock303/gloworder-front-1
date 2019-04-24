@@ -1,6 +1,5 @@
 // Resources
 import React, { Component } from 'react'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   Platform,
   StyleSheet,
@@ -15,22 +14,23 @@ import {
 
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 // Components
 
-class Menu extends Component {
-
+class Order extends Component {
 
   componentDidMount() {
-    this.props.fetchDrinks()
+    this.props.fetchOptions()
   }
+
 
   render() {
     return (
       <View>
         {
-          this.props.selectedBar &&
+          this.props.selectedDrink &&
           <View>
             <View>
               <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
@@ -39,26 +39,22 @@ class Menu extends Component {
             </View>
             <SafeAreaView>
               <View>
-                <Text style={styles.headers3}>{this.props.selectedBar.name}</Text>
+                <Text style={styles.headers3}>{this.props.selectedDrink.liquor}</Text>
                 <Text style={styles.paragraph}>{this.props.selectedBar.location}</Text>
               </View>
               <ScrollView>
                 <FlatList
-                  data={this.props.drinks}
-                  keyExtractor={(item, index) => item.liquor}
+                  data={this.props.options}
+                  keyExtractor={(item, index) => item.option}
                   style={styles.gridlist}
                   numColumns={2}
                   renderItem={({ item }) =>
-                    <TouchableOpacity style={styles.gridItem} onPress={() => this.props.selectDrink(item.id)}>
-
-                      <Icon name='glass' style={{ fontSize: 30, color: 'orange' }} />
-                      <Text style={styles.listItemText}> {item.liquor} </Text>
-                      <Text style={styles.listItemSubText}>$ {item.price.toFixed(2)}</Text>
-
+                    <TouchableOpacity style={{ ...styles.gridItem, width: '70%' }} onPress={() => this.props.selectOption(item.id)}>
+                      <Icon name='plus' style={{ fontSize: 30, color: 'orange' }} />
+                      <Text style={styles.listItemText}>{item.option}</Text>
+                      <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
                     </TouchableOpacity>
-
                   }
-
                 />
               </ScrollView>
             </SafeAreaView >
@@ -69,4 +65,4 @@ class Menu extends Component {
   }
 }
 
-export default Menu
+export default Order

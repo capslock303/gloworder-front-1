@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   },
+  formIcon:{
+    color: 'orange', 
+    backgroundColor: 'white', 
+    fontSize:25, 
+    marginRight: 15
+  },
   loginPage: {
     flexDirection: 'column',
     justifyContent: 'center',
@@ -61,13 +67,17 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 5,
     margin: 5,
+    marginLeft: 25,
+    marginRight: 25,
     backgroundColor: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   loginButton: {
-    paddingLeft: 75,
-    paddingRight: 75,
+    marginLeft: 75,
+    marginRight: 75,
     margin: 15,
+    backgroundColor: 'grey',
     justifyContent: 'center',
     alignItems: 'stretch'
   },
@@ -82,12 +92,30 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black'
   },
   listItemText: {
-    fontSize: 24
+    fontSize: 24,
+    fontWeight: 'bold',
   },
   listItemSubText: {
-    fontSize: 16
-
-  }
+    fontSize: 16,
+    color: "grey"
+  },
+  gridlist:{
+    flex:1,
+    flexDirection: 'row'
+  },
+  gridItem:{
+    height: 145,
+    width: '80%',
+    margin: 5,
+    justifyContent: 'center',
+    alignItems:'center',
+    borderColor: 'orange',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderRadius: 50
+  },
+  ulHead:{},
+  ulSubtext:{}
 })
 
 export default styles
