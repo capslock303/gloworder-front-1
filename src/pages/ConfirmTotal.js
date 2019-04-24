@@ -19,45 +19,13 @@ import LinearGradient from 'react-native-linear-gradient'
 // Components
 
 class Order extends Component {
-  // state = {
-  //   barId: null,
-  //   barName: null,
-  //   barAddress: null,
-  //   drinkId: null,
-  //   drinkLiquor: null,
-  //   drinkPrice: null,
-  //   optionId: null,
-  //   optionName: null,
-  //   optionPrice: null
-  // }
-
-  // componentDidMount() {
-  //   this.compileState()
-  //   console.log(this.state)
-  // }
-
-  // compileState = () => {
-  //   this.setState({
-  //     ...this.state,
-  //     barId: this.props.selectedBar.id,
-  //     barName: this.props.selectedBar.name,
-  //     barAddress: this.props.selectedBar.address,
-  //     drinkId: this.props.selectedDrink.id,
-  //     drinkLiquor: this.props.selectedDrink.liquor,
-  //     drinkPrice: this.props.selectedDrink.price,
-  //     optionId: this.props.selectedOption.id,
-  //     optionName: this.props.selectedOption.option,
-  //     optionPrice: this.props.selectedOption.price
-  //   })
-  // }
 
 
 
   render() {
     return (
       <View>
-        <Text>SupKane</Text>
-        {/* <View>
+        <View>
           <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
             <Text style={styles.header2}>confirm</Text>
           </LinearGradient>
@@ -82,7 +50,7 @@ class Order extends Component {
               }
             />
           </ScrollView>
-        </SafeAreaView> */}
+        </SafeAreaView>
       </View>
     )
   }

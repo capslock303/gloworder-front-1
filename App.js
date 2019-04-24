@@ -32,8 +32,8 @@ class App extends Component {
     options: [],
     path: backendPath,
     selectedBar: { id: 1, name: "The Attic", address: "949 Walnut St, Boulder, CO 80302" },
-    selectedDrink: {},
-    selectedOption: {},
+    selectedDrink: {id: 1, liquor: "Vodka", price: 3.5},
+    selectedOption: {id: 3, option: "With a twist", price: 0},
     showScreen: 'Menu',
     user: {
       name: null,
