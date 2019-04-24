@@ -19,6 +19,7 @@ import ConfirmTotal from './src/pages/ConfirmTotal'
 import Home from './src/pages/Home'
 import Menu from './src/pages/Menu'
 import Order from './src/pages/Order'
+import ActiveOrder from './src/pages/ActiveOrder'
 
 
 const backendPath = 'http://localhost:3000'
@@ -27,22 +28,14 @@ class App extends Component {
 
   state = {
     bars: [],
-    currentOrder: [
-      {
-        barId: 1,
-        drinkId: 1,
-        name: "Marcus",
-        optionId: 3,
-        quantity: 4,
-      }
-    ],
+    currentOrder: [],
     drinks: [],
     loggedIn: false,
     options: [],
-    selectedBar: { id: 1, name: "The Attic", address: "949 Walnut St, Boulder, CO 80302" },
-    selectedDrink: { id: 1, liquor: "Vodka", price: 3.5 },
-    selectedOption: { id: 3, option: "With a twist", price: 0 },
-    showScreen: 'ConfirmTotal',
+    selectedBar: {},
+    selectedDrink: {},
+    selectedOption: {},
+    showScreen: 'Home',
     user: {
       name: null,
       phone: null
@@ -125,11 +118,30 @@ class App extends Component {
   compileOrders = (newOrder) => {
     const orders = this.state.currentOrder
     orders.push(newOrder)
-    this.setState({...this.state, currentOrder: orders}, () => console.log(this.state.currentOrder))
+    this.setState({ ...this.state, currentOrder: orders })
   }
 
   addDrinksToOrder = () => {
-    alert('Add to Order')
+    this.setState({
+      ...this.state,
+      selectedDrink: {},
+      selectedOption: {},
+      showScreen: 'Menu'
+    })
+  }
+
+  goToOrderScreen = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'ActiveOrder'
+    })
+  }
+
+  goHome = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'Home'
+    })
   }
 
   render() {
@@ -168,6 +180,7 @@ class App extends Component {
           <Menu
             bars={this.state.bars}
             drinks={this.state.drinks}
+            fetchDrinks={this.fetchDrinks}
             selectedBar={this.state.selectedBar}
             selectDrink={this.selectDrink}
           />
@@ -175,6 +188,7 @@ class App extends Component {
       case 'Order':
         componentToShow =
           <Order
+            fetchOptions={this.fetchOptions}
             options={this.state.options}
             selectOption={this.selectOption}
             selectedBar={this.state.selectedBar}
@@ -186,9 +200,17 @@ class App extends Component {
           <ConfirmTotal
             addDrinksToOrder={this.addDrinksToOrder}
             compileOrders={this.compileOrders}
+            goToOrderScreen={this.goToOrderScreen}
             selectedOption={this.state.selectedOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
+          />
+        break;
+      case 'ActiveOrder':
+        componentToShow =
+          <ActiveOrder
+            currentOrder={this.state.currentOrder}
+            goHome={this.goHome}
           />
         break;
     }

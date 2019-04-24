@@ -51,11 +51,16 @@ class Order extends Component {
       quantity: this.state.quantity,
       optionId: this.props.selectedOption.id,
       barId: this.props.selectedBar.id,
-      name: this.state.name
+      name: this.state.name,
+      drink: this.props.selectedDrink.liquor,
+      option: this.props.selectedOption.option
     }
-
+    count = 1
     this.props.compileOrders(newOrder)
-    this.setState({ ...this.state, orderStatus: 'confirmed' })
+    this.setState({
+      ...this.state,
+      orderStatus: 'confirmed'
+    })
   }
 
 
@@ -91,6 +96,10 @@ class Order extends Component {
                   />
                 </View>
 
+                <View>
+                  <Text>Total: Total Goes Here</Text>
+                </View>
+
 
                 <View>
                   <Button title="Remove" onPress={() => this.remove()} />
@@ -101,7 +110,7 @@ class Order extends Component {
               <View>
                 <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} coming up!</Text>
                 <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
-                <Button title="Go to Order Screen" onPress={() => alert('Clicked')} />
+                <Button title="Go to Order Screen" onPress={() => this.props.goToOrderScreen()} />
               </View>
           }
         </SafeAreaView>
