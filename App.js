@@ -30,7 +30,6 @@ class App extends Component {
     drinks: [],
     loggedIn: false,
     options: [],
-    path: backendPath,
     selectedBar: { id: 1, name: "The Attic", address: "949 Walnut St, Boulder, CO 80302" },
     selectedDrink: {id: 1, liquor: "Vodka", price: 3.5},
     selectedOption: {id: 3, option: "With a twist", price: 0},
@@ -169,7 +168,7 @@ class App extends Component {
       case 'ConfirmTotal':
         componentToShow =
           <ConfirmTotal
-            selectOption={this.selectOption}
+            selectedOption={this.state.selectedOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
           />

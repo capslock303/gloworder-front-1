@@ -32,7 +32,7 @@ class Order extends Component {
         </View>
         <SafeAreaView>
           <View>
-            <Text style={styles.headers3}>{this.props.selectedDrink.liquor}</Text>
+            <Text style={styles.headers3}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
             <Text style={styles.headers3}></Text>
           </View>
           <ScrollView>
