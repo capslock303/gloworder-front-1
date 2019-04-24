@@ -152,7 +152,6 @@ class App extends Component {
             bars={this.state.bars}
             drinks={this.state.drinks}
             fetchDrinks={this.fetchDrinks}
-            path={this.state.path}
             selectedBar={this.state.selectedBar}
             selectDrink={this.selectDrink}
           />
@@ -162,7 +161,6 @@ class App extends Component {
           <Order
             fetchOptions={this.fetchOptions}
             options={this.state.options}
-            path={this.state.path}
             selectOption={this.selectOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
@@ -171,9 +169,6 @@ class App extends Component {
       case 'ConfirmTotal':
         componentToShow =
           <ConfirmTotal
-            fetchOptions={this.fetchOptions}
-            options={this.state.options}
-            path={this.state.path}
             selectOption={this.selectOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
