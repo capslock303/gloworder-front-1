@@ -27,13 +27,14 @@ class App extends Component {
 
   state = {
     bars: [],
+    currentOrder: {},
     drinks: [],
     loggedIn: false,
     options: [],
     selectedBar: { id: 1, name: "The Attic", address: "949 Walnut St, Boulder, CO 80302" },
-    selectedDrink: {id: 1, liquor: "Vodka", price: 3.5},
-    selectedOption: {id: 3, option: "With a twist", price: 0},
-    showScreen: 'Menu',
+    selectedDrink: { id: 1, liquor: "Vodka", price: 3.5 },
+    selectedOption: { id: 3, option: "With a twist", price: 0 },
+    showScreen: 'ConfirmTotal',
     user: {
       name: null,
       phone: null
@@ -113,6 +114,14 @@ class App extends Component {
     })
   }
 
+  compileOrders = (newOrder) => {
+    console.log("!!", newOrder)
+  }
+
+  addDrinksToOrder = () => {
+    alert('Add to Order')
+  }
+
   render() {
 
     let componentToShow
@@ -140,7 +149,6 @@ class App extends Component {
         componentToShow =
           <Home
             bars={this.state.bars}
-            fetchRestaurants={this.fetchRestaurants}
             moveScreen={this.moveScreen}
             selectBar={this.selectBar}
           />
@@ -150,7 +158,6 @@ class App extends Component {
           <Menu
             bars={this.state.bars}
             drinks={this.state.drinks}
-            fetchDrinks={this.fetchDrinks}
             selectedBar={this.state.selectedBar}
             selectDrink={this.selectDrink}
           />
@@ -158,7 +165,6 @@ class App extends Component {
       case 'Order':
         componentToShow =
           <Order
-            fetchOptions={this.fetchOptions}
             options={this.state.options}
             selectOption={this.selectOption}
             selectedBar={this.state.selectedBar}
@@ -168,6 +174,7 @@ class App extends Component {
       case 'ConfirmTotal':
         componentToShow =
           <ConfirmTotal
+            compileOrders={this.compileOrders}
             selectedOption={this.state.selectedOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}

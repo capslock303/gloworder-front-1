@@ -6,6 +6,7 @@ import {
   Text,
   View,
   SafeAreaView,
+  TextInput,
   Button,
   TouchableOpacity,
   FlatList,
@@ -15,11 +16,47 @@ import {
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 
+let count = 1
 
 // Components
 
 class Order extends Component {
 
+  state = {
+    quantity: 0,
+    name: "",
+    orderStatus: null
+  }
+
+  componentDidMount = () => {
+    this.add()
+  }
+
+  add = () => {
+    this.setState({ ...this.state, quantity: count++ })
+  }
+
+  subtract = () => {
+    if (count >= 2) {
+      this.setState({ ...this.state, quantity: count-- })
+    }
+    else {
+      alert('Order cannot be less than 1')
+    }
+  }
+
+  order = () => {
+    const newOrder = {
+      drinkId: this.props.selectedDrink.id,
+      quantity: this.state.quantity,
+      optionId: this.props.selectedOption.id,
+      barId: this.props.selectedBar.id,
+      name: this.state.name
+    }
+
+    this.props.compileOrders(newOrder)
+    this.setState({ ...this.state, orderStatus: 'confirmed' })
+  }
 
 
   render() {
@@ -31,25 +68,42 @@ class Order extends Component {
           </LinearGradient>
         </View>
         <SafeAreaView>
-          <View>
-            <Text style={styles.headers3}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
-            <Text style={styles.headers3}></Text>
-          </View>
-          <ScrollView>
-            <FlatList
-              data={this.props.options}
-              keyExtractor={(item, index) => item.key}
-              renderItem={({ item }) =>
-                <TouchableOpacity style={styles.listItem} onPress={() => this.props.selectOption(item.id)}>
-                  <View >
-                    <Text style={styles.listItemText}>{item.option}</Text>
-                    <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
-                  </View>
-                </TouchableOpacity>
+          {
+            !this.state.orderStatus ?
+              <View>
+                <View>
+                  <Text style={styles.headers3}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
+                  <Text style={styles.headers3}></Text>
+                </View>
+                <View>
+                  <Button title="+" onPress={() => this.add()} />
+                  <Text>{this.state.quantity}</Text>
+                  <Button title="-" onPress={() => this.subtract()} />
+                </View>
 
-              }
-            />
-          </ScrollView>
+                <View>
+                  <Text>Name for Drink (optional)</Text>
+                  <TextInput
+                    id="orderName"
+                    placeholder="Darth Vader..."
+                    style={styles.loginField}
+                    onChangeText={(text) => this.setState({ ...this.state, name: text })}
+                  />
+                </View>
+
+
+                <View>
+                  <Button title="Remove" onPress={() => this.remove()} />
+                  <Button title="Order" onPress={() => this.order()} />
+                </View>
+              </View>
+              :
+              <View>
+                <Text>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} is coming up!</Text>
+                <Button title="Add Drinks to Order" onPress={() => alert('Clicked')} />
+                <Button title="Go to Order Screen" onPress={() => alert('Clicked')} />
+              </View>
+          }
         </SafeAreaView>
       </View>
     )
