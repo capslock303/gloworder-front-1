@@ -39,7 +39,7 @@ class Order extends Component {
             </View>
             <SafeAreaView>
               <View>
-                <Text style={styles.headers3}>{this.props.selectedBar.name}</Text>
+                <Text style={styles.headers3}>{this.props.selectedDrink.liquor}</Text>
                 <Text style={styles.paragraph}>{this.props.selectedBar.location}</Text>
               </View>
               <ScrollView>
@@ -49,11 +49,10 @@ class Order extends Component {
                   style={styles.gridlist}
                   numColumns={2}
                   renderItem={({ item }) =>
-                    <TouchableOpacity style={{...styles.gridItem, width: '70%'}} onPress={() => this.props.selectDrink(item.id)}>
-                    <Icon name='plus' style={{fontSize: 30, color: 'orange'}} />
-                    <Text style={styles.listItemText}>{item.option}</Text>
-                    <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
-                  
+                    <TouchableOpacity style={{ ...styles.gridItem, width: '70%' }} onPress={() => this.props.selectOption(item.id)}>
+                      <Icon name='plus' style={{ fontSize: 30, color: 'orange' }} />
+                      <Text style={styles.listItemText}>{item.option}</Text>
+                      <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
                     </TouchableOpacity>
                   }
                 />

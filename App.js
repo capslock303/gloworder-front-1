@@ -15,10 +15,11 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Login from './src/pages/Login'
 import SignUp from './src/pages/SignUp'
 import SignUp2 from './src/pages/SignUp2'
-import NewUser from './src/pages/NewUser'
+import ConfirmTotal from './src/pages/ConfirmTotal'
 import Home from './src/pages/Home'
 import Menu from './src/pages/Menu'
 import Order from './src/pages/Order'
+import ActiveOrder from './src/pages/ActiveOrder'
 
 
 const backendPath = 'http://localhost:3000'
@@ -27,13 +28,14 @@ class App extends Component {
 
   state = {
     bars: [],
+    currentOrder: [],
     drinks: [],
     loggedIn: false,
     options: [],
-    path: backendPath,
-    selectedBar: { id: 1, name: "The Attic", address: "949 Walnut St, Boulder, CO 80302" },
+    selectedBar: {},
     selectedDrink: {},
-    showScreen: 'Menu',
+    selectedOption: {},
+    showScreen: 'Home',
     user: {
       name: null,
       phone: null
@@ -104,6 +106,44 @@ class App extends Component {
     })
   }
 
+  selectOption = (optionId) => {
+    const option = this.state.options.find(option => option.id === optionId)
+    this.setState({
+      ...this.state,
+      selectedOption: option,
+      showScreen: 'ConfirmTotal'
+    })
+  }
+
+  compileOrders = (newOrder) => {
+    const orders = this.state.currentOrder
+    orders.push(newOrder)
+    this.setState({ ...this.state, currentOrder: orders })
+  }
+
+  addDrinksToOrder = () => {
+    this.setState({
+      ...this.state,
+      selectedDrink: {},
+      selectedOption: {},
+      showScreen: 'Menu'
+    })
+  }
+
+  goToOrderScreen = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'ActiveOrder'
+    })
+  }
+
+  goHome = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'Home'
+    })
+  }
+
   render() {
 
     let componentToShow
@@ -131,7 +171,6 @@ class App extends Component {
         componentToShow =
           <Home
             bars={this.state.bars}
-            fetchRestaurants={this.fetchRestaurants}
             moveScreen={this.moveScreen}
             selectBar={this.selectBar}
           />
@@ -142,7 +181,6 @@ class App extends Component {
             bars={this.state.bars}
             drinks={this.state.drinks}
             fetchDrinks={this.fetchDrinks}
-            path={this.state.path}
             selectedBar={this.state.selectedBar}
             selectDrink={this.selectDrink}
           />
@@ -152,9 +190,27 @@ class App extends Component {
           <Order
             fetchOptions={this.fetchOptions}
             options={this.state.options}
-            path={this.state.path}
+            selectOption={this.selectOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
+          />
+        break;
+      case 'ConfirmTotal':
+        componentToShow =
+          <ConfirmTotal
+            addDrinksToOrder={this.addDrinksToOrder}
+            compileOrders={this.compileOrders}
+            goToOrderScreen={this.goToOrderScreen}
+            selectedOption={this.state.selectedOption}
+            selectedBar={this.state.selectedBar}
+            selectedDrink={this.state.selectedDrink}
+          />
+        break;
+      case 'ActiveOrder':
+        componentToShow =
+          <ActiveOrder
+            currentOrder={this.state.currentOrder}
+            goHome={this.goHome}
           />
         break;
     }
