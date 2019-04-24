@@ -35,11 +35,6 @@ const ActiveOrder = (props) => {
                      <Text style={styles.listItemText}> 
                       {`${item.quantity} ${item.drink} ${item.option} ${item.name ? `for ${item.name}` : ''}`}
                      </Text>
-                     {/* {
-                       item.name ?
-                       <Text style={styles.listItemText}>for {item.name}</Text>
-                       : ''
-                     } */}
                    </View>
                   }
 
