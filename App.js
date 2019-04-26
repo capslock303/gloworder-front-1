@@ -22,7 +22,7 @@ import Order from './src/pages/Order'
 import ActiveOrder from './src/pages/ActiveOrder'
 
 
-const backendPath = 'http://localhost:3000'
+const backendPath = 'http://localhost:5001'
 
 class App extends Component {
 
