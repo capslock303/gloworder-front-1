@@ -64,6 +64,7 @@ class Home extends Component {
               }
             />
           </ScrollView>
+          <Button title="Bar View" onPress={() => this.props.barView()} />
         </SafeAreaView >
       </View>
     )
