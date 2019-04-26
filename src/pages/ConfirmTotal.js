@@ -116,14 +116,15 @@ class Order extends Component {
 
                 <View>
                   <Button title="Remove" onPress={() => this.remove()} />
-                  <Button title="Order" onPress={() => this.order()} />
+                  <Button title="Add to Order" onPress={() => this.order()} />
                 </View>
               </View>
               :
               <View>
-                <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} coming up!</Text>
+                <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
+                <Text>Hit "Place Order" below to finalize order, or add more drinks to the order with the "Add More Drinks" button</Text>
                 <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
-                <Button title="Go to Order Screen" onPress={() => this.props.goToOrderScreen()} />
+                <Button title="Place Order" onPress={() => this.props.goToOrderScreen()} />
               </View>
           }
         </SafeAreaView>

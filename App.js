@@ -20,14 +20,16 @@ import Home from './src/pages/Home'
 import Menu from './src/pages/Menu'
 import Order from './src/pages/Order'
 import ActiveOrder from './src/pages/ActiveOrder'
+import BarView from './src/pages/BarView'
 
 
-const backendPath = 'http://localhost:3000'
+const backendPath = 'https://gloworder-backend.herokuapp.com'
 
 class App extends Component {
 
   state = {
     bars: [],
+    barViewOrders: [],
     currentOrder: [],
     drinks: [],
     loggedIn: false,
@@ -118,7 +120,7 @@ class App extends Component {
   compileOrders = (newOrder) => {
     const orders = this.state.currentOrder
     orders.push(newOrder)
-    this.setState({ ...this.state, currentOrder: orders })
+    this.setState({ ...this.state, currentOrder: orders }, () => console.log(this.state))
   }
 
   addDrinksToOrder = () => {
@@ -135,6 +137,7 @@ class App extends Component {
       ...this.state,
       showScreen: 'ActiveOrder'
     })
+    this.postOrder()
   }
 
   goHome = () => {
@@ -142,6 +145,32 @@ class App extends Component {
       ...this.state,
       showScreen: 'Home'
     })
+  }
+
+  barView = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'BarView'
+    })
+  }
+
+  postOrder = async () => {
+    const response = await fetch(`${backendPath}/orders`, {
+      method: 'POST',
+      body: JSON.stringify({
+        drinkOrder: this.state.currentOrder,
+        color: "purple",
+        total: 8,
+        paid: false,
+        userId: 5
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    console.log(response)
+
   }
 
   render() {
@@ -171,6 +200,7 @@ class App extends Component {
         componentToShow =
           <Home
             bars={this.state.bars}
+            barView={this.barView}
             moveScreen={this.moveScreen}
             selectBar={this.selectBar}
           />
@@ -210,6 +240,15 @@ class App extends Component {
         componentToShow =
           <ActiveOrder
             currentOrder={this.state.currentOrder}
+            goHome={this.goHome}
+          />
+        break;
+      case 'BarView':
+        componentToShow =
+          <BarView
+            backendPath={backendPath}
+            currentOrder={this.state.currentOrder}
+            fetchAllOrders={this.fetchAllOrders}
             goHome={this.goHome}
           />
         break;
