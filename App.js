@@ -23,7 +23,6 @@ import ActiveOrder from './src/pages/ActiveOrder'
 import BarView from './src/pages/BarView'
 
 
-
 const backendPath = 'http://localhost:3000'
 
 class App extends Component {
@@ -38,7 +37,7 @@ class App extends Component {
     selectedBar: {},
     selectedDrink: {},
     selectedOption: {},
-    showScreen: 'BarView',
+    showScreen: 'Home',
     user: {
       name: null,
       phone: null
@@ -121,7 +120,7 @@ class App extends Component {
   compileOrders = (newOrder) => {
     const orders = this.state.currentOrder
     orders.push(newOrder)
-    this.setState({ ...this.state, currentOrder: orders })
+    this.setState({ ...this.state, currentOrder: orders }, () => console.log(this.state))
   }
 
   addDrinksToOrder = () => {
@@ -138,6 +137,7 @@ class App extends Component {
       ...this.state,
       showScreen: 'ActiveOrder'
     })
+    this.postOrder()
   }
 
   goHome = () => {
@@ -152,6 +152,25 @@ class App extends Component {
       ...this.state,
       showScreen: 'BarView'
     })
+  }
+
+  postOrder = async () => {
+    const response = await fetch(`${backendPath}/orders`, {
+      method: 'POST',
+      body: JSON.stringify({
+        drinkOrder: this.state.currentOrder,
+        color: "purple",
+        total: 8,
+        paid: false,
+        userId: 5
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    console.log(response)
+
   }
 
   render() {
