@@ -74,7 +74,7 @@ class ActiveOrder extends Component {
 
         <View>
           <SafeAreaView>
-            {this.state.orders &&
+            {/* {this.state.orders &&
               <ScrollView>
                 <Text>ID --- Drink --- Quantity</Text>
                 <FlatList
@@ -91,7 +91,7 @@ class ActiveOrder extends Component {
                 />
 
               </ScrollView>
-            }
+            } */}
           </SafeAreaView>
         </View>
 

@@ -23,7 +23,7 @@ import ActiveOrder from './src/pages/ActiveOrder'
 import BarView from './src/pages/BarView'
 
 
-const backendPath = 'http://localhost:3000'
+const backendPath = 'https://gloworder-backend.herokuapp.com'
 
 class App extends Component {
 
