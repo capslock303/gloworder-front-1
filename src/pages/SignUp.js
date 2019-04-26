@@ -121,7 +121,8 @@ class SignUp extends Component {
                     marginLeft: 0
                   },
                   dateInput: {
-                    marginLeft: 36,
+                    marginLeft: 56,
+                    marginRight: 36,
                     backgroundColor: 'white'
                   }
                 }}
@@ -138,7 +139,7 @@ class SignUp extends Component {
 
           <View style={styles.loginButton}>
             <Button
-              color="grey"
+              color="lightgrey"
               title="Next"
               // Use below in production
               // disabled={!this.state.inputsValid && true}
@@ -148,7 +149,7 @@ class SignUp extends Component {
           </View>
           <View style={styles.loginButton}>
             <Button
-              color="grey"
+              color="lightgrey"
               title="Back"
               onPress={() => this.props.moveScreen('Login')}
             />

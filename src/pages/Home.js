@@ -1,5 +1,6 @@
 // Resources
 import React, { Component } from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   Platform,
   StyleSheet,
@@ -12,8 +13,13 @@ import {
   ScrollView
 } from 'react-native'
 
+import styles from '../StyleGuide'
+import LinearGradient from 'react-native-linear-gradient'
+
 
 // Components
+
+let key = 0
 
 class Home extends Component {
 
@@ -23,25 +29,44 @@ class Home extends Component {
 
   render() {
     return (
-      <SafeAreaView>
+      <View>
         <View>
-          <Text>Bars Near Me</Text>
+          <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
+            <Text style={styles.header2}>gloworder</Text>
+          </LinearGradient>
         </View>
-        <ScrollView>
-          <FlatList
-            data={this.props.bars}
-            keyExtractor={(item, index) => item.key}
-            renderItem={({ item }) =>
-              <View>
-                <TouchableOpacity onPress={() => this.props.selectBar(item.id)}>
-                  <Text>{item.name}</Text>
-                  <Text>{item.address}</Text>
+        <SafeAreaView>
+          <View>
+            <Text style={styles.headers3}>Bars Near Me</Text>
+          </View>
+          <ScrollView>
+            <FlatList
+              data={this.props.bars}
+              keyExtractor={(item, index) => item.key}
+              renderItem={({ item }) =>
+                <TouchableOpacity
+                  style={styles.listItem}
+                  onPress={() => this.props.selectBar(item.id)}
+                  key={key++}
+                >
+                  <View>
+                    
+                    <View style={{flexDirection:'row'}}> 
+                      <Icon name='beer' style={styles.formIcon} />
+                      <Text style={styles.listItemText}>{item.name}</Text>
+                    </View>
+
+                    <Text style={styles.listItemSubText}>{item.address}</Text>
+                    
+                  </View>
                 </TouchableOpacity>
-              </View>
-            }
-          />
-        </ScrollView>
-      </SafeAreaView >
+
+              }
+            />
+          </ScrollView>
+          <Button title="Bar View" onPress={() => this.props.barView()} />
+        </SafeAreaView >
+      </View>
     )
   }
 }
