@@ -99,6 +99,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "grey"
   },
+  map:{
+    height: 250,
+    width: '100%',
+  },
   gridlist:{
     flex:1,
     flexDirection: 'row'
