@@ -13,7 +13,7 @@ import {
   ScrollView
 } from 'react-native'
 
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -27,8 +27,8 @@ class Home extends Component {
     region: {
         latitude: 40.0150,
         longitude: -105.2705,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.0400,
+        longitudeDelta: 0.0200,
       }}
 
   onRegionChange = (region) =>{
@@ -52,8 +52,21 @@ class Home extends Component {
               style={styles.map}
               region={this.state.region}
               onRegionChange={this.onRegionChange}
-            />
-            
+              onUserLocationChange={this.onRegionChange}
+            >
+            {this.props.bars.map(bar => {
+              let gpsCoords = {
+                latitude: parseFloat(JSON.parse(bar.location)[0]),
+                longitude: parseFloat(JSON.parse(bar.location)[1])}
+                
+              return (<Marker
+                coordinate={gpsCoords}
+                title={bar.name}
+                description={bar.address}
+              />
+            )})}
+          </MapView>
+
           <ScrollView>
             <FlatList
               data={this.props.bars}
