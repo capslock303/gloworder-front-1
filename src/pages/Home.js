@@ -24,7 +24,15 @@ let key = 0
 class Home extends Component {
 
   state = {
+    region: {
+        latitude: 40.0150,
+        longitude: -105.2705,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }}
 
+  onRegionChange = (region) =>{
+    this.setState({ region });
   }
 
   render() {
@@ -42,14 +50,10 @@ class Home extends Component {
 
           <MapView
               style={styles.map}
-              initialRegion={{
-                latitude: 40.0150,
-                longitude: -105.2705,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
+              region={this.state.region}
+              onRegionChange={this.onRegionChange}
             />
-          
+            
           <ScrollView>
             <FlatList
               data={this.props.bars}
