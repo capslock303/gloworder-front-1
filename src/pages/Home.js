@@ -51,8 +51,7 @@ class Home extends Component {
           <MapView
               style={styles.map}
               region={this.state.region}
-              onRegionChange={this.onRegionChange}
-              onUserLocationChange={this.onRegionChange}
+              onRegionChangeComplete={this.onRegionChange}
             >
             {this.props.bars.map(bar => {
               let gpsCoords = {
