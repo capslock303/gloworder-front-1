@@ -25,15 +25,13 @@ class ActiveOrder extends Component {
     options: []
   }
 
-  componentDidMount = () => {
-    this.fetchAllOrders()
+  componentDidMount = async () => {
+    await this.fetchAllOrders()
+    await this.fetchDrinks()
     this.fetchBars()
-    this.fetchDrinks()
     this.fetchOptions()
+    this.findDrinkNames()
   }
-
-  // Log out state, the drink order is being passed as a string. Can't get JSON.parse() or .json() to resolve.
-  // Need to iterate over drinks/options and find matching drinks/ options to populate
 
   fetchAllOrders = async () => {
     const response = await fetch(`${this.props.backendPath}/orders`)
@@ -56,7 +54,18 @@ class ActiveOrder extends Component {
   fetchOptions = async () => {
     const response = await fetch(`${this.props.backendPath}/options`)
     const options = await response.json()
-    this.setState({ ...this.state, options }, () => console.log(this.state))
+    this.setState({ ...this.state, options })
+  }
+
+  findDrinkNames = () => {
+    const orderIds = this.state.orders.map(item => item.drink_order.map(element => element.drink_options_id))
+    const drinkIds = this.state.drinks.map(item => item.id)
+
+    const result = this.state.drinks.find(item => item.id === orderIds[0][0])
+
+    // console.log(drinkIds)
+    // console.log(orderIds)
+    console.log(result)
   }
 
 
@@ -74,24 +83,23 @@ class ActiveOrder extends Component {
 
         <View>
           <SafeAreaView>
-            {/* {this.state.orders &&
+            {this.state.orders && this.state.drinks.length > 0 &&
               <ScrollView>
                 <Text>ID --- Drink --- Quantity</Text>
                 <FlatList
                   data={this.state.orders}
-                  keyExtractor={(item, index) => item.id}
                   renderItem={({ item }) =>
-                    <View style={{ backgroundColor: `${item.color}`, height: 50 }}>
-                      <Text style={styles.listItemText}>
-                        {item.id} {item.drink_order[0]} {item.drink_order[1]}
-                      </Text>
 
+                    <View style={{ backgroundColor: `${item.color}`, height: 50 }}>
+                      <Text>
+                        {/* {this.state.drinks} */}
+                      </Text>
                     </View>
                   }
                 />
 
               </ScrollView>
-            } */}
+            }
           </SafeAreaView>
         </View>
 
