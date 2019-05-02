@@ -74,11 +74,11 @@ class ActiveOrder extends Component {
 
         <View>
           <SafeAreaView>
-            {/* {this.state.orders &&
+            {this.state.orders &&
               <ScrollView>
                 <Text>ID --- Drink --- Quantity</Text>
                 <FlatList
-                  data={this.state.orders}
+                  data={this.state.orders.drink_order}
                   keyExtractor={(item, index) => item.id}
                   renderItem={({ item }) =>
                     <View style={{ backgroundColor: `${item.color}`, height: 50 }}>
@@ -91,7 +91,7 @@ class ActiveOrder extends Component {
                 />
 
               </ScrollView>
-            } */}
+            }
           </SafeAreaView>
         </View>
 
