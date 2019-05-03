@@ -51,8 +51,8 @@ class App extends Component {
     // set state showScreen to 'Home
   }
 
-  componentWillMount(){
-    
+  componentWillMount() {
+
   }
 
   fetchBars = async () => {
@@ -124,7 +124,7 @@ class App extends Component {
   compileOrders = (newOrder) => {
     const orders = this.state.currentOrder
     orders.push(newOrder)
-    this.setState({ ...this.state, currentOrder: orders }, () => console.log(this.state))
+    this.setState({ ...this.state, currentOrder: orders })
   }
 
   addDrinksToOrder = () => {
@@ -151,6 +151,13 @@ class App extends Component {
     })
   }
 
+  cancel = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'Menu'
+    })
+  }
+
   barView = () => {
     this.setState({
       ...this.state,
@@ -172,8 +179,6 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     })
-
-    console.log(response)
 
   }
 
@@ -233,6 +238,7 @@ class App extends Component {
         componentToShow =
           <ConfirmTotal
             addDrinksToOrder={this.addDrinksToOrder}
+            cancel={this.cancel}
             compileOrders={this.compileOrders}
             goToOrderScreen={this.goToOrderScreen}
             selectedOption={this.state.selectedOption}
@@ -243,6 +249,7 @@ class App extends Component {
       case 'ActiveOrder':
         componentToShow =
           <ActiveOrder
+            bars={this.state.bars}
             currentOrder={this.state.currentOrder}
             goHome={this.goHome}
           />

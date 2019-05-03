@@ -96,6 +96,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  listItemTextWhite: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10
+  },
   listItemSubText: {
     fontSize: 16,
     color: "grey"

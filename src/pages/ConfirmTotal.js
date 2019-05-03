@@ -115,7 +115,7 @@ class Order extends Component {
 
 
                 <View>
-                  <Button title="Remove" onPress={() => this.remove()} />
+                  <Button title="Cancel" onPress={() => this.props.cancel()} />
                   <Button title="Add to Order" onPress={() => this.order()} />
                 </View>
               </View>
