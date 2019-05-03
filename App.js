@@ -141,7 +141,6 @@ class App extends Component {
       ...this.state,
       showScreen: 'ActiveOrder'
     })
-    this.postOrder()
   }
 
   goHome = () => {
@@ -166,6 +165,8 @@ class App extends Component {
   }
 
   postOrder = async () => {
+    this.goToOrderScreen()
+    // Need Loading Option
     const response = await fetch(`${backendPath}/orders`, {
       method: 'POST',
       body: JSON.stringify({
@@ -180,6 +181,13 @@ class App extends Component {
       }
     })
 
+    if (response.status !== 200) {
+      alert('Something went wrong! Please try again')
+      this.setState({
+        ...this.state,
+        showScreen: 'ConfirmTotal'
+      })
+    }
   }
 
   render() {
@@ -240,7 +248,7 @@ class App extends Component {
             addDrinksToOrder={this.addDrinksToOrder}
             cancel={this.cancel}
             compileOrders={this.compileOrders}
-            goToOrderScreen={this.goToOrderScreen}
+            postOrder={this.postOrder}
             selectedOption={this.state.selectedOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}

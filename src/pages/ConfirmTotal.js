@@ -124,7 +124,7 @@ class Order extends Component {
                 <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
                 <Text>Hit "Place Order" below to finalize order, or add more drinks to the order with the "Add More Drinks" button</Text>
                 <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
-                <Button title="Place Order" onPress={() => this.props.goToOrderScreen()} />
+                <Button title="Place Order" onPress={() => this.props.postOrder()} />
               </View>
           }
         </SafeAreaView>
