@@ -4,6 +4,13 @@ import { StyleSheet } from 'react-native'
 
 
 const styles = StyleSheet.create({
+  drinkOrder:{
+    flexDirection: 'column',
+    justifyContent:'space-evenly',
+    padding: 15,
+    marginTop: 3,
+    marginBottom: 3 
+  },
   linearGradient: {
     height: '100%',
     width: '100%',
@@ -144,14 +151,16 @@ const styles = StyleSheet.create({
   barViewOrderText: {
     justifyContent: 'flex-start',
     color: 'white',
-    fontSize: 16,
-    marginLeft: 5
+    fontSize: 27,
+    marginLeft: 5,
+    marginTop: 5
   },
   barViewQuantityText: {
     justifyContent: 'flex-end',
     color: 'white',
-    fontSize: 16,
-    marginRight: 5
+    fontSize: 27,
+    marginRight: 5,
+    marginTop: 5
   },
   ulHead: {},
   ulSubtext: {}

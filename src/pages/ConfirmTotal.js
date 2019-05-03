@@ -123,6 +123,7 @@ class Order extends Component {
                 </View>
 
 
+
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                   <Button 
                     title="Cancel" 
@@ -132,6 +133,7 @@ class Order extends Component {
                     title="Add to Order" 
                     onPress={() => this.order()} 
                   />
+
                 </View>
 
               </View>
