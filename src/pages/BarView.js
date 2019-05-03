@@ -97,19 +97,17 @@ class ActiveOrder extends Component {
                   data={this.state.orders}
                   renderItem={({ item }) =>
 
-                    <View style={{ backgroundColor: `${item.color}`, height: 75, flexDirection: 'column', justifyContent:'space-evenly' }}>
+                    <View style={{...styles.drinkOrder, backgroundColor: `${item.color}`}}>
                       {
-                        item.drink_order.order.map(el => {
-                          let drinkOption = this.state.drinkOptions.find(dO => dO.id == el.drink_options_id)
-                          let liquor = this.state.drinks.find(dr => dr.id == drinkOption.drink_id).liquor
-                          let option = this.state.options.find(op => op.id == drinkOption.option_id).option || ''
-                          let order = `${liquor} ${option}`
-                          return (
-                            <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
-                              <Text style={styles.barViewOrderText}>{order}</Text>
-                              <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
-                            </View>)
-                        }
+                        item.drink_order.order.map(el => (      
+                            <View>                 
+                              <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
+                                <Text style={{...styles.barViewOrderText, fontWeight: 'bold'}}>{`${el.drink} ${el.option}`}</Text>
+                                <Text style={styles.barViewQuantityText}>{el.quantity}</Text> 
+                              </View>
+                              <Text style={{...styles.barViewOrderText, fontSize: 20}}>{`>> For ${el.name} <<`}</Text>
+                            </View>     
+                            )
                         )
                       }
                     </View>
