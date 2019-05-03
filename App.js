@@ -51,6 +51,8 @@ class App extends Component {
     // set state showScreen to 'Home
   }
 
+  componen
+
   fetchBars = async () => {
     const response = await fetch(`${backendPath}/restaurants`)
     const bars = await response.json()
