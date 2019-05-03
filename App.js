@@ -47,14 +47,11 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchBars()
+    
     // check session storage, if user is logged in
     // set state showScreen to 'Home
   }
-
-  componentWillMount(){
-    
-  }
-
+  
   fetchBars = async () => {
     const response = await fetch(`${backendPath}/restaurants`)
     const bars = await response.json()

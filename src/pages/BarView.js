@@ -34,16 +34,14 @@ class ActiveOrder extends Component {
     await this.fetchDrinks()
     await this.fetchOptions()
     await this.fetchBars()
+    this.intervalFetch = setInterval(()=> this.fetchAllOrders(), 15000)
     this.setState({ ...this.state, renderDrinks: true })
   }
 
   componentWillUnmount = async () => {
-    console.log('Unmounted')
+    this.intervalFetch = ""
   }
 
-  intervalFetch = () => {
-
-  }
 
   fetchAllOrders = async () => {
     const response = await fetch(`${this.props.backendPath}/orders`)
