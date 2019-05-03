@@ -1,15 +1,12 @@
 // Resources
 import React, { Component } from 'react'
 import {
-  Platform,
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
   TextInput,
   Button,
-  TouchableOpacity,
-  FlatList,
+  ActivityIndicator,
   ScrollView
 } from 'react-native'
 
@@ -92,55 +89,76 @@ class Order extends Component {
                   <Text style={styles.headers3}></Text>
                 </View>
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 25 }}>
                   <Button
-                    style={{ justifyContent: 'flex-start' }}
+                    style={{...styles.headers4, justifyContent: 'flex-start' }}
                     title="-"
                     onPress={() => this.subtract()}
                   />
-                  <Text>
+                  <Text style={styles.headers4}>
                     {this.state.quantity}
                   </Text>
 
                   <Button
-                    style={{ justifyContent: 'flex-end' }}
+                    style={{...styles.headers4, justifyContent: 'flex-end' }}
                     title="+"
                     onPress={() => this.add()}
                   />
                 </View>
 
-                <View>
-                  <Text>Name for Drink (optional)</Text>
+                <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+                  <Text style={{...styles.headers6Light, marginTop:25, alignSelf: 'center'}}>Name for Drink (optional)</Text>
                   <TextInput
                     id="orderName"
-                    placeholder="Darth Vader..."
-                    style={styles.loginField}
+                    placeholder="Steven Brody Stevens..."
+                    style={{...styles.loginField, height: 50}}
                     onChangeText={(text) => this.setState({ ...this.state, name: text })}
                   />
                 </View>
 
-                <View>
-                  {this.props.selectedDrink && <Text>Drink Price: ${this.props.selectedDrink.price.toFixed(2)}</Text>}
-                  {this.props.selectedOption && <Text>Drink Price: ${this.props.selectedOption.price.toFixed(2)}</Text>}
-                  {this.state.total && <Text>Total: ${this.state.total.toFixed(2)}</Text>}
+                <View style={{ flexDirection: 'column', justifyContent: 'center', marginTop: 25 }}>
+                  {this.props.selectedDrink && <Text style={{...styles.headers6, alignSelf: 'center'}}>Drink Price: ${this.props.selectedDrink.price.toFixed(2)}</Text>}
+                  {this.props.selectedOption.price > 0 && <Text style={{...styles.headers6, alignSelf: 'center'}}>Add Option: ${this.props.selectedOption.price.toFixed(2)}</Text>}
+                  {this.state.total && <Text style={{...styles.headers5, marginTop:25, marginBottom:25, alignSelf: 'center'}}>Total: ${this.state.total.toFixed(2)}</Text>}
                 </View>
 
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                  <Button title="Cancel" onPress={() => this.props.cancel()} />
-                  <Button title="Add to Order" onPress={() => this.order()} />
+                  <Button 
+                    title="Cancel" 
+                    onPress={() => this.props.cancel()} 
+                  />
+                  <Button 
+                    title="Add to Order" 
+                    onPress={() => this.order()} 
+                  />
                 </View>
 
               </View>
               :
               <View>
-                <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
-                <Text>Hit "Place Order" below to finalize order, or add more drinks to the order with the "Add More Drinks" button</Text>
+                {
+                  this.props.loading ?
                 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
-                  <Button title="Place Order" onPress={() => this.props.postOrder()} />
+                <View style={{ flexDirection: 'column', justifyContent: 'space-evenly', marginTop: 150 }}>
+                  <Text style={{...styles.headers3, textAlign: 'center'}}>Your order is being placed!</Text>
+                  <ActivityIndicator 
+                    style={{alignSelf: 'center', padding: 10, marginTop: 50}}
+                    size="large" 
+                    color="#0000ff" 
+                  />
                 </View>
+                :
+                <View>
+                  <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
+                  <Text>Hit "Place Order" below to finalize order, or add more drinks to the order with the "Add More Drinks" button</Text>
+                  
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
+                    <Button title="Place Order" onPress={() => this.props.postOrder()} />
+                  </View>
+                </View>
+                }
               </View>
           }
         </SafeAreaView>
