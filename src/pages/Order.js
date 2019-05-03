@@ -1,5 +1,6 @@
 // Resources
 import React, { Component } from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   Platform,
   StyleSheet,
@@ -14,7 +15,10 @@ import {
 
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
-import Icon from 'react-native-vector-icons/FontAwesome'
+
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config.json';
+const IconCustom = createIconSetFromFontello(fontelloConfig);
 
 
 // Components
@@ -50,7 +54,7 @@ class Order extends Component {
                   numColumns={2}
                   renderItem={({ item }) =>
                     <TouchableOpacity style={{ ...styles.gridItem, width: '70%' }} onPress={() => this.props.selectOption(item.id)}>
-                      <Icon name='plus' style={{ fontSize: 30, color: 'orange' }} />
+                      <IconCustom name={item.option.toLowerCase().split(" ").join("")} style={{ fontSize: 30, color: 'orange' }} />
                       <Text style={styles.listItemText}>{item.option}</Text>
                       <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
                     </TouchableOpacity>

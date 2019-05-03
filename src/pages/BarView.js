@@ -22,18 +22,28 @@ class ActiveOrder extends Component {
     orders: [],
     bars: [],
     drinks: [],
-    options: []
+    options: [],
+    drinkOptions: [],
+    fullOrders: [],
+    renderDrinks: false
   }
 
-  componentDidMount = () => {
-    this.fetchAllOrders()
-    this.fetchBars()
-    this.fetchDrinks()
-    this.fetchOptions()
+  componentDidMount = async () => {
+    await this.fetchDrinkOptions()
+    await this.fetchAllOrders()
+    await this.fetchDrinks()
+    await this.fetchOptions()
+    await this.fetchBars()
+    this.setState({ ...this.state, renderDrinks: true })
   }
 
-  // Log out state, the drink order is being passed as a string. Can't get JSON.parse() or .json() to resolve.
-  // Need to iterate over drinks/options and find matching drinks/ options to populate
+  componentWillUnmount = async () => {
+    console.log('Unmounted')
+  }
+
+  intervalFetch = () => {
+
+  }
 
   fetchAllOrders = async () => {
     const response = await fetch(`${this.props.backendPath}/orders`)
@@ -56,7 +66,14 @@ class ActiveOrder extends Component {
   fetchOptions = async () => {
     const response = await fetch(`${this.props.backendPath}/options`)
     const options = await response.json()
-    this.setState({ ...this.state, options }, () => console.log(this.state))
+    console.log('??', options)
+    this.setState({ ...this.state, options })
+  }
+
+  fetchDrinkOptions = async () => {
+    const response = await fetch(`${this.props.backendPath}/drink_options`)
+    const drinkOptions = await response.json()
+    this.setState({ ...this.state, drinkOptions })
   }
 
 
@@ -67,31 +84,40 @@ class ActiveOrder extends Component {
         <View>
           <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
             <Text style={styles.header2}>bar view</Text>
-            <Button title="Home" onPress={() => this.props.goHome()} />
           </LinearGradient>
         </View>
 
 
         <View>
           <SafeAreaView>
-            {/* {this.state.orders &&
+            {this.state.renderDrinks &&
               <ScrollView>
-                <Text>ID --- Drink --- Quantity</Text>
                 <FlatList
                   data={this.state.orders}
-                  keyExtractor={(item, index) => item.id}
                   renderItem={({ item }) =>
-                    <View style={{ backgroundColor: `${item.color}`, height: 50 }}>
-                      <Text style={styles.listItemText}>
-                        {item.id} {item.drink_order[0]} {item.drink_order[1]}
-                      </Text>
 
+                    <View style={{ backgroundColor: `${item.color}`, height: 75, flexDirection: 'column', justifyContent:'space-evenly' }}>
+                      {
+                        item.drink_order.order.map(el => {
+                          let drinkOption = this.state.drinkOptions.find(dO => dO.id == el.drink_options_id)
+                          let liquor = this.state.drinks.find(dr => dr.id == drinkOption.drink_id).liquor
+                          let option = this.state.options.find(op => op.id == drinkOption.option_id).option || ''
+                          let order = `${liquor} ${option}`
+                          return (
+                            <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
+                              <Text style={styles.barViewOrderText}>{order}</Text>
+                              <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
+                            </View>)
+                        }
+                        )
+                      }
                     </View>
                   }
                 />
 
               </ScrollView>
-            } */}
+            }
+            <Button title="Home" onPress={() => this.props.goHome()} />
           </SafeAreaView>
         </View>
 
