@@ -34,14 +34,14 @@ class Order extends Component {
   add = () => {
     let count = this.state.quantity
     count++
-    this.setState({ ...this.state, quantity: count}, () => this.findTotal())
+    this.setState({ ...this.state, quantity: count }, () => this.findTotal())
   }
 
   subtract = () => {
     let count = this.state.quantity
     if (count >= 2) {
       count--
-      this.setState({ ...this.state, quantity: count}, () => this.findTotal())
+      this.setState({ ...this.state, quantity: count }, () => this.findTotal())
     }
     else {
       alert('Order cannot be less than 1')
@@ -53,7 +53,7 @@ class Order extends Component {
     const optionPrice = this.props.selectedOption.price
     const drinkQuantity = this.state.quantity
     const total = ((drinkPrice + optionPrice) * drinkQuantity)
-    this.setState({...this.state, total})
+    this.setState({ ...this.state, total })
   }
 
   order = () => {
@@ -87,14 +87,26 @@ class Order extends Component {
           {
             !this.state.orderStatus ?
               <View>
-                <View>
+                <View >
                   <Text style={styles.headers3}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
                   <Text style={styles.headers3}></Text>
                 </View>
-                <View>
-                  <Button title="+" onPress={() => this.add()} />
-                  <Text>{this.state.quantity}</Text>
-                  <Button title="-" onPress={() => this.subtract()} />
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                  <Button
+                    style={{ justifyContent: 'flex-start' }}
+                    title="-"
+                    onPress={() => this.subtract()}
+                  />
+                  <Text>
+                    {this.state.quantity}
+                  </Text>
+
+                  <Button
+                    style={{ justifyContent: 'flex-end' }}
+                    title="+"
+                    onPress={() => this.add()}
+                  />
                 </View>
 
                 <View>
@@ -114,17 +126,21 @@ class Order extends Component {
                 </View>
 
 
-                <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                   <Button title="Cancel" onPress={() => this.props.cancel()} />
                   <Button title="Add to Order" onPress={() => this.order()} />
                 </View>
+
               </View>
               :
               <View>
                 <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
                 <Text>Hit "Place Order" below to finalize order, or add more drinks to the order with the "Add More Drinks" button</Text>
-                <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
-                <Button title="Place Order" onPress={() => this.props.postOrder()} />
+                
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
+                  <Button title="Place Order" onPress={() => this.props.postOrder()} />
+                </View>
               </View>
           }
         </SafeAreaView>
