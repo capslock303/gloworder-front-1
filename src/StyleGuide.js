@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    color: 'white',
+    color: 'black',
     fontSize: 60,
     fontWeight: 'bold',
     padding: 5,
@@ -42,7 +42,23 @@ const styles = StyleSheet.create({
   },
   headers3: {
     fontSize: 32,
+    fontWeight: 'bold',
+    marginLeft: 5,
+  },
+  headers4: {
+    fontSize: 28,
     fontWeight: 'bold'
+  },
+  headers5: {
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  headers6: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  headers6Light: {
+    fontSize: 16,
   },
   paragraph: {
     flexDirection: 'row',
@@ -102,6 +118,12 @@ const styles = StyleSheet.create({
   listItemText: {
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  listItemTextWhite: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10
   },
   listItemSubText: {
     fontSize: 16,

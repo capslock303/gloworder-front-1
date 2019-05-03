@@ -38,7 +38,7 @@ class Order extends Component {
           <View>
             <View>
               <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
-                <Text style={styles.header2}>menu</Text>
+                <Text style={styles.header2}>options</Text>
               </LinearGradient>
             </View>
             <SafeAreaView>
