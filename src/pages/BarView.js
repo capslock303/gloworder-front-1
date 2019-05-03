@@ -34,12 +34,15 @@ class ActiveOrder extends Component {
     await this.fetchDrinks()
     await this.fetchOptions()
     await this.fetchBars()
-    this.intervalFetch = setInterval(()=> this.fetchAllOrders(), 15000)
+
+    this._interval = setInterval(() => {
+      this.fetchAllOrders()
+    }, 1000);
     this.setState({ ...this.state, renderDrinks: true })
   }
 
   componentWillUnmount = async () => {
-    this.intervalFetch = ""
+    clearInterval(this._interval)
   }
 
 
@@ -82,7 +85,6 @@ class ActiveOrder extends Component {
         <View>
           <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
             <Text style={styles.header2}>bar view</Text>
-            <Button title="Home" onPress={() => this.props.goHome()} />
           </LinearGradient>
         </View>
 
@@ -97,7 +99,7 @@ class ActiveOrder extends Component {
 
                     <View style={{ backgroundColor: `${item.color}`, height: 75, flexDirection: 'column', justifyContent:'space-evenly' }}>
                       {
-                        item.drink_order.map(el => {
+                        item.drink_order.order.map(el => {
                           let drinkOption = this.state.drinkOptions.find(dO => dO.id == el.drink_options_id)
                           let liquor = this.state.drinks.find(dr => dr.id == drinkOption.drink_id).liquor
                           let option = this.state.options.find(op => op.id == drinkOption.option_id).option || ''
@@ -116,6 +118,7 @@ class ActiveOrder extends Component {
 
               </ScrollView>
             }
+            <Button title="Home" onPress={() => this.props.goHome()} />
           </SafeAreaView>
         </View>
 
