@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   },
-  formIcon:{
-    color: 'orange', 
-    backgroundColor: 'white', 
-    fontSize:25, 
+  formIcon: {
+    color: 'orange',
+    backgroundColor: 'white',
+    fontSize: 25,
     marginRight: 15
   },
   loginPage: {
@@ -99,27 +99,39 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "grey"
   },
-  map:{
+  map: {
     height: 250,
     width: '100%',
   },
-  gridlist:{
-    flex:1,
+  gridlist: {
+    flex: 1,
     flexDirection: 'row'
   },
-  gridItem:{
+  gridItem: {
     height: 145,
     width: '80%',
     margin: 5,
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     borderColor: 'orange',
     borderStyle: 'solid',
     borderWidth: 2,
     borderRadius: 50
   },
-  ulHead:{},
-  ulSubtext:{}
+  barViewOrderText: {
+    justifyContent: 'flex-start',
+    color: 'white',
+    fontSize: 16,
+    marginLeft: 5
+  },
+  barViewQuantityText: {
+    justifyContent: 'flex-end',
+    color: 'white',
+    fontSize: 16,
+    marginRight: 5
+  },
+  ulHead: {},
+  ulSubtext: {}
 })
 
 export default styles

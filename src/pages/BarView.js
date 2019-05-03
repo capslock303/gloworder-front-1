@@ -34,7 +34,6 @@ class ActiveOrder extends Component {
     await this.fetchDrinks()
     await this.fetchOptions()
     await this.fetchBars()
-    await this.findDrinkNames()
     this.setState({ ...this.state, renderDrinks: true })
   }
 
@@ -77,20 +76,6 @@ class ActiveOrder extends Component {
     this.setState({ ...this.state, drinkOptions })
   }
 
-  findDrinkNames = () => {
-    const orderIds = this.state.orders.map(item => item.drink_order).map(item => item.map(el => el.drink_options_id))
-    const result = this.state.drinkOptions.map(item => item)
-
-
-    // console.log(orderIds)
-    // console.log(result)
-    // console.log(this.state)
-  }
-
-  test = () => {
-
-  }
-
 
   render() {
     return (
@@ -121,8 +106,8 @@ class ActiveOrder extends Component {
                           let order = `${liquor} ${option}`
                           return (
                             <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
-                              <Text style={{ justifyContent: 'flex-start' }}>{order}</Text>
-                              <Text style={{ justifyContent: 'flex-end' }}>{el.quantity}</Text>
+                              <Text style={styles.barViewOrderText}>{order}</Text>
+                              <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
                             </View>)
                         }
                         )
