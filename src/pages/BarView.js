@@ -45,6 +45,12 @@ class ActiveOrder extends Component {
     clearInterval(this._interval)
   }
 
+  completeOrder = (index) =>{
+    let newOrders = this.state.orders
+    newOrders.splice(index, 1)
+    this.setState({orders: newOrders})
+    //const response = await fetch(`${this.props.backendPath}/orders/${index+1}`,{method: 'delete'})
+  }
 
   fetchAllOrders = async () => {
     const response = await fetch(`${this.props.backendPath}/orders`)
@@ -94,12 +100,12 @@ class ActiveOrder extends Component {
               <ScrollView>
                 <FlatList
                   data={this.state.orders}
-                  renderItem={({ item, index }) =>
+                  renderItem={({ item , index} ) =>
 
-                    <View style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index}>
+                    <TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(index)}>
                       {
                         item.drink_order.order.map((el, index) => (
-                            <View key={index}>
+                            <View key={index} >
                               <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
                                 <Text style={{...styles.barViewOrderText, fontWeight: 'bold'}}>{`${el.drink} ${el.option}`}</Text>
                                 <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
@@ -109,7 +115,7 @@ class ActiveOrder extends Component {
                             )
                         )
                       }
-                    </View>
+                    </TouchableOpacity>
                   }
                 />
 
