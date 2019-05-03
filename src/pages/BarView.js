@@ -45,11 +45,8 @@ class ActiveOrder extends Component {
     clearInterval(this._interval)
   }
 
-  completeOrder = (index) =>{
-    let newOrders = this.state.orders
-    newOrders.splice(index, 1)
-    this.setState({orders: newOrders})
-    //const response = await fetch(`${this.props.backendPath}/orders/${index+1}`,{method: 'delete'})
+  completeOrder = async (itemId) =>{
+    fetch(`${this.props.backendPath}/orders/${itemId}`,{method: 'delete'})
   }
 
   fetchAllOrders = async () => {
@@ -102,7 +99,7 @@ class ActiveOrder extends Component {
                   data={this.state.orders}
                   renderItem={({ item , index} ) =>
 
-                    <TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(index)}>
+                    <TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(item.id)}>
                       {
                         item.drink_order.order.map((el, index) => (
                             <View key={index} >
