@@ -22,15 +22,28 @@ class ActiveOrder extends Component {
     orders: [],
     bars: [],
     drinks: [],
-    options: []
+    options: [],
+    drinkOptions: [],
+    fullOrders: [],
+    renderDrinks: false
   }
 
   componentDidMount = async () => {
+    await this.fetchDrinkOptions()
     await this.fetchAllOrders()
     await this.fetchDrinks()
-    this.fetchBars()
-    this.fetchOptions()
-    this.findDrinkNames()
+    await this.fetchOptions()
+    await this.fetchBars()
+    await this.findDrinkNames()
+    this.setState({ ...this.state, renderDrinks: true })
+  }
+
+  componentWillUnmount = async () => {
+    console.log('Unmounted')
+  }
+
+  intervalFetch = () => {
+
   }
 
   fetchAllOrders = async () => {
@@ -54,18 +67,28 @@ class ActiveOrder extends Component {
   fetchOptions = async () => {
     const response = await fetch(`${this.props.backendPath}/options`)
     const options = await response.json()
+    console.log('??', options)
     this.setState({ ...this.state, options })
   }
 
+  fetchDrinkOptions = async () => {
+    const response = await fetch(`${this.props.backendPath}/drink_options`)
+    const drinkOptions = await response.json()
+    this.setState({ ...this.state, drinkOptions })
+  }
+
   findDrinkNames = () => {
-    const orderIds = this.state.orders.map(item => item.drink_order.map(element => element.drink_options_id))
-    const drinkIds = this.state.drinks.map(item => item.id)
+    const orderIds = this.state.orders.map(item => item.drink_order).map(item => item.map(el => el.drink_options_id))
+    const result = this.state.drinkOptions.map(item => item)
 
-    const result = this.state.drinks.find(item => item.id === orderIds[0][0])
 
-    // console.log(drinkIds)
     // console.log(orderIds)
-    console.log(result)
+    // console.log(result)
+    // console.log(this.state)
+  }
+
+  test = () => {
+
   }
 
 
@@ -83,17 +106,27 @@ class ActiveOrder extends Component {
 
         <View>
           <SafeAreaView>
-            {this.state.orders && this.state.drinks.length > 0 &&
+            {this.state.renderDrinks &&
               <ScrollView>
-                <Text>ID --- Drink --- Quantity</Text>
                 <FlatList
                   data={this.state.orders}
                   renderItem={({ item }) =>
 
-                    <View style={{ backgroundColor: `${item.color}`, height: 50 }}>
-                      <Text>
-                        {/* {this.state.drinks} */}
-                      </Text>
+                    <View style={{ backgroundColor: `${item.color}`, height: 75, flexDirection: 'column', justifyContent:'space-evenly' }}>
+                      {
+                        item.drink_order.map(el => {
+                          let drinkOption = this.state.drinkOptions.find(dO => dO.id == el.drink_options_id)
+                          let liquor = this.state.drinks.find(dr => dr.id == drinkOption.drink_id).liquor
+                          let option = this.state.options.find(op => op.id == drinkOption.option_id).option || ''
+                          let order = `${liquor} ${option}`
+                          return (
+                            <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
+                              <Text style={{ justifyContent: 'flex-start' }}>{order}</Text>
+                              <Text style={{ justifyContent: 'flex-end' }}>{el.quantity}</Text>
+                            </View>)
+                        }
+                        )
+                      }
                     </View>
                   }
                 />
