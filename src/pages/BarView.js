@@ -67,7 +67,6 @@ class ActiveOrder extends Component {
   fetchOptions = async () => {
     const response = await fetch(`${this.props.backendPath}/options`)
     const options = await response.json()
-    console.log('??', options)
     this.setState({ ...this.state, options })
   }
 
@@ -95,12 +94,12 @@ class ActiveOrder extends Component {
               <ScrollView>
                 <FlatList
                   data={this.state.orders}
-                  renderItem={({ item }) =>
+                  renderItem={({ item, index }) =>
 
-                    <View style={{...styles.drinkOrder, backgroundColor: `${item.color}`}}>
+                    <View style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index}>
                       {
-                        item.drink_order.order.map(el => (
-                            <View>
+                        item.drink_order.order.map((el, index) => (
+                            <View key={index}>
                               <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
                                 <Text style={{...styles.barViewOrderText, fontWeight: 'bold'}}>{`${el.drink} ${el.option}`}</Text>
                                 <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
