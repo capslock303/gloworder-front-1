@@ -145,7 +145,7 @@ class Order extends Component {
                   <ActivityIndicator 
                     style={{alignSelf: 'center', padding: 10, marginTop: 50}}
                     size="large" 
-                    color="#0000ff" 
+                    color="#ff7f04" 
                   />
                 </View>
                 :
