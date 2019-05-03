@@ -16,6 +16,10 @@ import {
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config.json';
+const IconCustom = createIconSetFromFontello(fontelloConfig);
+
 
 // Components
 
@@ -51,7 +55,7 @@ class Menu extends Component {
                   renderItem={({ item }) =>
                     <TouchableOpacity style={styles.gridItem} onPress={() => this.props.selectDrink(item.id)}>
 
-                      <Icon name='glass' style={{ fontSize: 30, color: 'orange' }} />
+                      <IconCustom name={item.liquor.toLowerCase()} style={{ fontSize: 40, color: 'orange', margin: 2 }} />
                       <Text style={styles.listItemText}> {item.liquor} </Text>
                       <Text style={styles.listItemSubText}>$ {item.price.toFixed(2)}</Text>
 
