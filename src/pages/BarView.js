@@ -34,14 +34,23 @@ class ActiveOrder extends Component {
     await this.fetchDrinks()
     await this.fetchOptions()
     await this.fetchBars()
-    this.intervalFetch = setInterval(()=> this.fetchAllOrders(), 15000)
+
+    this._interval = setInterval(() => {
+      this.fetchAllOrders()
+    }, 1000);
     this.setState({ ...this.state, renderDrinks: true })
   }
 
   componentWillUnmount = async () => {
-    this.intervalFetch = ""
+    clearInterval(this._interval)
   }
 
+  completeOrder = (index) =>{
+    let newOrders = this.state.orders
+    newOrders.splice(index, 1)
+    this.setState({orders: newOrders})
+    //const response = await fetch(`${this.props.backendPath}/orders/${index+1}`,{method: 'delete'})
+  }
 
   fetchAllOrders = async () => {
     const response = await fetch(`${this.props.backendPath}/orders`)
@@ -64,7 +73,6 @@ class ActiveOrder extends Component {
   fetchOptions = async () => {
     const response = await fetch(`${this.props.backendPath}/options`)
     const options = await response.json()
-    console.log('??', options)
     this.setState({ ...this.state, options })
   }
 
@@ -82,7 +90,6 @@ class ActiveOrder extends Component {
         <View>
           <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
             <Text style={styles.header2}>bar view</Text>
-            <Button title="Home" onPress={() => this.props.goHome()} />
           </LinearGradient>
         </View>
 
@@ -93,29 +100,28 @@ class ActiveOrder extends Component {
               <ScrollView>
                 <FlatList
                   data={this.state.orders}
-                  renderItem={({ item }) =>{
-                    
-                    <View style={{ backgroundColor: `${item.color}`, height: 75, flexDirection: 'column', justifyContent:'space-evenly' }}>
+                  renderItem={({ item , index} ) =>
+
+                    <TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(index)}>
                       {
-                        item.drink_order.order.map(el => {
-                          let drinkOption = this.state.drinkOptions.find(dO => dO.id == el.drink_options_id)
-                          let liquor = this.state.drinks.find(dr => dr.id == drinkOption.drink_id).liquor
-                          let option = this.state.options.find(op => op.id == drinkOption.option_id).option || ''
-                          let order = `${liquor} ${option}`
-                          return (
-                            <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
-                              <Text style={styles.barViewOrderText}>{order}</Text>
-                              <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
-                            </View>)
-                        }
+                        item.drink_order.order.map((el, index) => (
+                            <View key={index} >
+                              <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
+                                <Text style={{...styles.barViewOrderText, fontWeight: 'bold'}}>{`${el.drink} ${el.option}`}</Text>
+                                <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
+                              </View>
+                              <Text style={{...styles.barViewOrderText, fontSize: 20}}>{`>> For ${el.name} <<`}</Text>
+                            </View>
+                            )
                         )
                       }
-                    </View>
-                  }}
+                    </TouchableOpacity>
+                  }
                 />
 
               </ScrollView>
             }
+            <Button title="Home" onPress={() => this.props.goHome()} />
           </SafeAreaView>
         </View>
 

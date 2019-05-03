@@ -37,7 +37,7 @@ class App extends Component {
     selectedBar: {},
     selectedDrink: {},
     selectedOption: {},
-    showScreen: 'BarView',
+    showScreen: 'Home',
     user: {
       name: null,
       phone: null
@@ -47,11 +47,11 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchBars()
-    
+
     // check session storage, if user is logged in
     // set state showScreen to 'Home
   }
-  
+
   fetchBars = async () => {
     const response = await fetch(`${backendPath}/restaurants`)
     const bars = await response.json()
@@ -156,21 +156,23 @@ class App extends Component {
   }
 
   postOrder = async () => {
+    const order = {
+      drinkOrder: { order: this.state.currentOrder},
+      color: "purple",
+      total: 8,
+      paid: false,
+      userId: 5
+    }
+
     const response = await fetch(`${backendPath}/orders`, {
       method: 'POST',
-      body: JSON.stringify({
-        drinkOrder: this.state.currentOrder,
-        color: "purple",
-        total: 8,
-        paid: false,
-        userId: 5
-      }),
+      body: JSON.stringify(order),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-
-    console.log(response)
+    console.log('order', order)
+    console.log('response', response)
 
   }
 
@@ -235,6 +237,7 @@ class App extends Component {
             selectedOption={this.state.selectedOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
+            goHome={this.goHome}
           />
         break;
       case 'ActiveOrder':
