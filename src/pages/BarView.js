@@ -34,15 +34,14 @@ class ActiveOrder extends Component {
     await this.fetchDrinks()
     await this.fetchOptions()
     await this.fetchBars()
+    this._interval = setInterval(() => {
+      this.fetchAllOrders()
+    }, 1000);
     this.setState({ ...this.state, renderDrinks: true })
   }
 
   componentWillUnmount = async () => {
-    console.log('Unmounted')
-  }
-
-  intervalFetch = () => {
-
+    clearInterval(this._interval)
   }
 
   fetchAllOrders = async () => {
