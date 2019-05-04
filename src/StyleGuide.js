@@ -60,6 +60,21 @@ const styles = StyleSheet.create({
   headers6Light: {
     fontSize: 16,
   },
+  outlineButton:{
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'orange',
+    borderWidth:2,
+    borderRadius:5,
+    borderColor: 'orange',
+    padding:5
+  },
+  confirm:{
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'orange',
+    padding:5
+  },
   paragraph: {
     flexDirection: 'row',
     color: 'white',

@@ -12,8 +12,14 @@ import {
 
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../config.json';
+const IconCustom = createIconSetFromFontello(fontelloConfig);
 
 // Components
+
 
 class Order extends Component {
 
@@ -88,22 +94,25 @@ class Order extends Component {
                   <Text style={styles.headers3}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
                   <Text style={styles.headers3}></Text>
                 </View>
-
+                <IconCustom name={this.props.selectedDrink.liquor.toLowerCase().split(" ").join("")} style={{ fontSize: 100, color: 'orange' , alignSelf: 'center'}}></IconCustom>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 25 }}>
-                  <Button
-                    style={{...styles.headers4, justifyContent: 'flex-start' }}
-                    title="-"
+                  
+                  <TouchableOpacity
+                    style={{ justifyContent: 'flex-start'}}
                     onPress={() => this.subtract()}
-                  />
+                  >
+                    <Text style={styles.outlineButton}>-</Text>
+                  </TouchableOpacity>
                   <Text style={styles.headers4}>
                     {this.state.quantity}
                   </Text>
 
-                  <Button
-                    style={{...styles.headers4, justifyContent: 'flex-end' }}
-                    title="+"
+                  <TouchableOpacity
+                    style={{ justifyContent: 'flex-end' }}
                     onPress={() => this.add()}
-                  />
+                  >
+                    <Text style={styles.outlineButton}>+</Text>
+                  </TouchableOpacity>
                 </View>
 
                 <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
@@ -152,12 +161,27 @@ class Order extends Component {
                 </View>
                 :
                 <View>
-                  <Text style={styles.headers3}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
-                  <Text>Hit "Place Order" below to finalize order, or add more drinks to the order with the "Add More Drinks" button</Text>
+                  <Text style={{...styles.headers3, textAlign: 'center'}}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
                   
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Button title="Add Drinks to Order" onPress={() => this.props.addDrinksToOrder()} />
-                    <Button title="Place Order" onPress={() => this.props.postOrder()} />
+                  <View style={{ flexDirection: 'column', justifyContent: 'space-between', marginTop:20 }}>
+                    <TouchableOpacity
+                      style={{...styles.gridItem , margin:10, alignSelf: 'center'}}
+                      onPress={() => this.props.addDrinksToOrder()}
+                    >
+                     
+                      
+                      <Text style={styles.confirm}> + <IconCustom name='tequila' style={{fontSize:28}}/> Add more drinks</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity
+                      style={{...styles.gridItem , margin:10, alignSelf: 'center'}}
+                      onPress={() => this.props.postOrder()}
+                    >
+                      
+                      <Text style={styles.confirm}> ✓ Place order </Text>
+                    
+                    </TouchableOpacity>
+                    <Text style={{textAlign: 'center', marginTop:20}}>Please confirm by hitting "Place Order"! Otherwise add more drinks. button</Text>
                   </View>
                 </View>
                 }
