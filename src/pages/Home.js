@@ -35,6 +35,7 @@ class Home extends Component {
     this.setState({ region });
   }
 
+
   render() {
     return (
       <View>

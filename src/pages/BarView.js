@@ -115,7 +115,7 @@ class ActiveOrder extends Component {
                                 <Text style={{...styles.barViewOrderText, fontWeight: 'bold'}}>{`${el.drink} ${el.option}`}</Text>
                                 <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
                               </View>
-                              <Text style={{...styles.barViewOrderText, fontSize: 20}}>{`>> For ${el.name} <<`}</Text>
+                              <Text style={{...styles.barViewOrderText, fontSize: 20}}>{`>> For ${el.name? el.name : 'anonymous'} <<` }</Text>
                             </View>
                             )
                         )
