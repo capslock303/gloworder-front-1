@@ -16,6 +16,7 @@ import {
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 
+
 class ActiveOrder extends Component {
 
   state = {
@@ -46,7 +47,14 @@ class ActiveOrder extends Component {
   }
 
   completeOrder = async (itemId) =>{
-    fetch(`${this.props.backendPath}/orders/${itemId}`,{method: 'delete'})
+    fetch(`${this.props.backendPath}/orders/${itemId}`,{
+      method: 'PATCH',
+      body: JSON.stringify({paid: true}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    
   }
 
   fetchAllOrders = async () => {
@@ -98,8 +106,8 @@ class ActiveOrder extends Component {
                 <FlatList
                   data={this.state.orders}
                   renderItem={({ item , index} ) =>
-
-                    <TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(item.id)}>
+                    item.paid? <View></View> :
+                    (<TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(item.id)}>
                       {
                         item.drink_order.order.map((el, index) => (
                             <View key={index} >
@@ -112,7 +120,7 @@ class ActiveOrder extends Component {
                             )
                         )
                       }
-                    </TouchableOpacity>
+                    </TouchableOpacity>)
                   }
                 />
 
