@@ -22,7 +22,6 @@ const ActiveOrder = (props) => {
     <View>
       <LinearGradient colors={['#2B93B3', '#70DEFF']} style={styles.linearGradient}>
         <Text style={styles.header2}>gloworder</Text>
-        <Button title="Home" onPress={() => props.goHome()} />
 
         <View>
           <SafeAreaView>
@@ -43,6 +42,7 @@ const ActiveOrder = (props) => {
 
               />
             </ScrollView>
+            <Button title="Home" onPress={() => props.goHome()} />
           </SafeAreaView>
         </View>
 
