@@ -32,6 +32,7 @@ class App extends Component {
     barViewOrders: [],
     currentOrder: [],
     drinks: [],
+    loading: false,
     loggedIn: false,
     options: [],
     selectedBar: {},
@@ -47,12 +48,9 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchBars()
+
     // check session storage, if user is logged in
     // set state showScreen to 'Home
-  }
-
-  componentWillMount(){
-    
   }
 
   fetchBars = async () => {
@@ -124,7 +122,7 @@ class App extends Component {
   compileOrders = (newOrder) => {
     const orders = this.state.currentOrder
     orders.push(newOrder)
-    this.setState({ ...this.state, currentOrder: orders }, () => console.log(this.state))
+    this.setState({ ...this.state, currentOrder: orders })
   }
 
   addDrinksToOrder = () => {
@@ -141,13 +139,19 @@ class App extends Component {
       ...this.state,
       showScreen: 'ActiveOrder'
     })
-    this.postOrder()
   }
 
   goHome = () => {
     this.setState({
       ...this.state,
       showScreen: 'Home'
+    })
+  }
+
+  cancel = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'Menu'
     })
   }
 
@@ -159,22 +163,34 @@ class App extends Component {
   }
 
   postOrder = async () => {
+    this.setState({...this.state, loading: true})
+    const order = {
+      drinkOrder: { order: this.state.currentOrder},
+      color: "purple",
+      total: 8,
+      paid: false,
+      userId: 5
+    }
     const response = await fetch(`${backendPath}/orders`, {
       method: 'POST',
-      body: JSON.stringify({
-        drinkOrder: this.state.currentOrder,
-        color: "purple",
-        total: 8,
-        paid: false,
-        userId: 5
-      }),
+      body: JSON.stringify(order),
       headers: {
         'Content-Type': 'application/json'
       }
     })
 
-    console.log(response)
-
+    if (response.status !== 200) {
+      alert('Something went wrong! Please try again')
+      this.setState({
+        ...this.state,
+        showScreen: 'ConfirmTotal',
+        loading: false
+      })
+    }
+    else{
+      this.setState({...this.state, loading: false})
+      this.goToOrderScreen()
+    }
   }
 
   render() {
@@ -233,16 +249,20 @@ class App extends Component {
         componentToShow =
           <ConfirmTotal
             addDrinksToOrder={this.addDrinksToOrder}
+            cancel={this.cancel}
             compileOrders={this.compileOrders}
-            goToOrderScreen={this.goToOrderScreen}
+            loading={this.state.loading}
+            postOrder={this.postOrder}
             selectedOption={this.state.selectedOption}
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
+            goHome={this.goHome}
           />
         break;
       case 'ActiveOrder':
         componentToShow =
           <ActiveOrder
+            bars={this.state.bars}
             currentOrder={this.state.currentOrder}
             goHome={this.goHome}
           />

@@ -4,13 +4,20 @@ import { StyleSheet } from 'react-native'
 
 
 const styles = StyleSheet.create({
+  drinkOrder:{
+    flexDirection: 'column',
+    justifyContent:'space-evenly',
+    padding: 15,
+    marginTop: 3,
+    marginBottom: 3 
+  },
   linearGradient: {
     height: '100%',
     width: '100%',
   },
   header: {
     flexDirection: 'row',
-    color: 'white',
+    color: 'black',
     fontSize: 60,
     fontWeight: 'bold',
     padding: 5,
@@ -35,7 +42,38 @@ const styles = StyleSheet.create({
   },
   headers3: {
     fontSize: 32,
+    fontWeight: 'bold',
+    marginLeft: 5,
+  },
+  headers4: {
+    fontSize: 28,
     fontWeight: 'bold'
+  },
+  headers5: {
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  headers6: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  headers6Light: {
+    fontSize: 16,
+  },
+  outlineButton:{
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'orange',
+    borderWidth:2,
+    borderRadius:5,
+    borderColor: 'orange',
+    padding:5
+  },
+  confirm:{
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'orange',
+    padding:5
   },
   paragraph: {
     flexDirection: 'row',
@@ -96,6 +134,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  listItemTextWhite: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10
+  },
   listItemSubText: {
     fontSize: 16,
     color: "grey"
@@ -122,14 +166,16 @@ const styles = StyleSheet.create({
   barViewOrderText: {
     justifyContent: 'flex-start',
     color: 'white',
-    fontSize: 16,
-    marginLeft: 5
+    fontSize: 27,
+    marginLeft: 5,
+    marginTop: 5
   },
   barViewQuantityText: {
     justifyContent: 'flex-end',
     color: 'white',
-    fontSize: 16,
-    marginRight: 5
+    fontSize: 27,
+    marginRight: 5,
+    marginTop: 5
   },
   ulHead: {},
   ulSubtext: {}

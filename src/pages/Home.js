@@ -19,7 +19,7 @@ import LinearGradient from 'react-native-linear-gradient'
 
 // Components
 
-let key = 0
+// let key = 0
 
 class Home extends Component {
 
@@ -53,12 +53,13 @@ class Home extends Component {
               region={this.state.region}
               onRegionChangeComplete={this.onRegionChange}
             >
-            {this.props.bars.map(bar => {
+            {this.props.bars.map((bar, idx )=> {
               let gpsCoords = {
                 latitude: parseFloat(JSON.parse(bar.location)[0]),
                 longitude: parseFloat(JSON.parse(bar.location)[1])}
                 
               return (<Marker
+                key={idx}
                 coordinate={gpsCoords}
                 title={bar.name}
                 description={bar.address}
@@ -69,15 +70,13 @@ class Home extends Component {
           <ScrollView>
             <FlatList
               data={this.props.bars}
-              keyExtractor={(item, index) => item.key}
+              keyExtractor={(item) => String(item.id)}
               renderItem={({ item }) =>
                 <TouchableOpacity
                   style={styles.listItem}
                   onPress={() => this.props.selectBar(item.id)}
-                  key={key++}
                 >
                   <View>
-                    
                     <View style={{flexDirection:'row'}}> 
                       <Icon name='beer' style={styles.formIcon} />
                       <Text style={styles.listItemText}>{item.name}</Text>
