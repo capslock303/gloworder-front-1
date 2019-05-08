@@ -68,7 +68,7 @@ class App extends Component {
     orders = orders.sort((a,b)=> Number(a.id) > Number(b.id) ? -1 :0)
     const index = colors.indexOf(orders[0].color)
     let orderColor = colors[index+1] || 'blue'
-    await alert(JSON.stringify(orders))
+    await alert(orderColor)
     this.setState({color:orderColor})
     
   }

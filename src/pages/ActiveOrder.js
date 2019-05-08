@@ -22,21 +22,21 @@ const IconCustom = createIconSetFromFontello(fontelloConfig);
 
 const ActiveOrder = (props) => {
 
-  colorNameToHex = (color,index)=>{
+  colorNameToHex = (color)=>{
     const colors = {
-      "red":["1e90ff","#dc143c"],
-      "blue":["00ffff","##0000ff"],
+      "red":["#ff7f50","#dc143c"],
+      "blue":["#6495ed","#0000ff"],
       "gold":["#DAA520","#FFFF00"],
       "green":["#7CFC00","#008000"],
       "purple":["#8A2BE2","#FF00FF"],
     };
-    return colors[color][index];
+    return colors[color];
   }
 
 
   return (
     <View>
-      <LinearGradient colors={[colorNameToHex(props.color,0), colorNameToHex(props.color,1)]} style={styles.linearGradient}>
+      <LinearGradient colors={colorNameToHex(props.color)} style={styles.linearGradient}>
         <Text style={styles.header2}>gloworder</Text>
         <Button title="Home" onPress={() => props.goHome()} />
 
