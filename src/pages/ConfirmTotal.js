@@ -32,6 +32,7 @@ class Order extends Component {
 
   componentDidMount = () => {
     this.findTotal()
+    this.props.fetchColor()
   }
 
   add = () => {

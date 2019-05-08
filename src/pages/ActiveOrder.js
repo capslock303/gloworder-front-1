@@ -33,9 +33,6 @@ const ActiveOrder = (props) => {
     return colors[color][index];
   }
 
-  componentDidMount= function(){
-    props.fetchColor()
-  }
 
   return (
     <View>

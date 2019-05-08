@@ -59,7 +59,9 @@ class ActiveOrder extends Component {
 
   fetchAllOrders = async () => {
     const response = await fetch(`${this.props.backendPath}/orders`)
-    const orders = await response.json()
+    let orders = await response.json()
+    orders = orders.filter(order=> order.paid == false)
+    orders = orders.sort((a,b)=> a.id > b.id)
     this.setState({ ...this.state, orders })
   }
 

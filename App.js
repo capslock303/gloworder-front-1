@@ -64,13 +64,13 @@ class App extends Component {
     const colors = ["blue","red", "green", "purple","gold"]
     const response = await fetch(`${backendPath}/orders`)
     let orders = await response.json()
-    orders = orders.sort((a,b)=> a.id > b.id)
     orders = orders.filter(order=> order.paid == false)
-    const index = colors.indexOf(orders[orders.length-1].color)
-    let orderColor = "red"
-    if(orders[orders.length-1].color == "gold") orderColor = "blue"
-    else orderColor = colors[index+1]
+    orders = orders.sort((a,b)=> Number(a.id) > Number(b.id) ? -1 :0)
+    const index = colors.indexOf(orders[0].color)
+    let orderColor = colors[index+1] || 'blue'
+    await alert(JSON.stringify(orders))
     this.setState({color:orderColor})
+    
   }
 
   fetchDrinks = async () => {
@@ -272,12 +272,13 @@ class App extends Component {
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
             goHome={this.goHome}
+            fetchColor={this.fetchColor}
           />
         break;
       case 'ActiveOrder':
         componentToShow =
           <ActiveOrder
-            fetchColor={this.fetchColor}
+            
             bars={this.state.bars}
             currentOrder={this.state.currentOrder}
             color={this.state.color}
