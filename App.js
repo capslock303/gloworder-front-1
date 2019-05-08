@@ -31,6 +31,7 @@ class App extends Component {
     bars: [],
     barViewOrders: [],
     currentOrder: [],
+    color: "purple",
     drinks: [],
     loading: false,
     loggedIn: false,
@@ -48,7 +49,7 @@ class App extends Component {
 
   componentDidMount() {
     this.fetchBars()
-
+    this.fetchColor()
     // check session storage, if user is logged in
     // set state showScreen to 'Home
   }
@@ -57,6 +58,17 @@ class App extends Component {
     const response = await fetch(`${backendPath}/restaurants`)
     const bars = await response.json()
     this.setState({ ...this.state, bars })
+  }
+
+  fetchColor = async () => {
+    const colors = ["blue","red", "green", "purple","gold"]
+    const response = await fetch(`${backendPath}/orders`)
+    let orders = await response.json()
+    orders = orders.filter(order=> order.paid == false)
+    orders = orders.sort((a,b)=> Number(a.id) > Number(b.id) ? -1 :0)
+    const index = colors.indexOf(orders[0].color)
+    let orderColor = colors[index+1] || 'blue'
+    this.setState({color:orderColor})
   }
 
   fetchDrinks = async () => {
@@ -166,7 +178,7 @@ class App extends Component {
     this.setState({...this.state, loading: true})
     const order = {
       drinkOrder: { order: this.state.currentOrder},
-      color: "purple",
+      color: this.state.color,
       total: 8,
       paid: false,
       userId: 5
@@ -219,6 +231,7 @@ class App extends Component {
       case 'Home':
         componentToShow =
           <Home
+            
             bars={this.state.bars}
             barView={this.barView}
             moveScreen={this.moveScreen}
@@ -257,14 +270,18 @@ class App extends Component {
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
             goHome={this.goHome}
+            fetchColor={this.fetchColor}
           />
         break;
       case 'ActiveOrder':
         componentToShow =
           <ActiveOrder
+            
             bars={this.state.bars}
             currentOrder={this.state.currentOrder}
+            color={this.state.color}
             goHome={this.goHome}
+            
           />
         break;
       case 'BarView':

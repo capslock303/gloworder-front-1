@@ -16,6 +16,7 @@ import {
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 
+
 class ActiveOrder extends Component {
 
   state = {
@@ -46,12 +47,21 @@ class ActiveOrder extends Component {
   }
 
   completeOrder = async (itemId) =>{
-    fetch(`${this.props.backendPath}/orders/${itemId}`,{method: 'delete'})
+    fetch(`${this.props.backendPath}/orders/${itemId}`,{
+      method: 'PATCH',
+      body: JSON.stringify({paid: true}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    
   }
 
   fetchAllOrders = async () => {
     const response = await fetch(`${this.props.backendPath}/orders`)
-    const orders = await response.json()
+    let orders = await response.json()
+    orders = orders.filter(order=> order.paid == false)
+    orders = orders.sort((a,b)=> a.id > b.id)
     this.setState({ ...this.state, orders })
   }
 
@@ -98,8 +108,8 @@ class ActiveOrder extends Component {
                 <FlatList
                   data={this.state.orders}
                   renderItem={({ item , index} ) =>
-
-                    <TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(item.id)}>
+                    item.paid? <View></View> :
+                    (<TouchableOpacity style={{...styles.drinkOrder, backgroundColor: `${item.color}`}} key={index} onPress={(e)=>this.completeOrder(item.id)}>
                       {
                         item.drink_order.order.map((el, index) => (
                             <View key={index} >
@@ -107,12 +117,12 @@ class ActiveOrder extends Component {
                                 <Text style={{...styles.barViewOrderText, fontWeight: 'bold'}}>{`${el.drink} ${el.option}`}</Text>
                                 <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
                               </View>
-                              <Text style={{...styles.barViewOrderText, fontSize: 20}}>{`>> For ${el.name} <<`}</Text>
+                              <Text style={{...styles.barViewOrderText, fontSize: 20}}>{`>> For ${el.name? el.name : 'anonymous'} <<` }</Text>
                             </View>
                             )
                         )
                       }
-                    </TouchableOpacity>
+                    </TouchableOpacity>)
                   }
                 />
 
