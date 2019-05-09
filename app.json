@@ -1,4 +1,16 @@
 {
-  "name": "glowOrder2",
-  "displayName": "glowOrder2"
-}
+  "expo": {
+      "name": "glowOrder2",
+      "sdkVersion": "32.0.0",
+      "icon": "glowOrder_logo.png",
+      "description": "Drink Reservation App",
+      "version": "1.0.1",
+      "orientation": "portrait",
+      "ios": {
+        "bundleIdentifier": "com.glowOrder.glowOrder" 
+      },
+      "android": {
+        "package": "com.glowOrder.glowOrder"
+      }
+    }
+  }
