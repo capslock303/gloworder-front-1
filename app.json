@@ -8,9 +8,6 @@
       "orientation": "portrait",
       "ios": {
         "bundleIdentifier": "com.glowOrder.glowOrder" 
-      },
-      "android": {
-        "package": "com.glowOrder.glowOrder"
       }
     }
   }
