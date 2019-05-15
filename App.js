@@ -39,7 +39,7 @@ class App extends Component {
     selectedBar: {},
     selectedDrink: {},
     selectedOption: {},
-    showScreen: 'Home',
+    showScreen: 'Login',
     user: {
       name: null,
       phone: null
