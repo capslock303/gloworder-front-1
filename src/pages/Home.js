@@ -35,6 +35,10 @@ class Home extends Component {
     this.setState({ region });
   }
 
+  componentDidMount(){
+    this.props.clearOrder()
+    this.props.fetchColor()
+  }
 
   render() {
     return (
@@ -45,8 +49,9 @@ class Home extends Component {
           </LinearGradient>
         </View>
         <SafeAreaView>
-          <View>
-            <Text style={styles.headers3}>Bars Near Me</Text>
+          <View style={{flexDirection:"row"}}>
+            <Text style={{...styles.headers3,marginRight:75}}>Bars Near Me</Text>
+            <Button style={{marginLeft:50, width:'auto'}} title="Bar View" onPress={() => this.props.barView()} />
           </View>
 
           <MapView
@@ -91,7 +96,7 @@ class Home extends Component {
               }
             />
           </ScrollView>
-          <Button title="Bar View" onPress={() => this.props.barView()} />
+          
         </SafeAreaView >
       </View>
     )
