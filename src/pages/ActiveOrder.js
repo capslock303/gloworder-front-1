@@ -38,7 +38,10 @@ const ActiveOrder = (props) => {
     <View>
       <LinearGradient colors={colorNameToHex(props.color)} style={styles.linearGradient}>
         <Text style={styles.header2}>gloworder</Text>
-
+        <View style={{flexDirection:"row", justifyContent: 'space-evenly'}}>
+          <Button title="Home" onPress={() => props.goHome()} />
+          <Button title="Menu" onPress={() => props.goMenu()} />
+        </View>
         <View>
           <SafeAreaView >
             <ScrollView >

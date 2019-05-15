@@ -102,7 +102,8 @@ class ActiveOrder extends Component {
 
 
         <View>
-   
+          <SafeAreaView>
+          <Button title="Home" onPress={() => this.props.goHome()} />
             {this.state.renderDrinks &&
               <ScrollView>
                 <FlatList
@@ -128,8 +129,8 @@ class ActiveOrder extends Component {
 
               </ScrollView>
             }
-            <Button title="Home" onPress={() => this.props.goHome()} />
-      
+            
+          </SafeAreaView>
         </View>
 
       </View>

@@ -31,7 +31,7 @@ class App extends Component {
     bars: [],
     barViewOrders: [],
     currentOrder: [],
-    color: "purple",
+    color: "",
     drinks: [],
     loading: false,
     loggedIn: false,
@@ -52,6 +52,10 @@ class App extends Component {
     this.fetchColor()
     // check session storage, if user is logged in
     // set state showScreen to 'Home
+  }
+
+  clearOrder = ()=>{
+    this.setState({currentOrder: []})
   }
 
   fetchBars = async () => {
@@ -160,6 +164,14 @@ class App extends Component {
     })
   }
 
+  goMenu = () => {
+    this.setState({
+      ...this.state,
+      showScreen: 'Menu'
+    })
+  }
+
+
   cancel = () => {
     this.setState({
       ...this.state,
@@ -231,7 +243,8 @@ class App extends Component {
       case 'Home':
         componentToShow =
           <Home
-            
+            clearOrder={this.clearOrder}
+            fetchColor={this.fetchColor}
             bars={this.state.bars}
             barView={this.barView}
             moveScreen={this.moveScreen}
@@ -270,7 +283,7 @@ class App extends Component {
             selectedBar={this.state.selectedBar}
             selectedDrink={this.state.selectedDrink}
             goHome={this.goHome}
-            fetchColor={this.fetchColor}
+            
           />
         break;
       case 'ActiveOrder':
@@ -281,7 +294,7 @@ class App extends Component {
             currentOrder={this.state.currentOrder}
             color={this.state.color}
             goHome={this.goHome}
-            
+            goMenu={this.goMenu}
           />
         break;
       case 'BarView':
