@@ -44,7 +44,7 @@ class Order extends Component {
             </View>
             <SafeAreaView>
               <View>
-                <Text style={styles.headers3}>{this.props.selectedDrink.liquor}</Text>
+                <Text style={styles.headers3}>{this.props.selectedBar.name}</Text>
                 <Text style={styles.paragraph}>{this.props.selectedBar.address}</Text>
               </View>
               <ScrollView>

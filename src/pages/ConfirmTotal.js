@@ -181,7 +181,7 @@ class Order extends Component {
                       <Text style={styles.confirm}> ✓ Place order </Text>
                     
                     </TouchableOpacity>
-                    <Text style={{textAlign: 'center', marginTop:20}}>Please confirm by hitting "Place Order"! Otherwise add more drinks. button</Text>
+                    {/* <Text style={{textAlign: 'center', marginTop:20}}>Please confirm by hitting "Place Order"! Otherwise add more drinks. button</Text> */}
                   </View>
                 </View>
                 }

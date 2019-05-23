@@ -95,14 +95,17 @@ class ActiveOrder extends Component {
         <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
         <View>
           
-            <Text style={styles.header2}>bar view</Text>
-          
+            <Text style={styles.header}>gloworder</Text>
+            <View style={{flexDirection:"row"}}>
+              <Text style={{...styles.headers3, marginRight: 40}}>Bartender View </Text>
+              <Button title="Home" style={{marginRight:10}} onPress={() => this.props.goHome()} />
+            </View>
         </View>
 
 
         <View>
           <SafeAreaView>
-          <Button title="Home" onPress={() => this.props.goHome()} />
+          
             {this.state.renderDrinks &&
               <ScrollView>
                 <FlatList

@@ -46,13 +46,13 @@ class Home extends Component {
         <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
         <View>
           
-            <Text style={styles.header2}>gloworder</Text>
+            <Text style={styles.header}>gloworder</Text>
           
         </View>
         <SafeAreaView>
           <View style={{flexDirection:"row"}}>
-            <Text style={{...styles.headers3,marginRight:75}}>Bars Near Me</Text>
-            <Button style={{marginLeft:50,marginRight:10, width:'auto'}} title="Bar View" onPress={() => this.props.barView()} />
+            <Text style={{...styles.headers3,marginRight:50}}>Bars Near Me</Text>
+            <Button style={{marginRight:10}} title="Bar View" onPress={() => this.props.barView()} />
           </View>
 
           <MapView
