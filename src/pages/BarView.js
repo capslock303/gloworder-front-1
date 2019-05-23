@@ -96,9 +96,11 @@ class ActiveOrder extends Component {
         <View>
           
             <Text style={styles.header}>gloworder</Text>
-            <View style={{flexDirection:"row"}}>
-              <Text style={{...styles.headers3, marginRight: 40}}>Bartender View </Text>
-              <Button title="Home" style={{marginRight:10}} onPress={() => this.props.goHome()} />
+            <View style={{flexDirection:"row", alignContent:'flex-end', justifyContent:'space-between'}}>
+              <Text style={styles.headers3}>bartender view </Text>
+              <TouchableOpacity style={{...styles.navButton, alignSelf:'center'}} onPress={() => this.props.goHome()} >
+                <Text style={styles.linkText}>home</Text>
+              </TouchableOpacity>
             </View>
         </View>
 

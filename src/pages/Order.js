@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {
+  Dimensions,
   Platform,
   StyleSheet,
   Text,
@@ -31,6 +32,9 @@ class Order extends Component {
 
 
   render() {
+    let ScreenHeight = Dimensions.get("window").height;
+    let ScreenWidth = Dimensions.get("window").width;
+
     return (
       <View>
         {
@@ -44,8 +48,8 @@ class Order extends Component {
             </View>
             <SafeAreaView>
               <View>
-                <Text style={styles.headers3}>{this.props.selectedBar.name}</Text>
-                <Text style={styles.paragraph}>{this.props.selectedBar.address}</Text>
+                <Text style={styles.headers3}>{this.props.selectedBar.name.toLowerCase()}</Text>
+                <Text style={styles.paragraph}>{this.props.selectedBar.address.toLowerCase()}</Text>
               </View>
               <ScrollView>
                 <FlatList
@@ -54,9 +58,9 @@ class Order extends Component {
                   style={styles.gridlist}
                   numColumns={2}
                   renderItem={({ item }) =>
-                    <TouchableOpacity style={{ ...styles.gridItem, width: '70%' }} onPress={() => this.props.selectOption(item.id)}>
+                    <TouchableOpacity style={{...styles.gridItem, height:ScreenHeight/5, width: (ScreenWidth/2)-15}} onPress={() => this.props.selectOption(item.id)}>
                       <IconCustom name={item.option.toLowerCase().split(" ").join("")} style={{ fontSize: 30, color: 'white' }} />
-                      <Text style={styles.listItemText}>{item.option}</Text>
+                      <Text style={styles.listItemText}>{item.option.toLowerCase()}</Text>
                       <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
                     </TouchableOpacity>
                   }

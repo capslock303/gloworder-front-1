@@ -50,9 +50,11 @@ class Home extends Component {
           
         </View>
         <SafeAreaView>
-          <View style={{flexDirection:"row"}}>
-            <Text style={{...styles.headers3,marginRight:50}}>Bars Near Me</Text>
-            <Button style={{marginRight:10}} title="Bar View" onPress={() => this.props.barView()} />
+          <View style={{flexDirection:"row", alignContent:'flex-end', justifyContent:'space-between'}}>
+            <Text style={styles.headers3}>bars near me</Text>
+            <TouchableOpacity style={{...styles.navButton, alignSelf:'center'}} onPress={() => this.props.barView()} >
+                    <Text style={styles.linkText}>bar view</Text>
+                  </TouchableOpacity>
           </View>
 
           <MapView
@@ -88,10 +90,10 @@ class Home extends Component {
                       <View style={{ borderRadius: 100, backgroundColor: 'white', flexDirection:"row"}}>
                         <Icon name='beer' style={{...styles.formIcon, backgroundColor:'transparent', padding:5, marginRight: 5, alignSelf:'flex-end'}} />
                       </View>
-                      <Text style={styles.listItemText}>{item.name}</Text>
+                      <Text style={styles.listItemText}> {item.name.toLowerCase()}</Text>
                     </View>
 
-                    <Text style={styles.listItemSubText}>{item.address}</Text>
+                    <Text style={styles.listItemSubText}> {item.address.toLowerCase()}</Text>
                     
                   </View>
                 </TouchableOpacity>

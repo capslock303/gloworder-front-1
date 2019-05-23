@@ -48,8 +48,8 @@ class Menu extends Component {
             </View>
             <SafeAreaView>
               <View>
-                <Text style={styles.headers3}>{this.props.selectedBar.name}</Text>
-                <Text style={styles.paragraph}>{this.props.selectedBar.address}</Text>
+                <Text style={styles.headers3}>{this.props.selectedBar.name.toLowerCase()}</Text>
+                <Text style={styles.paragraph}>{this.props.selectedBar.address.toLowerCase()}</Text>
               </View>
               <ScrollView>
                 <FlatList
@@ -58,10 +58,10 @@ class Menu extends Component {
                   style={styles.gridlist}
                   numColumns={2}
                   renderItem={({ item }) =>
-                    <TouchableOpacity style={styles.gridItem} onPress={() => this.props.selectDrink(item.id)}>
+                    <TouchableOpacity style={{...styles.gridItem, height:ScreenHeight/5}} onPress={() => this.props.selectDrink(item.id)}>
 
                       <IconCustom name={item.liquor.toLowerCase()} style={{ fontSize: 40, color: 'white', margin: 2 }} />
-                      <Text style={styles.listItemText}> {item.liquor} </Text>
+                      <Text style={styles.listItemText}> {item.liquor.toLowerCase()} </Text>
                       <Text style={styles.listItemSubText}>$ {item.price.toFixed(2)}</Text>
 
                     </TouchableOpacity>

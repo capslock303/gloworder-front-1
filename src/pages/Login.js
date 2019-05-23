@@ -47,7 +47,7 @@ class Login extends Component {
          <View style={{...styles.loginField}}>
          <Icon name='phone' style={styles.formIcon} />  
         <TextInput
-          placeholder="Phone Number"
+          placeholder="phone number"
           value={this.state.phone}
           style={{marginLeft:'auto',marginRight:'auto' }}
           onChangeText={(text)=>this.isValidPhone( text)}
@@ -58,13 +58,13 @@ class Login extends Component {
         
 
         <Text style={styles.error}>
-          {this.state.phoneError? "Phone number invalid" : "" }
+          {this.state.phoneError? "phone number invalid" : "" }
         </Text>
 
       <View style={{...styles.loginField}}>
          <Icon name='key' style={styles.formIcon} />  
         <TextInput
-          placeholder="Password"
+          placeholder="password"
     
           style={{marginLeft:'auto',marginRight:'auto' }}
           secureTextEntry={true}
@@ -75,7 +75,7 @@ class Login extends Component {
         <View style={styles.loginButton}>
           <Button
             color="white"
-            title="Login"
+            title="login"
             onPress={() => this.props.moveScreen('Home')}
           />
         </View>
@@ -83,10 +83,10 @@ class Login extends Component {
         <View style={styles.loginButton}>
           
           <TouchableOpacity style={styles.signUp} onPress={() => this.props.moveScreen('Home')}>
-            <Text style={styles.linkText}> Sign Up with  
-            
-            </Text>
             <Image style={styles.ppIcon} source={require('../../assets/icons/paypal.png')} />
+            <Text style={{...styles.linkText, marginRight: 10}}> 
+              sign up
+            </Text>
           </TouchableOpacity>
           
         </View>

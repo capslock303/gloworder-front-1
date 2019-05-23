@@ -1,6 +1,7 @@
 // Resources
 import React, { Component } from 'react'
 import {
+  Dimensions,
   Text,
   View,
   SafeAreaView,
@@ -80,6 +81,8 @@ class Order extends Component {
 
 
   render() {
+    let ScreenHeight = Dimensions.get("window").height;
+
     return (
       <View>
         <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
@@ -92,7 +95,7 @@ class Order extends Component {
             !this.state.orderStatus ?
               <View>
                 <View >
-                  <Text style={styles.headers3}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
+                  <Text style={{...styles.headers3, alignSelf:'center'}}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
                   <Text style={styles.headers3}></Text>
                 </View>
                 <IconCustom name={this.props.selectedDrink.liquor.toLowerCase().split(" ").join("")} style={{ fontSize: 100, color: 'white' , alignSelf: 'center'}}></IconCustom>
@@ -134,15 +137,19 @@ class Order extends Component {
 
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                  <Button 
-                    title="Cancel" 
+                  <TouchableOpacity 
+                    style={{...styles.navButton, alignSelf:'center'}}
                     onPress={() => this.props.cancel()} 
-                  />
-                  <Button 
+                  >
+                    <Text style ={styles.linkText}>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={{...styles.navButton, alignSelf:'center'}}
                     title="Add to Order" 
                     onPress={() => this.order()} 
-                  />
-
+                    >
+                    <Text style ={styles.linkText}>Order</Text>
+                  </TouchableOpacity>
                 </View>
 
               </View>
@@ -161,11 +168,17 @@ class Order extends Component {
                 </View>
                 :
                 <View>
-                  <Text style={{...styles.headers3, textAlign: 'center'}}>{this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} {this.props.selectedOption.option.toLowerCase()} added to order!</Text>
+                  <Text style={{...styles.header2, textAlign: 'center'}}>
+                    {this.state.quantity} {this.props.selectedDrink.liquor.toLowerCase()} 
+                  </Text>
+                  <Text style={{...styles.headers3, textAlign: 'center'}}>
+                    {this.props.selectedOption.option.toLowerCase()}
+                  </Text>
+                  <Text style={{...styles.headers4, textAlign: 'center'}}>added to order!</Text>
                   
                   <View style={{ flexDirection: 'column', justifyContent: 'space-between', marginTop:20 }}>
                     <TouchableOpacity
-                      style={{...styles.gridItem , margin:10, alignSelf: 'center'}}
+                      style={{...styles.gridItem , margin:10, alignSelf: 'center', height:ScreenHeight/5}}
                       onPress={() => this.props.addDrinksToOrder()}
                     >
                      
@@ -174,7 +187,7 @@ class Order extends Component {
                     </TouchableOpacity>
                     
                     <TouchableOpacity
-                      style={{...styles.gridItem , margin:10, alignSelf: 'center'}}
+                      style={{...styles.gridItem , margin:10, alignSelf: 'center', height:ScreenHeight/5}}
                       onPress={() => this.props.postOrder()}
                     >
                       

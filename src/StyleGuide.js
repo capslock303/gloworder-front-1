@@ -137,6 +137,8 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
   linkText: {
+    fontFamily: 'montserrat-regular',
+    fontSize: 16,
     color: 'white'
   },
   listItem: {
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   ppIcon:{
-    marginLeft: 45,
+    marginRight: 50,
     width: '100%',
     height: '100%'
   },
@@ -178,6 +180,17 @@ const styles = StyleSheet.create({
     alignItems:'center',
     alignSelf: 'center'
   },
+  navButton: {
+    alignItems: 'center',
+    color: 'white',
+    fontSize: 16,
+    fontFamily: 'montserrat-regular',
+    borderRadius: 25,
+    borderColor: 'white',
+    borderWidth: 2,
+    width: 100,
+    height: 25
+  },
   map: {
     height: 250,
     width: '100%',
@@ -189,9 +202,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   gridItem: {
-    height: 145,
-    width: '80%',
+    width: '75%',
     margin: 5,
+    alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'white',

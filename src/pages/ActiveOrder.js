@@ -39,13 +39,17 @@ const ActiveOrder = (props) => {
       <LinearGradient colors={colorNameToHex(props.color)} style={styles.linearGradient}>
         <Text style={styles.header}>gloworder</Text>
         <View style={{flexDirection:"row", justifyContent: 'space-evenly'}}>
-          <Button title="Home" onPress={() => props.goHome()} />
-          <Button title="Menu" onPress={() => props.goMenu()} />
+          <TouchableOpacity onPress={() => props.goHome()} style={{...styles.navButton, alignSelf:'center'}}>
+            <Text style ={styles.linkText}>home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => props.goMenu()} style={{...styles.navButton, alignSelf:'center'}}>
+            <Text style ={styles.linkText}>menu</Text>
+          </TouchableOpacity>
         </View>
         <View>
           <SafeAreaView >
             <ScrollView >
-                <Text style={styles.listItemTextWhite}>
+                <Text style={{...styles.listItemTextWhite, marginTop: 30}}>
                   {`${props.bars.find(bar => bar.id === props.currentOrder[0].barId).name}`}      
                 </Text>
               <FlatList
@@ -55,13 +59,13 @@ const ActiveOrder = (props) => {
                 renderItem={({ item }) =>
       
                     <View style={{flexDirection:'row', marginTop:10}}>
-                      <IconCustom name={item.option.toLowerCase().split(" ").join("")} style={{ fontSize: 35, color: 'black' , margin: 10}} />
+                      <IconCustom name={item.option.toLowerCase().split(" ").join("")} style={{ fontSize: 35, color: 'white' , margin: 10}} />
                       <View style={{flexDirection:'column'}}>
                         <Text style={{...styles.listItemText, marginLeft: 10}}>
-                          {`${item.quantity} ${item.drink} ${item.option} `}
+                          {`${item.quantity} ${item.drink.toLowerCase()} ${item.option.toLowerCase()} `}
                         </Text>
-                        <Text style={{...styles.listItemText,marginLeft: 30, fontSize: 20}}>
-                          {`${item.name ? `for ${item.name}` : '' }`}
+                        <Text style={{...styles.listItemText,marginLeft: 30, fontSize: 16, fontWeight: 'normal'}}>
+                          {`>> for ${item.name ? ` ${item.name}` : 'anonymous' }<<`}
                         </Text>
                       </View>
                     </View>
