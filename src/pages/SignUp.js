@@ -75,7 +75,7 @@ class SignUp extends Component {
     return (
       <View style={styles.loginPage}>
 
-        <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
+        <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
           <Text style={styles.header2}>gloworder</Text>
 
           <TextInput

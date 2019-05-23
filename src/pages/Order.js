@@ -36,15 +36,16 @@ class Order extends Component {
         {
           this.props.selectedDrink &&
           <View>
+            <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
             <View>
-              <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
+            
                 <Text style={styles.header2}>options</Text>
-              </LinearGradient>
+              
             </View>
             <SafeAreaView>
               <View>
                 <Text style={styles.headers3}>{this.props.selectedDrink.liquor}</Text>
-                <Text style={styles.paragraph}>{this.props.selectedBar.location}</Text>
+                <Text style={styles.paragraph}>{this.props.selectedBar.address}</Text>
               </View>
               <ScrollView>
                 <FlatList
@@ -54,7 +55,7 @@ class Order extends Component {
                   numColumns={2}
                   renderItem={({ item }) =>
                     <TouchableOpacity style={{ ...styles.gridItem, width: '70%' }} onPress={() => this.props.selectOption(item.id)}>
-                      <IconCustom name={item.option.toLowerCase().split(" ").join("")} style={{ fontSize: 30, color: 'orange' }} />
+                      <IconCustom name={item.option.toLowerCase().split(" ").join("")} style={{ fontSize: 30, color: 'white' }} />
                       <Text style={styles.listItemText}>{item.option}</Text>
                       <Text style={styles.listItemSubText}>{item.price > 0 ? item.price.toFixed(2) : 'No Charge'}</Text>
                     </TouchableOpacity>
@@ -62,6 +63,7 @@ class Order extends Component {
                 />
               </ScrollView>
             </SafeAreaView >
+            </LinearGradient>
           </View>
         }
       </View>

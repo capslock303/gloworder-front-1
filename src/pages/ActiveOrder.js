@@ -71,7 +71,6 @@ const ActiveOrder = (props) => {
 
               />
             </ScrollView>
-            <Button title="Home" onPress={() => props.goHome()} />
           </SafeAreaView>
         </View>
 

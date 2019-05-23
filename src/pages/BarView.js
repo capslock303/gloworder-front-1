@@ -89,15 +89,14 @@ class ActiveOrder extends Component {
     this.setState({ ...this.state, drinkOptions })
   }
 
-
   render() {
     return (
       <View>
-
+        <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
         <View>
-          <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
+          
             <Text style={styles.header2}>bar view</Text>
-          </LinearGradient>
+          
         </View>
 
 
@@ -115,7 +114,7 @@ class ActiveOrder extends Component {
                         item.drink_order.order.map((el, index) => (
                             <View key={index} >
                               <View style={{ flexDirection: 'row', justifyContent:'space-between' }}>
-                                <Text style={{...styles.barViewOrderText, fontWeight: 'bold'}}>{`${el.drink} ${el.option}`}</Text>
+                                <Text style={{...styles.barViewOrderText, fontWeight: 'bold', marginLeft: 25}}>{`${el.drink} ${el.option}`}</Text>
                                 <Text style={styles.barViewQuantityText}>{el.quantity}</Text>
                               </View>
                               <Text style={{...styles.barViewOrderText, fontSize: 20}}>{`>> For ${el.name? el.name : 'anonymous'} <<` }</Text>
@@ -132,7 +131,7 @@ class ActiveOrder extends Component {
             
           </SafeAreaView>
         </View>
-
+        </LinearGradient>
       </View>
     )
   }

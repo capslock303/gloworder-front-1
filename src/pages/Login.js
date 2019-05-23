@@ -1,5 +1,5 @@
 import { tsPropertySignature } from '@babel/types';
-import React, { Component } from 'react'
+import React, { Component} from 'react'
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -9,7 +9,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Button
+  Button,
+  Image 
+  
 } from 'react-native'
 
 
@@ -38,7 +40,7 @@ class Login extends Component {
   return (
     <View style={styles.loginPage}>
 
-      <LinearGradient colors={['#ff7f04', '#f5ebbe']} style={styles.linearGradient}>
+      <LinearGradient colors={['#ff8c00', '#ffa500']}  style={styles.linearGradient}>
         <Text style={styles.header}>gloworder</Text>
 
 
@@ -72,17 +74,21 @@ class Login extends Component {
 
         <View style={styles.loginButton}>
           <Button
-            color="lightgrey"
+            color="white"
             title="Login"
             onPress={() => this.props.moveScreen('Home')}
           />
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 5 }}>
-          <Text>New to gloworder?</Text>
-          <TouchableOpacity onPress={() => this.props.moveScreen('SignUp')}
-          ><Text style={styles.linkText}> Sign Up </Text></TouchableOpacity>
-          <Text>here</Text>
+        <View style={styles.loginButton}>
+          
+          <TouchableOpacity style={styles.signUp} onPress={() => this.props.moveScreen('Home')}>
+            <Text style={styles.linkText}> Sign Up with  
+            
+            </Text>
+            <Image style={styles.ppIcon} source={require('../../assets/icons/paypal.png')} />
+          </TouchableOpacity>
+          
         </View>
 
       </LinearGradient>

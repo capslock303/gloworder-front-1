@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {
+  Dimensions,
   Platform,
   StyleSheet,
   Text,
@@ -31,20 +32,24 @@ class Menu extends Component {
   }
 
   render() {
+    let ScreenHeight = Dimensions.get("window").height;
+
     return (
-      <View>
+      <View >
+        <LinearGradient colors={['#ff8c00', '#ffa500']} style={{height: ScreenHeight}}>
         {
           this.props.selectedBar &&
           <View>
+            
             <View>
-              <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
+              
                 <Text style={styles.header2}>menu</Text>
-              </LinearGradient>
+              
             </View>
             <SafeAreaView>
               <View>
                 <Text style={styles.headers3}>{this.props.selectedBar.name}</Text>
-                <Text style={styles.paragraph}>{this.props.selectedBar.location}</Text>
+                <Text style={styles.paragraph}>{this.props.selectedBar.address}</Text>
               </View>
               <ScrollView>
                 <FlatList
@@ -55,7 +60,7 @@ class Menu extends Component {
                   renderItem={({ item }) =>
                     <TouchableOpacity style={styles.gridItem} onPress={() => this.props.selectDrink(item.id)}>
 
-                      <IconCustom name={item.liquor.toLowerCase()} style={{ fontSize: 40, color: 'orange', margin: 2 }} />
+                      <IconCustom name={item.liquor.toLowerCase()} style={{ fontSize: 40, color: 'white', margin: 2 }} />
                       <Text style={styles.listItemText}> {item.liquor} </Text>
                       <Text style={styles.listItemSubText}>$ {item.price.toFixed(2)}</Text>
 
@@ -66,8 +71,10 @@ class Menu extends Component {
                 />
               </ScrollView>
             </SafeAreaView >
+            
           </View>
         }
+        </LinearGradient>
       </View>
     )
   }

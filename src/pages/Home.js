@@ -43,15 +43,16 @@ class Home extends Component {
   render() {
     return (
       <View>
+        <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
         <View>
-          <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
+          
             <Text style={styles.header2}>gloworder</Text>
-          </LinearGradient>
+          
         </View>
         <SafeAreaView>
           <View style={{flexDirection:"row"}}>
             <Text style={{...styles.headers3,marginRight:75}}>Bars Near Me</Text>
-            <Button style={{marginLeft:50, width:'auto'}} title="Bar View" onPress={() => this.props.barView()} />
+            <Button style={{marginLeft:50,marginRight:10, width:'auto'}} title="Bar View" onPress={() => this.props.barView()} />
           </View>
 
           <MapView
@@ -83,8 +84,10 @@ class Home extends Component {
                   onPress={() => this.props.selectBar(item.id)}
                 >
                   <View>
-                    <View style={{flexDirection:'row'}}> 
-                      <Icon name='beer' style={styles.formIcon} />
+                    <View style={{flexDirection:'row', justifyContent:'flex-start', alignContent:"center"}}> 
+                      <View style={{ borderRadius: 100, backgroundColor: 'white', flexDirection:"row"}}>
+                        <Icon name='beer' style={{...styles.formIcon, backgroundColor:'transparent', padding:5, marginRight: 5, alignSelf:'flex-end'}} />
+                      </View>
                       <Text style={styles.listItemText}>{item.name}</Text>
                     </View>
 
@@ -98,6 +101,7 @@ class Home extends Component {
           </ScrollView>
           
         </SafeAreaView >
+        </LinearGradient>
       </View>
     )
   }

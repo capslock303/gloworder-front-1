@@ -82,10 +82,10 @@ class Order extends Component {
   render() {
     return (
       <View>
+        <LinearGradient colors={['#ff8c00', '#ffa500']} style={styles.linearGradient}>
         <View>
-          <LinearGradient colors={['#ff7f04', '#f5ebbe']}>
+          
             <Text style={styles.header2}>confirm</Text>
-          </LinearGradient>
         </View>
         <SafeAreaView>
           {
@@ -95,7 +95,7 @@ class Order extends Component {
                   <Text style={styles.headers3}>{this.props.selectedDrink.liquor} {this.props.selectedOption.option.toLowerCase()}</Text>
                   <Text style={styles.headers3}></Text>
                 </View>
-                <IconCustom name={this.props.selectedDrink.liquor.toLowerCase().split(" ").join("")} style={{ fontSize: 100, color: 'orange' , alignSelf: 'center'}}></IconCustom>
+                <IconCustom name={this.props.selectedDrink.liquor.toLowerCase().split(" ").join("")} style={{ fontSize: 100, color: 'white' , alignSelf: 'center'}}></IconCustom>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 25 }}>
                   
                   <TouchableOpacity
@@ -116,11 +116,10 @@ class Order extends Component {
                   </TouchableOpacity>
                 </View>
 
-                <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-                  <Text style={{...styles.headers6Light, marginTop:25, alignSelf: 'center'}}>Name for Drink (optional)</Text>
+                <View style={{ flexDirection: 'column', justifyContent: 'center', marginTop:25 }}>
                   <TextInput
                     id="orderName"
-                    placeholder="Steven Brody Stevens..."
+                    placeholder="Name for Drink..."
                     style={{...styles.loginField, height: 50}}
                     onChangeText={(text) => this.setState({ ...this.state, name: text })}
                   />
@@ -189,6 +188,7 @@ class Order extends Component {
               </View>
           }
         </SafeAreaView>
+        </LinearGradient>
       </View>
     )
   }
