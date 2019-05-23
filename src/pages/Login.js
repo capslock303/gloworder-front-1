@@ -41,7 +41,7 @@ class Login extends Component {
     <View style={styles.loginPage}>
 
       <LinearGradient colors={['#ff8c00', '#ffa500']}  style={styles.linearGradient}>
-        <Text style={styles.header}>gloworder</Text>
+        <Text style={{...styles.header, marginTop: 50}}>gloworder</Text>
 
 
          <View style={{...styles.loginField}}>
