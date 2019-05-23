@@ -4,6 +4,15 @@ import { StyleSheet } from 'react-native'
 
 
 const styles = StyleSheet.create({
+  activeItem:{
+    flexDirection:'row',
+    marginTop:10,
+    borderTopColor: 'lightgrey',
+    borderBottomColor: 'lightgrey',
+    borderWidth: 2, borderRadius: 10,
+    borderColor: 'transparent',
+    padding: 10
+  },
   drinkOrder:{
     flexDirection: 'column',
     justifyContent:'space-evenly',

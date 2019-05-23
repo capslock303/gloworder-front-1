@@ -58,7 +58,7 @@ const ActiveOrder = (props) => {
                 keyExtractor={(item, index) => item.liquor}
                 renderItem={({ item }) =>
       
-                    <View style={{flexDirection:'row', marginTop:10}}>
+                    <View style={styles.activeItem}>
                       <IconCustom name={item.option.toLowerCase().split(" ").join("")} style={{ fontSize: 35, color: 'white' , margin: 10}} />
                       <View style={{flexDirection:'column'}}>
                         <Text style={{...styles.listItemText, marginLeft: 10}}>
