@@ -3,8 +3,11 @@ import React, { Component} from 'react'
 import styles from '../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import PayPalModal from './PayPalModal'
 
 import {
+  Modal,
+  Alert,
   View,
   Text,
   TextInput,
@@ -19,7 +22,8 @@ class Login extends Component {
 
   state = {
     phone: "",
-    phoneError: false
+    phoneError: false,
+    modalVisible: false
   }
 
   isValidPhone(phoneNumber) {
@@ -34,6 +38,14 @@ class Login extends Component {
   formatPhone(text) {
     const regex = /^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/
     return text.replace(regex, '($1) $2-$3')
+  }
+
+  state = {
+    modalVisible: false,
+  };
+
+  setModalVisible = (visible)=> {
+    this.setState({modalVisible: visible});
   }
 
   render(){
@@ -54,8 +66,21 @@ class Login extends Component {
         />
         </View> 
 
-        
-        
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{...styles.modalBackground}}>
+            <View style={{...styles.PPInfo}}>
+              <PayPalModal moveScreen={this.props.moveScreen} setModalVisible={this.setModalVisible}>
+
+              </PayPalModal>
+            </View>
+          </View>
+        </Modal>
 
         <Text style={styles.error}>
           {this.state.phoneError? "phone number invalid" : "" }
@@ -82,7 +107,8 @@ class Login extends Component {
 
         <View style={styles.loginButton}>
           
-          <TouchableOpacity style={styles.signUp} onPress={() => this.props.moveScreen('Home')}>
+          <TouchableOpacity style={{...styles.signUp}} onPress={() => {this.setModalVisible(true);
+          }}>
             <Image style={styles.ppIcon} source={require('../../assets/icons/paypal.png')} />
             <Text style={{...styles.linkText, marginRight: 10}}> 
               sign up

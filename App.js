@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 // Components
 import Login from './src/pages/Login'
-import SignUp from './src/pages/SignUp'
-import SignUp2 from './src/pages/SignUp2'
+// import SignUp from './src/pages/SignUp'
+// import SignUp2 from './src/pages/SignUp2'
 import ConfirmTotal from './src/pages/ConfirmTotal'
 import Home from './src/pages/Home'
 import Menu from './src/pages/Menu'
@@ -225,18 +225,6 @@ class App extends Component {
       case 'Login':
         componentToShow =
           <Login
-            moveScreen={this.moveScreen}
-          />
-        break;
-      case 'SignUp':
-        componentToShow =
-          <SignUp
-            moveScreen={this.moveScreen}
-          />
-        break;
-      case 'SignUp2':
-        componentToShow =
-          <SignUp2
             moveScreen={this.moveScreen}
           />
         break;

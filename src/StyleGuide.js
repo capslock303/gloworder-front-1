@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     color: 'red',
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     textAlign: 'center'
   },
   formIcon: {
@@ -179,6 +179,19 @@ const styles = StyleSheet.create({
     marginRight: 50,
     width: '100%',
     height: '100%'
+  },
+  modalBackground:{
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  PPInfo:{
+    alignSelf: 'center',
+    backgroundColor: 'lightblue',
+    height:'50%',
+    width: '90%',
+    borderRadius: 25
   },
   signUp:{
     flexDirection: 'row',

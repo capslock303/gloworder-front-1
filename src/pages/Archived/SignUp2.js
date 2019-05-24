@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from '../StyleGuide'
+import styles from '../../StyleGuide'
 import LinearGradient from 'react-native-linear-gradient'
 import DatePicker from 'react-native-datepicker'
 
